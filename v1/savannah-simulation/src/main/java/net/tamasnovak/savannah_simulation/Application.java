@@ -1,7 +1,10 @@
 package net.tamasnovak.savannah_simulation;
 
-import net.tamasnovak.savannah_simulation.model.Cell;
-import net.tamasnovak.savannah_simulation.model.Savannah;
+import net.tamasnovak.savannah_simulation.model.animals.Animal;
+import net.tamasnovak.savannah_simulation.model.animals.Herbivore;
+import net.tamasnovak.savannah_simulation.model.animals.Predator;
+import net.tamasnovak.savannah_simulation.model.area.Cell;
+import net.tamasnovak.savannah_simulation.model.area.Savannah;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -9,6 +12,7 @@ import java.util.Random;
 public class Application {
   private static final Random RANDOM = new Random();
   private static int numberOfAnimalsPlaced = 0;
+  public static ArrayList<Animal> animals = new ArrayList<>();
 
   public static void main(String[] args) {
     int xCoordinate = 20;
@@ -35,12 +39,13 @@ public class Application {
         ArrayList<Cell> row = new ArrayList<>();
 
         if (isThereAnimalAtThisLocation(numberOfAnimals) && numberOfAnimalsPlaced < numberOfAnimals) {
-          Cell cell = new Cell(i, j, generatePredatorOrHerbivore());
+          Cell cell = new Cell(i, j);
+          generatePredatorOrHerbivore(cell);
           row.add(cell);
 
           numberOfAnimalsPlaced++;
         } else {
-          Cell cell = new Cell(i, j, '_');
+          Cell cell = new Cell(i, j);
           row.add(cell);
         }
 
@@ -52,14 +57,16 @@ public class Application {
     return grid;
   }
 
-  private static char generatePredatorOrHerbivore() {
+  private static void generatePredatorOrHerbivore(Cell cell) {
     float randomNumber = (float) RANDOM.nextDouble(0, 10);
 
     if (randomNumber < 5.5) {
-      return 'H';
+      Animal animal = new Predator(cell);
+      animals.add(animal);
     }
 
-    return 'P';
+    Animal animal = new Herbivore(cell);
+    animals.add(animal);
   }
 
   private static boolean isThereAnimalAtThisLocation(int numberOfAnimals) {

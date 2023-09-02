@@ -1,4 +1,4 @@
-package net.tamasnovak.savannah_simulation.model;
+package net.tamasnovak.savannah_simulation.model.area;
 
 import java.util.ArrayList;
 
