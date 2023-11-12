@@ -14,10 +14,10 @@ public class Matrix {
 
   public Matrix() {
     this.matrix = new Animal[LENGTH][WIDTH];
-    generateMatrix();
+    generateEmptyMatrix();
   }
 
-  private void generateMatrix() {
+  private void generateEmptyMatrix() {
     for (int x = 0; x < LENGTH; x++) {
       for (int y = 0; y < WIDTH; y++) {
         matrix[x][y] = null;
@@ -59,7 +59,7 @@ public class Matrix {
     return animalTypes;
   }
 
-  public int getNumberOfAnimalType(AnimalType animalType) {
+  public int countAnimalType(AnimalType animalType) {
     return (int) Stream.of(matrix)
       .flatMap(Stream::of)
       .filter(animal -> animal != null && animal.getAnimalType() == animalType)

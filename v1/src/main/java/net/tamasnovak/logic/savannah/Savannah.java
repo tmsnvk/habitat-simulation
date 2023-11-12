@@ -21,9 +21,9 @@ public class Savannah {
 
   public void runSimulation() {
     logger.logInfo(SavannahMessages.START_SIMULATION);
-    savannahPopulator.populateMatrix();
+    savannahPopulator.runPopulator();
 
-    for (int i = 1; i <= SavannahConfiguration.LENGTH_OF_SIMULATION; i++) {
+    for (int i = 1; i <= SavannahConfiguration.LENGTH_OF_SIMULATION_YEARS; i++) {
       performAnnualRoutine();
     }
   }

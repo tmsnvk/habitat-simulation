@@ -22,10 +22,11 @@ public class SavannahPopulator {
     this.logger = logger;
   }
 
-  void populateMatrix() {
+  void runPopulator() {
     logger.logInfo(SavannahMessages.START_POPULATE_MATRIX);
 
     int animalCounter = 0;
+
     while (animalCounter < SavannahConfiguration.NUMBER_OF_ANIMALS) {
       int xCoordinate = random.nextInt(matrix.getLength());
       int yCoordinate = random.nextInt(matrix.getWidth());
@@ -36,11 +37,12 @@ public class SavannahPopulator {
       }
 
       double coinFlipValue = random.nextDouble(0, 1);
+
       placeAnimal(xCoordinate, yCoordinate, coinFlipValue);
       animalCounter++;
     }
 
-    endOfPopulateInformationLogging();
+    populatorRoutineEndingLogging();
   }
 
   private void placeAnimal(int xCoordinate, int yCoordinate, double coinFlipValue) {
@@ -53,14 +55,14 @@ public class SavannahPopulator {
     }
   }
 
-  private void endOfPopulateInformationLogging() {
+  private void populatorRoutineEndingLogging() {
     logger.logInfo(SavannahMessages.END_POPULATE_MATRIX);
     logger.logInfo(SavannahMessages.ANIMAL_STATISTICS);
 
     Set<AnimalType> animalTypesInMatrix = matrix.listAnimalTypes();
 
     for (AnimalType animalType : animalTypesInMatrix) {
-      int numberOfAnimals = matrix.getNumberOfAnimalType(animalType);
+      int numberOfAnimals = matrix.countAnimalType(animalType);
       logger.logInfo(String.format("%s %s live(s) in the simulation.", numberOfAnimals, animalType.name()));
     }
   }
