@@ -3,18 +3,22 @@ package net.tamasnovak.logic.savannah;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.animals.Animal;
+import net.tamasnovak.ui.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Savannah {
   private final Matrix matrix;
+  private final Logger logger;
 
-  public Savannah(Matrix matrix) {
+  public Savannah(Matrix matrix, Logger logger) {
     this.matrix = matrix;
+    this.logger = logger;
   }
 
   public void runSimulation() {
+    logger.logInfo(SavannahMessages.START_SIMULATION);
     populateMatrix();
 
     for (int i = 1; i <= SavannahConfiguration.LENGTH_OF_SIMULATION; i++) {
