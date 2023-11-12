@@ -27,6 +27,7 @@ public class Savannah {
   }
 
   private void populateMatrix() {
+    logger.logInfo(SavannahMessages.START_POPULATE_MATRIX);
 
   }
 

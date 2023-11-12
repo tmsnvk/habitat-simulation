@@ -8,11 +8,11 @@ public abstract class Animal {
   private boolean isAlive;
   private Cell livingArea;
 
-  public Animal(int[] MAXIMUM_AGE, Cell livingArea) {
+  public Animal(Cell livingArea, int[] MAXIMUM_AGE) {
     this.currentAge = 1;
-    this.maximumAge = drawMaximumAgeValue(MAXIMUM_AGE);
     this.isAlive = true;
     this.livingArea = livingArea;
+    this.maximumAge = drawMaximumAgeValue(MAXIMUM_AGE);
   }
 
   private static int drawMaximumAgeValue(int[] maximumAges) {

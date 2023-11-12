@@ -7,15 +7,15 @@ public class ConsoleLogger implements Logger {
 
   @Override
   public void logInfo(String message) {
-    logMessage(MessageTypes.INFO, message);
+    logMessage(MessageType.INFO, message);
   }
 
   @Override
   public void logError(String message) {
-    logMessage(MessageTypes.ERROR, message);
+    logMessage(MessageType.ERROR, message);
   }
 
-  private void logMessage(MessageTypes messageType, String message) {
+  private void logMessage(MessageType messageType, String message) {
     System.out.printf("[Timestamp]: %s | [MessageType]: %s | [Message]: %s", LocalDateTime.now(), messageType, message);
   }
 }

@@ -1,6 +1,6 @@
 package net.tamasnovak.ui.logger;
 
-public enum MessageTypes {
+public enum MessageType {
   INFO,
   ERROR
 }
