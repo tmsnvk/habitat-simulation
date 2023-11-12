@@ -1,3 +1,3 @@
-package net.tamasnovak.model.savannah;
+package net.tamasnovak.model.matrix;
 
 public record Cell(int xCoordinate, int yCoordinate) {}

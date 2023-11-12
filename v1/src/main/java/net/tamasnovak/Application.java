@@ -1,7 +1,7 @@
 package net.tamasnovak;
 
-import net.tamasnovak.model.savannah.Matrix;
-import net.tamasnovak.model.savannah.Savannah;
+import net.tamasnovak.model.matrix.Matrix;
+import net.tamasnovak.logic.savannah.Savannah;
 
 public class Application {
   public static void main(String[] args) {

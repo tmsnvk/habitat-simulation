@@ -1,20 +1,13 @@
-package net.tamasnovak.model.savannah;
+package net.tamasnovak.logic.savannah;
 
+import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.animals.Animal;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Savannah {
-  private static final int LENGTH_OF_SIMULATION = 100;
-  private static final int NUMBER_OF_ANIMALS = 200;
-  private static final double CHANCE_OF_HERBIVORE = 0.65;
-  private static final List<List<Integer>> POSSIBLE_NEARBY_COORDINATE_DIFFERENCES = List.of(
-    List.of(-1, 0),
-    List.of(0, 1),
-    List.of(1, 0),
-    List.of(0, -1)
-  );
   private final Matrix matrix;
 
   public Savannah(Matrix matrix) {
@@ -24,7 +17,7 @@ public class Savannah {
   public void runSimulation() {
     populateMatrix();
 
-    for (int i = 1; i <= LENGTH_OF_SIMULATION; i++) {
+    for (int i = 1; i <= SavannahConfiguration.LENGTH_OF_SIMULATION; i++) {
       performAnnualRoutine();
     }
   }
@@ -59,7 +52,7 @@ public class Savannah {
   }
 
   private void checkNeighbourCoordinates(List<Animal> neighbourAnimals, Cell animalPosition) {
-    for (List<Integer> coordinate : POSSIBLE_NEARBY_COORDINATE_DIFFERENCES) {
+    for (List<Integer> coordinate : SavannahConfiguration.POSSIBLE_NEARBY_COORDINATE_DIFFERENCES) {
       int xCoordinate = animalPosition.xCoordinate() + coordinate.get(0);
       int yCoordinate = animalPosition.yCoordinate() + coordinate.get(1);
       Animal animalInCell = matrix.getMatrix()[xCoordinate][yCoordinate];

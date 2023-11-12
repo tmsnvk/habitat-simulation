@@ -1,4 +1,4 @@
-package net.tamasnovak.model.savannah;
+package net.tamasnovak.model.matrix;
 
 import net.tamasnovak.model.animals.Animal;
 
@@ -8,11 +8,11 @@ public class Matrix {
   private final Animal[][] matrix;
 
   public Matrix() {
-    this.matrix = new Animal[20][20];
-    generateSavannahMatrix();
+    this.matrix = new Animal[LENGTH][WIDTH];
+    generateMatrix();
   }
 
-  private void generateSavannahMatrix() {
+  private void generateMatrix() {
     for (int x = 0; x < LENGTH; x++) {
       for (int y = 0; y < WIDTH; y++) {
         matrix[x][y] = null;

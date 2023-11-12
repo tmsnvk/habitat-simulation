@@ -1,6 +1,6 @@
 package net.tamasnovak.model.animals;
 
-import net.tamasnovak.model.savannah.Cell;
+import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Animal {
   private int currentAge;
