@@ -10,25 +10,22 @@ import java.util.List;
 
 public class Savannah {
   private final Matrix matrix;
+  private final SavannahPopulator savannahPopulator;
   private final Logger logger;
 
-  public Savannah(Matrix matrix, Logger logger) {
+  public Savannah(Matrix matrix, SavannahPopulator savannahPopulator, Logger logger) {
     this.matrix = matrix;
+    this.savannahPopulator = savannahPopulator;
     this.logger = logger;
   }
 
   public void runSimulation() {
     logger.logInfo(SavannahMessages.START_SIMULATION);
-    populateMatrix();
+    savannahPopulator.populateMatrix();
 
     for (int i = 1; i <= SavannahConfiguration.LENGTH_OF_SIMULATION; i++) {
       performAnnualRoutine();
     }
-  }
-
-  private void populateMatrix() {
-    logger.logInfo(SavannahMessages.START_POPULATE_MATRIX);
-
   }
 
   private void performAnnualRoutine() {
@@ -60,7 +57,7 @@ public class Savannah {
     for (List<Integer> coordinate : SavannahConfiguration.POSSIBLE_NEARBY_COORDINATE_DIFFERENCES) {
       int xCoordinate = animalPosition.xCoordinate() + coordinate.get(0);
       int yCoordinate = animalPosition.yCoordinate() + coordinate.get(1);
-      Animal animalInCell = matrix.getMatrix()[xCoordinate][yCoordinate];
+      Animal animalInCell = matrix.getCoordinate(xCoordinate, yCoordinate);
 
       if (animalInCell != null) {
         neighbourAnimals.add(animalInCell);

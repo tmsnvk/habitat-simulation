@@ -16,6 +16,6 @@ public class ConsoleLogger implements Logger {
   }
 
   private void logMessage(MessageType messageType, String message) {
-    System.out.printf("[Timestamp]: %s | [MessageType]: %s | [Message]: %s", LocalDateTime.now(), messageType, message);
+    System.out.printf("[Timestamp]: %s | [MessageType]: %s | [Message]: %s%n", LocalDateTime.now(), messageType, message);
   }
 }

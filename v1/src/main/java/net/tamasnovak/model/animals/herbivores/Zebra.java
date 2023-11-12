@@ -8,6 +8,6 @@ public class Zebra extends Herbivore {
   private static final AnimalType animalType = AnimalType.ZEBRA;
 
   public Zebra(Cell livingArea) {
-    super(livingArea, MAXIMUM_AGE);
+    super(livingArea, MAXIMUM_AGE, animalType);
   }
 }

@@ -2,7 +2,7 @@ package net.tamasnovak.logic.savannah;
 
 import java.util.List;
 
-public final class SavannahConfiguration {
+final class SavannahConfiguration {
   static final int LENGTH_OF_SIMULATION = 100;
   static final int NUMBER_OF_ANIMALS = 200;
   static final double CHANCE_OF_HERBIVORE = 0.65;

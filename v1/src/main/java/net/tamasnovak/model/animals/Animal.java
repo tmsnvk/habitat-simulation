@@ -7,12 +7,14 @@ public abstract class Animal {
   private final int maximumAge;
   private boolean isAlive;
   private Cell livingArea;
+  private final AnimalType animalType;
 
-  public Animal(Cell livingArea, int[] MAXIMUM_AGE) {
+  public Animal(Cell livingArea, int[] MAXIMUM_AGE, AnimalType animalType) {
     this.currentAge = 1;
     this.isAlive = true;
     this.livingArea = livingArea;
     this.maximumAge = drawMaximumAgeValue(MAXIMUM_AGE);
+    this.animalType = animalType;
   }
 
   private static int drawMaximumAgeValue(int[] maximumAges) {
@@ -25,6 +27,10 @@ public abstract class Animal {
 
   public void setLivingArea(Cell livingArea) {
     this.livingArea = livingArea;
+  }
+
+  public AnimalType getAnimalType() {
+    return animalType;
   }
 
   public void removeDeadAnimal() {

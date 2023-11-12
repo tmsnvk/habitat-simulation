@@ -1,6 +1,11 @@
 package net.tamasnovak.model.matrix;
 
 import net.tamasnovak.model.animals.Animal;
+import net.tamasnovak.model.animals.AnimalType;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class Matrix {
   private static final int LENGTH = 20;
@@ -20,7 +25,44 @@ public class Matrix {
     }
   }
 
-  public Animal[][] getMatrix() {
-    return matrix;
+  public int getLength() {
+    return LENGTH;
+  }
+
+  public int getWidth() {
+    return WIDTH;
+  }
+
+//  public Animal[][] getMatrix() {
+//    return matrix;
+//  }
+
+  public Animal getCoordinate(int xCoordinate, int yCoordinate) {
+    return matrix[xCoordinate][yCoordinate];
+  }
+
+  public void placeAnimalInCoordinate(int xCoordinate, int yCoordinate, Animal animal) {
+    matrix[xCoordinate][yCoordinate] = animal;
+  }
+
+  public Set<AnimalType> listAnimalTypes() {
+    Set<AnimalType> animalTypes = new HashSet<>();
+
+    Stream.of(matrix)
+      .flatMap(Stream::of)
+      .forEach(animal -> {
+        if (animal != null) {
+          animalTypes.add(animal.getAnimalType());
+        }
+      });
+
+    return animalTypes;
+  }
+
+  public int getNumberOfAnimalType(AnimalType animalType) {
+    return (int) Stream.of(matrix)
+      .flatMap(Stream::of)
+      .filter(animal -> animal != null && animal.getAnimalType() == animalType)
+      .count();
   }
 }

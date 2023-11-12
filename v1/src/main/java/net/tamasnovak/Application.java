@@ -1,15 +1,22 @@
 package net.tamasnovak;
 
+import net.tamasnovak.logic.savannah.SavannahPopulator;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.logic.savannah.Savannah;
 import net.tamasnovak.ui.logger.ConsoleLogger;
 import net.tamasnovak.ui.logger.Logger;
 
+import java.util.Random;
+
 public class Application {
   public static void main(String[] args) {
+    Random random = new Random();
+
     Matrix matrix = new Matrix();
     Logger logger = new ConsoleLogger();
-    Savannah savannah = new Savannah(matrix, logger);
+
+    SavannahPopulator savannahPopulator = new SavannahPopulator(random, matrix, logger);
+    Savannah savannah = new Savannah(matrix, savannahPopulator, logger);
 
     savannah.runSimulation();
   }

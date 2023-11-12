@@ -8,6 +8,6 @@ public class Lion extends Carnivore {
   private static final AnimalType animalType = AnimalType.LION;
 
   public Lion(Cell livingArea) {
-    super(livingArea, MAXIMUM_AGE);
+    super(livingArea, MAXIMUM_AGE, animalType);
   }
 }
