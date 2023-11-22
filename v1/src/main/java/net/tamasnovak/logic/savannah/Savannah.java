@@ -39,9 +39,10 @@ public class Savannah {
     Collections.shuffle(eligibleAnimalsForTheYear);
 
     for (Animal animal : eligibleAnimalsForTheYear) {
-      boolean isAnimalAlive = ageAnimal(animal);
+      increaseAge(animal);
+      boolean isAnimalAlive = animal.isAlive();
 
-      if (isAnimalAlive) {
+      if (!isAnimalAlive) {
         continue;
       }
 
@@ -51,10 +52,8 @@ public class Savannah {
     }
   }
 
-  private boolean ageAnimal(Animal animal) {
+  private void increaseAge(Animal animal) {
     animal.age();
-
-    return animal.isAlive();
   }
 
   private void consumeFood(Animal animal) {
