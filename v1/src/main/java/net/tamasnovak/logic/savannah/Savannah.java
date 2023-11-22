@@ -1,5 +1,6 @@
 package net.tamasnovak.logic.savannah;
 
+import net.tamasnovak.model.animals.carnivores.Carnivore;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.animals.Animal;
@@ -38,29 +39,35 @@ public class Savannah {
     Collections.shuffle(eligibleAnimalsForTheYear);
 
     for (Animal animal : eligibleAnimalsForTheYear) {
-      animal.age();
-      System.out.printf("%s - %s - %s%n", animal.getMaximumAge(), animal.getAnimalType(), animal.getCurrentAge());
-      animal.eat();
+      boolean isAnimalAlive = ageAnimal(animal);
+
+      if (isAnimalAlive) {
+        continue;
+      }
+
+      consumeFood(animal);
       animal.breed();
       animal.move();
+    }
+  }
+
+  private boolean ageAnimal(Animal animal) {
+    animal.age();
+
+    return animal.isAlive();
+  }
+
+  private void consumeFood(Animal animal) {
+    List<Animal> neighbourAnimals = listNeighbourAnimals(animal);
+
+    if (animal instanceof Carnivore carnivore) {
+      carnivore.eat(neighbourAnimals);
     }
   }
 
   private void performAnnualCleanUpRoutine() {
     // remove dead animals from matrix.
   }
-
-//  private Cell findAnimalPosition(Animal animal) {
-//    return animal.getLivingArea();
-//  }
-//
-//  private void perishAnimal(Animal animal) {
-//    animal.removeDeadAnimal();
-//  }
-//
-//  private void moveAnimal(Animal animal) {
-//    animal.move();
-//  }
 
   private List<Animal> listNeighbourAnimals(Animal animal) {
     List<Animal> neighbourAnimals = new ArrayList<>();
@@ -75,11 +82,18 @@ public class Savannah {
     for (List<Integer> coordinate : SavannahConfiguration.POSSIBLE_NEARBY_COORDINATE_DIFFERENCES) {
       int xCoordinate = animalPosition.xCoordinate() + coordinate.get(0);
       int yCoordinate = animalPosition.yCoordinate() + coordinate.get(1);
-      Animal animalInCell = matrix.getCoordinate(xCoordinate, yCoordinate);
 
-      if (animalInCell != null) {
-        neighbourAnimals.add(animalInCell);
+      if (areCoordinatesValid(xCoordinate, yCoordinate)) {
+        Animal animalInCell = matrix.getCoordinate(xCoordinate, yCoordinate);
+
+        if (animalInCell != null) {
+          neighbourAnimals.add(animalInCell);
+        }
       }
     }
+  }
+
+  private boolean areCoordinatesValid(int xCoordinate, int yCoordinate) {
+    return xCoordinate >= 0 && xCoordinate < matrix.getLength() && yCoordinate >= 0 && yCoordinate < matrix.getWidth();
   }
 }

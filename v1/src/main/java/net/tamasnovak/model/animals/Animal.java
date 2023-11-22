@@ -5,7 +5,7 @@ import net.tamasnovak.model.matrix.Cell;
 public abstract class Animal {
   private int currentAge;
   private final int maximumAge;
-  private boolean isAlive;
+  protected boolean isAlive;
   private Cell livingArea;
   private final AnimalType animalType;
 
@@ -17,10 +17,6 @@ public abstract class Animal {
     this.animalType = animalType;
   }
 
-  public int getMaximumAge() {
-    return maximumAge;
-  }
-
   public Cell getLivingArea() {
     return livingArea;
   }
@@ -29,8 +25,8 @@ public abstract class Animal {
     this.livingArea = livingArea;
   }
 
-  public int getCurrentAge() {
-    return currentAge;
+  public boolean isAlive() {
+    return isAlive;
   }
 
   public AnimalType getAnimalType() {
@@ -50,10 +46,6 @@ public abstract class Animal {
   }
 
   public void breed() {
-
-  }
-
-  public void eat() {
 
   }
 

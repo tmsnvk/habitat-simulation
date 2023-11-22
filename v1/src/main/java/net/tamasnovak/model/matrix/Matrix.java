@@ -3,7 +3,6 @@ package net.tamasnovak.model.matrix;
 import net.tamasnovak.model.animals.Animal;
 import net.tamasnovak.model.animals.AnimalType;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
