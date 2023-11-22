@@ -11,12 +11,12 @@ import java.util.Random;
 public class Application {
   public static void main(String[] args) {
     Random random = new Random();
-
-    Matrix matrix = new Matrix();
     Logger logger = new ConsoleLogger();
 
-    SavannahPopulator savannahPopulator = new SavannahPopulator(random, matrix, logger);
-    Savannah savannah = new Savannah(matrix, savannahPopulator, logger);
+    Matrix matrix = new Matrix();
+
+    SavannahPopulator savannahPopulator = new SavannahPopulator(random, logger, matrix);
+    Savannah savannah = new Savannah(logger, matrix, savannahPopulator);
 
     savannah.runSimulation();
   }

@@ -9,22 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Savannah {
+  private final Logger logger;
   private final Matrix matrix;
   private final SavannahPopulator savannahPopulator;
-  private final Logger logger;
 
-  public Savannah(Matrix matrix, SavannahPopulator savannahPopulator, Logger logger) {
+  public Savannah(Logger logger, Matrix matrix, SavannahPopulator savannahPopulator) {
+    this.logger = logger;
     this.matrix = matrix;
     this.savannahPopulator = savannahPopulator;
-    this.logger = logger;
   }
 
   public void runSimulation() {
     logger.logInfo(SavannahMessages.START_SIMULATION);
     savannahPopulator.runPopulator();
 
-    for (int i = 1; i <= SavannahConfiguration.LENGTH_OF_SIMULATION_YEARS; i++) {
+    int iterator = 0;
+
+    while (iterator < SavannahConfiguration.LENGTH_OF_SIMULATION_YEARS) {
       performAnnualRoutine();
+
+
+
+      iterator++;
     }
   }
 

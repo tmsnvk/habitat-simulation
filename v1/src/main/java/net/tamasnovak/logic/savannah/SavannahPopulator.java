@@ -13,13 +13,13 @@ import java.util.Set;
 
 public class SavannahPopulator {
   private final Random random;
-  private final Matrix matrix;
   private final Logger logger;
+  private final Matrix matrix;
 
-  public SavannahPopulator(Random random, Matrix matrix, Logger logger) {
+  public SavannahPopulator(Random random, Logger logger, Matrix matrix) {
     this.random = random;
-    this.matrix = matrix;
     this.logger = logger;
+    this.matrix = matrix;
   }
 
   void runPopulator() {
@@ -42,28 +42,32 @@ public class SavannahPopulator {
       animalCounter++;
     }
 
-    populatorRoutineEndingLogging();
+    displayRoutineEndingLogging();
   }
 
   private void placeAnimal(int xCoordinate, int yCoordinate, double coinFlipValue) {
     if (coinFlipValue <= SavannahConfiguration.CHANCE_OF_HERBIVORE) {
-      Animal zebra = new Zebra(new Cell(xCoordinate, yCoordinate));
+      Cell livingArea = new Cell(xCoordinate, yCoordinate);
+      Animal zebra = new Zebra(livingArea);
+
       matrix.placeAnimalInCoordinate(xCoordinate, yCoordinate, zebra);
     } else {
-      Animal lion = new Lion(new Cell(xCoordinate, yCoordinate));
+      Cell livingArea = new Cell(xCoordinate, yCoordinate);
+      Animal lion = new Lion(livingArea);
+
       matrix.placeAnimalInCoordinate(xCoordinate, yCoordinate, lion);
     }
   }
 
-  private void populatorRoutineEndingLogging() {
+  private void displayRoutineEndingLogging() {
     logger.logInfo(SavannahMessages.END_POPULATE_MATRIX);
-    logger.logInfo(SavannahMessages.ANIMAL_STATISTICS);
+    logger.logInfo(SavannahMessages.ANIMAL_STATS_INTRO);
 
     Set<AnimalType> animalTypesInMatrix = matrix.listAnimalTypes();
 
     for (AnimalType animalType : animalTypesInMatrix) {
       int numberOfAnimals = matrix.countAnimalType(animalType);
-      logger.logInfo(String.format("%s %s live(s) in the simulation.", numberOfAnimals, animalType.name()));
+      logger.logInfo(String.format(SavannahMessages.ANIMAL_STATS_DETAIL, numberOfAnimals, animalType.name()));
     }
   }
 }
