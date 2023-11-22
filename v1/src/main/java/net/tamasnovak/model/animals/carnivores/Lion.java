@@ -1,15 +1,13 @@
 package net.tamasnovak.model.animals.carnivores;
 
-import net.tamasnovak.model.animals.Animal;
 import net.tamasnovak.model.animals.AnimalType;
-import net.tamasnovak.model.animals.herbivores.Herbivore;
 import net.tamasnovak.model.matrix.Cell;
 
-import java.util.List;
 import java.util.Random;
 
 public class Lion extends Carnivore {
   private static final int[] MAXIMUM_AGE_VALUES = new int[]{ 9, 10, 11, 12 };
+  private static final int MAXIMUM_HUNGER_LEVEL = 2;
   private static final AnimalType animalType = AnimalType.LION;
 
   public Lion(Cell livingArea, Random random) {
@@ -23,13 +21,7 @@ public class Lion extends Carnivore {
   }
 
   @Override
-  public void eat(List<Animal> neighbourAnimals) {
-    int numberOfHerbivores = (int) neighbourAnimals.stream()
-      .filter(animal -> animal instanceof Herbivore)
-      .count();
-
-    if (numberOfHerbivores == 0) {
-      this.setHungerLevel(this.getHungerLevel() + 1);
-    }
+  public boolean perishIfTooHungry() {
+    return this.getHungerLevel() == MAXIMUM_HUNGER_LEVEL;
   }
 }

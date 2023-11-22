@@ -16,7 +16,7 @@ public class Application {
     Matrix matrix = new Matrix();
 
     SavannahPopulator savannahPopulator = new SavannahPopulator(random, logger, matrix);
-    Savannah savannah = new Savannah(logger, matrix, savannahPopulator);
+    Savannah savannah = new Savannah(random, logger, matrix, savannahPopulator);
 
     savannah.runSimulation();
   }

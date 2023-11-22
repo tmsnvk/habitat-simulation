@@ -36,9 +36,9 @@ public class Matrix {
     return WIDTH;
   }
 
-//  public Animal[][] getMatrix() {
-//    return matrix;
-//  }
+  public Animal[][] getMatrix() {
+    return matrix;
+  }
 
   public Animal getCoordinate(int xCoordinate, int yCoordinate) {
     return matrix[xCoordinate][yCoordinate];
@@ -46,6 +46,13 @@ public class Matrix {
 
   public void placeAnimalInCoordinate(int xCoordinate, int yCoordinate, Animal animal) {
     matrix[xCoordinate][yCoordinate] = animal;
+  }
+
+  public void removeDeadAnimal(Animal animal) {
+    int xCoordinate = animal.getLivingArea().xCoordinate();
+    int yCoordinate = animal.getLivingArea().yCoordinate();
+
+    matrix[xCoordinate][yCoordinate] = null;
   }
 
   public Set<AnimalType> listAnimalTypes() {

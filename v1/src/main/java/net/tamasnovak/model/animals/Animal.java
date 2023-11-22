@@ -29,6 +29,10 @@ public abstract class Animal {
     return isAlive;
   }
 
+  protected void setAlive(boolean alive) {
+    isAlive = alive;
+  }
+
   public AnimalType getAnimalType() {
     return animalType;
   }
