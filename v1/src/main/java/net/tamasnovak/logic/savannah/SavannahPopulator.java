@@ -48,12 +48,12 @@ public class SavannahPopulator {
   private void placeAnimal(int xCoordinate, int yCoordinate, double coinFlipValue) {
     if (coinFlipValue <= SavannahConfiguration.CHANCE_OF_HERBIVORE) {
       Cell livingArea = new Cell(xCoordinate, yCoordinate);
-      Animal zebra = new Zebra(livingArea);
+      Animal zebra = new Zebra(livingArea, random);
 
       matrix.placeAnimalInCoordinate(xCoordinate, yCoordinate, zebra);
     } else {
       Cell livingArea = new Cell(xCoordinate, yCoordinate);
-      Animal lion = new Lion(livingArea);
+      Animal lion = new Lion(livingArea, random);
 
       matrix.placeAnimalInCoordinate(xCoordinate, yCoordinate, lion);
     }

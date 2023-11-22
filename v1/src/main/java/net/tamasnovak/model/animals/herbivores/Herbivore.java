@@ -5,7 +5,7 @@ import net.tamasnovak.model.animals.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Herbivore extends Animal {
-  public Herbivore(Cell livingArea, int[] MAXIMUM_AGE, AnimalType animalType) {
-    super(livingArea, MAXIMUM_AGE, animalType);
+  public Herbivore(Cell livingArea, int maximumAge, AnimalType animalType) {
+    super(livingArea, maximumAge, animalType);
   }
 }

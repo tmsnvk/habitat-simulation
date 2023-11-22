@@ -6,6 +6,7 @@ import net.tamasnovak.model.animals.Animal;
 import net.tamasnovak.ui.logger.Logger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Savannah {
@@ -26,29 +27,40 @@ public class Savannah {
     int iterator = 0;
 
     while (iterator < SavannahConfiguration.LENGTH_OF_SIMULATION_YEARS) {
-      performAnnualRoutine();
-
-
-
+      performAnnualAnimalRoutine();
+      performAnnualCleanUpRoutine();
       iterator++;
     }
   }
 
-  private void performAnnualRoutine() {
+  private void performAnnualAnimalRoutine() {
+    List<Animal> eligibleAnimalsForTheYear = matrix.getAnimalsCurrentlyOnSavannah();
+    Collections.shuffle(eligibleAnimalsForTheYear);
 
+    for (Animal animal : eligibleAnimalsForTheYear) {
+      animal.age();
+      System.out.printf("%s - %s - %s%n", animal.getMaximumAge(), animal.getAnimalType(), animal.getCurrentAge());
+      animal.eat();
+      animal.breed();
+      animal.move();
+    }
   }
 
-  private Cell findAnimalPosition(Animal animal) {
-    return animal.getLivingArea();
+  private void performAnnualCleanUpRoutine() {
+    // remove dead animals from matrix.
   }
 
-  private void perishAnimal(Animal animal) {
-    animal.removeDeadAnimal();
-  }
-
-  private void moveAnimal(Animal animal) {
-    animal.move();
-  }
+//  private Cell findAnimalPosition(Animal animal) {
+//    return animal.getLivingArea();
+//  }
+//
+//  private void perishAnimal(Animal animal) {
+//    animal.removeDeadAnimal();
+//  }
+//
+//  private void moveAnimal(Animal animal) {
+//    animal.move();
+//  }
 
   private List<Animal> listNeighbourAnimals(Animal animal) {
     List<Animal> neighbourAnimals = new ArrayList<>();

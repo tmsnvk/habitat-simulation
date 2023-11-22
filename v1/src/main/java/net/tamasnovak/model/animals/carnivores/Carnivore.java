@@ -7,8 +7,8 @@ import net.tamasnovak.model.matrix.Cell;
 public class Carnivore extends Animal {
   private int hungerLevel;
 
-  public Carnivore(Cell livingArea, int[] MAXIMUM_AGE, AnimalType animalType) {
-    super(livingArea, MAXIMUM_AGE, animalType);
+  public Carnivore(Cell livingArea, int maximumAge, AnimalType animalType) {
+    super(livingArea, maximumAge, animalType);
     this.hungerLevel = 0;
   }
 }

@@ -3,8 +3,12 @@ package net.tamasnovak.model.matrix;
 import net.tamasnovak.model.animals.Animal;
 import net.tamasnovak.model.animals.AnimalType;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Matrix {
@@ -64,5 +68,12 @@ public class Matrix {
       .flatMap(Stream::of)
       .filter(animal -> animal != null && animal.getAnimalType() == animalType)
       .count();
+  }
+
+  public List<Animal> getAnimalsCurrentlyOnSavannah() {
+    return Stream.of(matrix)
+      .flatMap(Stream::of)
+      .filter(Objects::nonNull)
+      .collect(Collectors.toList());
   }
 }
