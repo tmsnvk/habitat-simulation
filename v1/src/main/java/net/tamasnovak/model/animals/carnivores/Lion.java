@@ -21,7 +21,9 @@ public class Lion extends Carnivore {
   }
 
   @Override
-  public boolean perishIfTooHungry() {
-    return this.getHungerLevel() == MAXIMUM_HUNGER_LEVEL;
+  public void perishIfTooHungry() {
+    if (this.getHungerLevel() == MAXIMUM_HUNGER_LEVEL) {
+      this.setAlive(false);
+    }
   }
 }

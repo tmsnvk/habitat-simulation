@@ -17,7 +17,7 @@ public abstract class Carnivore extends Animal implements Hunting {
     return hungerLevel;
   }
 
-  void setHungerLevel(int hungerLevel) {
+  private void setHungerLevel(int hungerLevel) {
     this.hungerLevel = hungerLevel;
   }
 

@@ -1,6 +1,5 @@
 package net.tamasnovak.logic.savannah;
 
-import net.tamasnovak.model.animals.AnimalType;
 import net.tamasnovak.model.animals.carnivores.Carnivore;
 import net.tamasnovak.model.animals.herbivores.Herbivore;
 import net.tamasnovak.model.matrix.Cell;
@@ -34,19 +33,28 @@ public class Savannah {
     int iterator = 0;
 
     while (iterator < SavannahConfiguration.LENGTH_OF_SIMULATION_YEARS) {
+      performPreAnnualRoutine();
       performAnnualAnimalRoutine();
-      iterator++;
+      performPostAnnualRoutine();
 
+      iterator++;
 //      System.out.printf("zebra - %s%n", matrix.countAnimalType(AnimalType.ZEBRA));
 //      System.out.printf("lion - %s%n", matrix.countAnimalType(AnimalType.LION));
     }
   }
 
+  private void performPreAnnualRoutine() {
+  }
+
   private void performAnnualAnimalRoutine() {
-    List<Animal> eligibleAnimalsForTheYear = matrix.getAnimalsCurrentlyOnSavannah();
+    List<Animal> eligibleAnimalsForTheYear = matrix.getAnimalsCurrentlyLivingOnSavannah();
     Collections.shuffle(eligibleAnimalsForTheYear);
 
     for (Animal animal : eligibleAnimalsForTheYear) {
+      if (!animal.isAlive()) {
+        continue;
+      }
+
       increaseAge(animal);
 
       if (!animal.isAlive()) {
@@ -55,13 +63,12 @@ public class Savannah {
 
       makeCarnivoreHunt(animal);
 
-      if (!animal.isAlive()) {
-        continue;
-      }
-
       animal.breed();
       animal.move();
     }
+  }
+
+  private void performPostAnnualRoutine() {
   }
 
   private void increaseAge(Animal animal) {
@@ -70,28 +77,23 @@ public class Savannah {
 
   private void makeCarnivoreHunt(Animal animal) {
     if (animal instanceof Carnivore carnivore) {
-      List<Herbivore> neighbourHerbivores = listNeighbourHerbivores(animal);
+      List<Herbivore> neighbourHerbivores = findNeighbourHerbivores(animal);
 
       if (neighbourHerbivores.isEmpty()) {
         carnivore.increaseHungerLevelAfterUnsuccessfulHunt();
-        boolean isCarnivoreDead = carnivore.perishIfTooHungry();
-
-        if (isCarnivoreDead) {
-          removeDeadAnimal(animal);
-        }
       } else {
         int randomNumber = random.nextInt(neighbourHerbivores.size());
         Herbivore randomNeighbourHerbivore = neighbourHerbivores.get(randomNumber);
-        removeDeadAnimal(randomNeighbourHerbivore);
+        randomNeighbourHerbivore.perishIfKilledByCarnivore();
       }
     }
   }
 
-  private void removeDeadAnimal(Animal animal) {
-    matrix.removeDeadAnimal(animal);
-  }
+//  private void removeDeadAnimal(Animal animal) {
+//    matrix.removeDeadAnimal(animal);
+//  }
 
-  private List<Herbivore> listNeighbourHerbivores(Animal animal) {
+  private List<Herbivore> findNeighbourHerbivores(Animal animal) {
     Cell animalPosition = animal.getLivingArea();
     List<Animal> listNeighbourAnimals = listNeighbourCoordinates(animalPosition);
 

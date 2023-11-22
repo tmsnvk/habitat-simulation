@@ -72,14 +72,14 @@ public class Matrix {
   public int countAnimalType(AnimalType animalType) {
     return (int) Stream.of(matrix)
       .flatMap(Stream::of)
-      .filter(animal -> animal != null && animal.getAnimalType() == animalType)
+      .filter(animal -> animal != null && animal.getAnimalType().equals(animalType))
       .count();
   }
 
-  public List<Animal> getAnimalsCurrentlyOnSavannah() {
+  public List<Animal> getAnimalsCurrentlyLivingOnSavannah() {
     return Stream.of(matrix)
       .flatMap(Stream::of)
-      .filter(Objects::nonNull)
+      .filter(animal -> animal != null && animal.isAlive())
       .collect(Collectors.toList());
   }
 }
