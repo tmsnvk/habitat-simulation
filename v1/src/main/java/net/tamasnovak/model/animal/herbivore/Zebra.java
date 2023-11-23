@@ -1,6 +1,7 @@
-package net.tamasnovak.model.animals.herbivores;
+package net.tamasnovak.model.animal.herbivore;
 
-import net.tamasnovak.model.animals.AnimalType;
+import net.tamasnovak.model.animal.Animal;
+import net.tamasnovak.model.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 import java.util.Random;
@@ -17,5 +18,15 @@ public class Zebra extends Herbivore {
     int randomMaximumAge = random.nextInt(MAXIMUM_AGE_VALUES.length);
 
     return MAXIMUM_AGE_VALUES[randomMaximumAge];
+  }
+
+  @Override
+  public boolean canBreed() {
+    return this.getCurrentAge() % 2 == 0;
+  }
+
+  @Override
+  public Animal makeNewAnimal() {
+    return null;
   }
 }

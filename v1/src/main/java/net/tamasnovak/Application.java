@@ -1,6 +1,8 @@
 package net.tamasnovak;
 
-import net.tamasnovak.logic.savannah.SavannahPopulator;
+import net.tamasnovak.logic.savannah.SavannahAnimalSearch;
+import net.tamasnovak.logic.savannah.SavannahHuntingRoutine;
+import net.tamasnovak.logic.savannah.SavannahPopulatingRoutine;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.logic.savannah.Savannah;
 import net.tamasnovak.ui.logger.ConsoleLogger;
@@ -15,8 +17,11 @@ public class Application {
 
     Matrix matrix = new Matrix();
 
-    SavannahPopulator savannahPopulator = new SavannahPopulator(random, logger, matrix);
-    Savannah savannah = new Savannah(random, logger, matrix, savannahPopulator);
+    SavannahPopulatingRoutine savannahPopulatingRoutine = new SavannahPopulatingRoutine(random, logger, matrix);
+    SavannahAnimalSearch savannahAnimalSearch = new SavannahAnimalSearch(matrix);
+    SavannahHuntingRoutine savannahHuntingRoutine = new SavannahHuntingRoutine(logger, random, savannahAnimalSearch);
+
+    Savannah savannah = new Savannah(random, logger, matrix, savannahPopulatingRoutine, savannahHuntingRoutine, savannahAnimalSearch);
 
     savannah.runSimulation();
   }

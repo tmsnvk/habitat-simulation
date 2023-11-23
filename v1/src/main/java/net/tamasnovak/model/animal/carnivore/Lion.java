@@ -1,6 +1,7 @@
-package net.tamasnovak.model.animals.carnivores;
+package net.tamasnovak.model.animal.carnivore;
 
-import net.tamasnovak.model.animals.AnimalType;
+import net.tamasnovak.model.animal.Animal;
+import net.tamasnovak.model.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 import java.util.Random;
@@ -25,5 +26,15 @@ public class Lion extends Carnivore {
     if (this.getHungerLevel() == MAXIMUM_HUNGER_LEVEL) {
       this.setAlive(false);
     }
+  }
+
+  @Override
+  public boolean canBreed() {
+    return this.getCurrentAge() % 3 == 0 && this.getHungerLevel() == 0;
+  }
+
+  @Override
+  public Animal makeNewAnimal() {
+    return null;
   }
 }

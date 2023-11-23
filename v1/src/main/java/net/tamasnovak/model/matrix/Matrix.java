@@ -1,11 +1,10 @@
 package net.tamasnovak.model.matrix;
 
-import net.tamasnovak.model.animals.Animal;
-import net.tamasnovak.model.animals.AnimalType;
+import net.tamasnovak.model.animal.Animal;
+import net.tamasnovak.model.animal.AnimalType;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

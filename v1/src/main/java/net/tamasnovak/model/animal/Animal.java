@@ -1,4 +1,4 @@
-package net.tamasnovak.model.animals;
+package net.tamasnovak.model.animal;
 
 import net.tamasnovak.model.matrix.Cell;
 
@@ -15,6 +15,14 @@ public abstract class Animal {
     this.livingArea = livingArea;
     this.maximumAge = maximumAge;
     this.animalType = animalType;
+  }
+
+  public int getCurrentAge() {
+    return currentAge;
+  }
+
+  private void setCurrentAge(int currentAge) {
+    this.currentAge = currentAge;
   }
 
   public Cell getLivingArea() {
@@ -42,16 +50,16 @@ public abstract class Animal {
   }
 
   public void age() {
-    if (currentAge == maximumAge) {
+    if (this.getCurrentAge() == maximumAge) {
       isAlive = false;
     } else {
-      currentAge++;
+      this.setCurrentAge(this.getCurrentAge() + 1);
     }
   }
 
-  public void breed() {
+  public abstract boolean canBreed();
 
-  }
+  public abstract Animal makeNewAnimal();
 
   public void move() {
 

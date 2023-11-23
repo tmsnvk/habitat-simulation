@@ -19,7 +19,7 @@
 + has a matrix of the living area coordinates.
 + synchronises the pre-annual routines, e.g. sets too hungry animals to dead state.
 + synchronises the annual animal routines: 
-    + chooses an animal and go through its routine in the following order: age, eat, breed, move.
+    + chooses an animal and go through its routine in the following order: eat, breed, move, age.
     + each animal gets their round, except those that were born in the given year.
     + no eligible animals are left out, each animal participates once only and in a random fashion.
 

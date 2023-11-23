@@ -1,7 +1,7 @@
-package net.tamasnovak.model.animals.herbivores;
+package net.tamasnovak.model.animal.herbivore;
 
-import net.tamasnovak.model.animals.Animal;
-import net.tamasnovak.model.animals.AnimalType;
+import net.tamasnovak.model.animal.Animal;
+import net.tamasnovak.model.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Herbivore extends Animal implements Hunted {

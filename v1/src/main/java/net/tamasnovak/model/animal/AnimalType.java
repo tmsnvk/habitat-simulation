@@ -1,4 +1,4 @@
-package net.tamasnovak.model.animals;
+package net.tamasnovak.model.animal;
 
 public enum AnimalType {
   ZEBRA('Z'),

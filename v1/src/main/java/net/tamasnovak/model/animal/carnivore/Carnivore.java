@@ -1,7 +1,7 @@
-package net.tamasnovak.model.animals.carnivores;
+package net.tamasnovak.model.animal.carnivore;
 
-import net.tamasnovak.model.animals.Animal;
-import net.tamasnovak.model.animals.AnimalType;
+import net.tamasnovak.model.animal.Animal;
+import net.tamasnovak.model.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 
@@ -24,5 +24,10 @@ public abstract class Carnivore extends Animal implements Hunting {
   @Override
   public void increaseHungerLevelAfterUnsuccessfulHunt() {
     this.setHungerLevel(this.getHungerLevel() + 1);
+  }
+
+  @Override
+  public void resetHungerLevelAfterSuccessfulHunt() {
+    this.setHungerLevel(0);
   }
 }

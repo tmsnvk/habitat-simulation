@@ -1,4 +1,4 @@
-package net.tamasnovak.model.animals.herbivores;
+package net.tamasnovak.model.animal.herbivore;
 
 public interface Hunted {
   void perishIfKilledByCarnivore();

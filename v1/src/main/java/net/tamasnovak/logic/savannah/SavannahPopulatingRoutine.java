@@ -1,9 +1,9 @@
 package net.tamasnovak.logic.savannah;
 
-import net.tamasnovak.model.animals.Animal;
-import net.tamasnovak.model.animals.AnimalType;
-import net.tamasnovak.model.animals.carnivores.Lion;
-import net.tamasnovak.model.animals.herbivores.Zebra;
+import net.tamasnovak.model.animal.Animal;
+import net.tamasnovak.model.animal.AnimalType;
+import net.tamasnovak.model.animal.carnivore.Lion;
+import net.tamasnovak.model.animal.herbivore.Zebra;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.ui.logger.Logger;
@@ -11,12 +11,12 @@ import net.tamasnovak.ui.logger.Logger;
 import java.util.Random;
 import java.util.Set;
 
-public class SavannahPopulator {
+public class SavannahPopulatingRoutine {
   private final Random random;
   private final Logger logger;
   private final Matrix matrix;
 
-  public SavannahPopulator(Random random, Logger logger, Matrix matrix) {
+  public SavannahPopulatingRoutine(Random random, Logger logger, Matrix matrix) {
     this.random = random;
     this.logger = logger;
     this.matrix = matrix;
