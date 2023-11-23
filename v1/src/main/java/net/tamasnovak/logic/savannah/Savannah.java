@@ -1,5 +1,6 @@
 package net.tamasnovak.logic.savannah;
 
+import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.ui.logger.Logger;
@@ -32,9 +33,9 @@ public class Savannah {
     int yearCounter = 0;
 
     while (yearCounter < SavannahConfiguration.LENGTH_OF_SIMULATION_YEARS) {
-      performPreAnnualRoutine();
-      performAnnualAnimalRoutine();
-      performPostAnnualRoutine();
+      doPreAnnualRoutine();
+      doAnnualAnimalRoutine();
+      doPostAnnualRoutine();
 
       yearCounter++;
 //      System.out.printf("zebra - %s%n", matrix.countAnimalType(AnimalType.ZEBRA));
@@ -42,11 +43,12 @@ public class Savannah {
     }
   }
 
-  private void performPreAnnualRoutine() {
+  private void doPreAnnualRoutine() {
+
   }
 
-  private void performAnnualAnimalRoutine() {
-    List<Animal> eligibleAnimalsForTheYear = matrix.getAnimalsCurrentlyLivingOnSavannah();
+  private void doAnnualAnimalRoutine() {
+    List<Animal> eligibleAnimalsForTheYear = matrix.findAnimalsCurrentlyLivingOnSavannah();
     Collections.shuffle(eligibleAnimalsForTheYear);
 
     for (Animal animal : eligibleAnimalsForTheYear) {
@@ -54,29 +56,30 @@ public class Savannah {
         continue;
       }
 
-      animal.age();
+      animal.increaseAge();
 
       if (!animal.isAlive()) {
         continue;
       }
 
-      savannahHuntingRoutine.run(animal);
+      if (animal instanceof Carnivore carnivore) {
+        savannahHuntingRoutine.run(carnivore);
+      }
+
       doBreedingRoutine(animal);
 
       animal.move();
     }
   }
 
-  private void performPostAnnualRoutine() {
+  private void doPostAnnualRoutine() {
   }
 
   private void doBreedingRoutine(Animal animal) {
-    List<? extends Animal> listNeighbourSameSpecies = savannahAnimalSearch.findNeighbouringSameSpecies(animal, animal.getClass().getSuperclass());
-    System.out.printf("current animal %s | neighbours %s%n", animal, listNeighbourSameSpecies);
+    List<? extends Animal> listNeighbourSameSpecies = savannahAnimalSearch.findSpecificNeighbourAnimalType(animal, animal.getClass().getSuperclass());
     boolean canAnimalBreed = animal.canBreed();
 
     if (canAnimalBreed) {
-      System.out.println("BREED");
 //      try {
 ////        Animal newBornAnimal = animal.getClass().getDeclaredConstructor().newInstance();
 ////        newBornAnimal.

@@ -54,7 +54,7 @@ public class Matrix {
     matrix[xCoordinate][yCoordinate] = null;
   }
 
-  public Set<AnimalType> listAnimalTypes() {
+  public Set<AnimalType> findAllAnimaLType() {
     Set<AnimalType> animalTypes = new HashSet<>();
 
     Stream.of(matrix)
@@ -75,7 +75,7 @@ public class Matrix {
       .count();
   }
 
-  public List<Animal> getAnimalsCurrentlyLivingOnSavannah() {
+  public List<Animal> findAnimalsCurrentlyLivingOnSavannah() {
     return Stream.of(matrix)
       .flatMap(Stream::of)
       .filter(animal -> animal != null && animal.isAlive())

@@ -1,6 +1,5 @@
 package net.tamasnovak.logic.savannah;
 
-import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
 import net.tamasnovak.ui.logger.Logger;
@@ -19,16 +18,14 @@ public class SavannahHuntingRoutine {
     this.savannahAnimalSearch = savannahAnimalSearch;
   }
 
-  void run(Animal animal) {
-    if (animal instanceof Carnivore carnivore) {
-      List<Herbivore> neighbourHerbivores = savannahAnimalSearch.findNeighbouringSameSpecies(animal, Herbivore.class);
+  void run(Carnivore carnivore) {
+    List<Herbivore> neighbourHerbivores = savannahAnimalSearch.findSpecificNeighbourAnimalType(carnivore, Herbivore.class);
 
-      if (neighbourHerbivores.isEmpty()) {
-        carnivore.increaseHungerLevelAfterUnsuccessfulHunt();
-      } else {
-        perishRandomHerbivoreNeighbourAfterSuccessfulHunt(neighbourHerbivores);
-        carnivore.resetHungerLevelAfterSuccessfulHunt();
-      }
+    if (neighbourHerbivores.isEmpty()) {
+      carnivore.increaseHungerLevelAfterUnsuccessfulHunt();
+    } else {
+      perishRandomHerbivoreNeighbourAfterSuccessfulHunt(neighbourHerbivores);
+      carnivore.resetHungerLevelAfterSuccessfulHunt();
     }
   }
 

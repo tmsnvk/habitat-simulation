@@ -38,14 +38,14 @@ public class SavannahPopulatingRoutine {
 
       double coinFlipValue = random.nextDouble(0, 1);
 
-      placeAnimal(xCoordinate, yCoordinate, coinFlipValue);
+      addAnimalToMatrix(xCoordinate, yCoordinate, coinFlipValue);
       animalCounter++;
     }
 
     displayRoutineEndingLogging();
   }
 
-  private void placeAnimal(int xCoordinate, int yCoordinate, double coinFlipValue) {
+  private void addAnimalToMatrix(int xCoordinate, int yCoordinate, double coinFlipValue) {
     if (coinFlipValue <= SavannahConfiguration.CHANCE_OF_HERBIVORE) {
       Cell livingArea = new Cell(xCoordinate, yCoordinate);
       Animal zebra = new Zebra(livingArea, random);
@@ -63,7 +63,7 @@ public class SavannahPopulatingRoutine {
     logger.logInfo(SavannahMessages.END_POPULATE_MATRIX);
     logger.logInfo(SavannahMessages.ANIMAL_STATS_INTRO);
 
-    Set<AnimalType> animalTypesInMatrix = matrix.listAnimalTypes();
+    Set<AnimalType> animalTypesInMatrix = matrix.findAllAnimaLType();
 
     for (AnimalType animalType : animalTypesInMatrix) {
       int numberOfAnimals = matrix.countAnimalType(animalType);

@@ -38,7 +38,7 @@ public abstract class Animal {
   }
 
   protected void setAlive(boolean alive) {
-    isAlive = alive;
+    this.isAlive = alive;
   }
 
   public AnimalType getAnimalType() {
@@ -49,7 +49,7 @@ public abstract class Animal {
     this.livingArea = null;
   }
 
-  public void age() {
+  public void increaseAge() {
     if (this.getCurrentAge() == maximumAge) {
       isAlive = false;
     } else {

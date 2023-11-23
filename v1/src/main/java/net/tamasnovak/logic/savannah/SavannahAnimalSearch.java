@@ -1,7 +1,6 @@
 package net.tamasnovak.logic.savannah;
 
 import net.tamasnovak.model.animal.Animal;
-import net.tamasnovak.model.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.matrix.Matrix;
 
@@ -16,22 +15,12 @@ public class SavannahAnimalSearch {
     this.matrix = matrix;
   }
 
-//  List<Herbivore> findNeighbourHerbivores(Animal animal) {
-//    Cell animalPosition = animal.getLivingArea();
-//    List<Animal> listNeighbourAnimals = findValidNeighbourCoordinates(animalPosition);
-//
-//    return listNeighbourAnimals.stream()
-//      .filter(neighbour -> neighbour instanceof Herbivore)
-//      .map(neighbour -> (Herbivore) neighbour)
-//      .collect(Collectors.toList());
-//  }
-
-  <T extends Animal> List<T> findNeighbouringSameSpecies(Animal animal, Class<?> clazz) {
-    Cell animalPosition = animal.getLivingArea();
+  <T extends Animal> List<T> findSpecificNeighbourAnimalType(Animal animalToCheckAgainst, Class<?> classTypeToFind) {
+    Cell animalPosition = animalToCheckAgainst.getLivingArea();
     List<Animal> listNeighbourAnimals = findValidNeighbourCoordinates(animalPosition);
 
     return listNeighbourAnimals.stream()
-      .filter(clazz::isInstance)
+      .filter(classTypeToFind::isInstance)
       .map(neighbour -> (T) neighbour)
       .collect(Collectors.toList());
   }

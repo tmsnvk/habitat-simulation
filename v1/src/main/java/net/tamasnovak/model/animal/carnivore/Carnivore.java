@@ -4,7 +4,6 @@ import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
-
 public abstract class Carnivore extends Animal implements Hunting {
   protected int hungerLevel;
 

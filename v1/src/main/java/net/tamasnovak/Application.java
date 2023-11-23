@@ -27,6 +27,8 @@ public class Application {
   }
 }
 
+// check if a CarnivoreCreator / HerbivoreCreator would be better, to avoid passing the random to each instance + class instance type needs to be passed to creator as argument.
+
 // possible extensions / further ideas:
 // - terminal user input to decide on the size of the board
 // - the number of animals should always be the half of the board size, e.g. a 20x20 board would have 200 animals on it (and always keep herbivore/carnivore ratio at 65%).
