@@ -1,6 +1,7 @@
 package net.tamasnovak.logic.habitat.savannah;
 
 import net.tamasnovak.logic.habitat.Habitat;
+import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
@@ -18,8 +19,8 @@ public final class Savannah extends Habitat {
   private final SavannahHuntingRoutine savannahHuntingRoutine;
   private final SavannahAnimalSearch savannahAnimalSearch;
 
-  public Savannah(Random random, Logger logger, Matrix matrix, PopulatorRoutine populatorRoutine, SavannahHuntingRoutine savannahHuntingRoutine, SavannahAnimalSearch savannahAnimalSearch) {
-    super(random, logger, matrix, populatorRoutine);
+  public Savannah(Random random, Logger logger, HabitatConfiguration configuration, Matrix matrix, PopulatorRoutine populatorRoutine, SavannahHuntingRoutine savannahHuntingRoutine, SavannahAnimalSearch savannahAnimalSearch) {
+    super(random, logger, configuration, matrix, populatorRoutine);
     this.savannahHuntingRoutine = savannahHuntingRoutine;
     this.savannahAnimalSearch = savannahAnimalSearch;
   }
@@ -30,7 +31,7 @@ public final class Savannah extends Habitat {
     populatorRoutine.run();
     int yearCounter = 0;
 
-    while (yearCounter < SavannahConfiguration.LENGTH_OF_SIMULATION_YEARS) {
+    while (yearCounter < habitatConfiguration.LENGTH_OF_SIMULATION_YEARS) {
       doPreAnnualRoutine();
       doAnnualAnimalRoutine();
       doPostAnnualRoutine();

@@ -1,14 +1,16 @@
 package net.tamasnovak.model.animal.carnivore;
 
 import net.tamasnovak.model.animal.Animal;
+import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Carnivore extends Animal implements Hunting {
+  protected static final AnimalType TYPE = AnimalType.CARNIVORE;
   protected int hungerLevel;
 
-  public Carnivore(Cell livingArea, int maximumAge, AnimalType animalType) {
-    super(livingArea, maximumAge, animalType);
+  public Carnivore(Cell livingArea, int maximumAge, AnimalSpecies animalSpecies) {
+    super(livingArea, maximumAge, animalSpecies);
     this.hungerLevel = 0;
   }
 

@@ -1,5 +1,7 @@
 package net.tamasnovak;
 
+import net.tamasnovak.logic.animalFactory.AbstractFactory;
+import net.tamasnovak.logic.animalFactory.AnimalFactory;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
@@ -7,6 +9,7 @@ import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutineMessages;
 import net.tamasnovak.logic.habitat.savannah.SavannahAnimalSearch;
 import net.tamasnovak.logic.habitat.savannah.SavannahHuntingRoutine;
+import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.logic.habitat.savannah.Savannah;
 import net.tamasnovak.ui.logger.ConsoleLogger;
@@ -20,22 +23,21 @@ public class Application {
     Logger logger = new ConsoleLogger();
 
     Matrix savannahMatrix = new Matrix();
+    AbstractFactory<Animal> animalFactory = new AnimalFactory(random);
 
     HabitatConfiguration savannahConfiguration = new SavannahConfiguration();
 
     PopulatorRoutineMessages populatorRoutineMessages = new PopulatorRoutineMessages();
-    PopulatorRoutine savannahPopulatorRoutine = new PopulatorRoutine(random, logger, savannahMatrix, savannahConfiguration, populatorRoutineMessages);
+    PopulatorRoutine savannahPopulatorRoutine = new PopulatorRoutine(random, logger, savannahMatrix, savannahConfiguration, animalFactory, populatorRoutineMessages);
 
     SavannahAnimalSearch savannahAnimalSearch = new SavannahAnimalSearch(savannahMatrix);
     SavannahHuntingRoutine savannahHuntingRoutine = new SavannahHuntingRoutine(logger, random, savannahAnimalSearch);
 
-    Habitat savannah = new Savannah(random, logger, savannahMatrix, savannahPopulatorRoutine, savannahHuntingRoutine, savannahAnimalSearch);
+    Habitat savannah = new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine, savannahHuntingRoutine, savannahAnimalSearch);
 
     savannah.runSimulation();
   }
 }
-
-// check if a CarnivoreCreator / HerbivoreCreator would be better, to avoid passing the random to each instance + class instance type needs to be passed to creator as argument.
 
 // possible extensions / further ideas:
 // - terminal user input to decide on the size of the board

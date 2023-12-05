@@ -1,5 +1,6 @@
 package net.tamasnovak.logic.habitat.savannah;
 
+import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.matrix.Matrix;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 public class SavannahAnimalSearch {
   private final Matrix matrix;
+  private final HabitatConfiguration habitatConfiguration = new SavannahConfiguration();
 
   public SavannahAnimalSearch(Matrix matrix) {
     this.matrix = matrix;
@@ -28,7 +30,7 @@ public class SavannahAnimalSearch {
   private List<Animal> findNeighbourAnimalsInValidCoordinates(Cell animalPosition) {
     List<Animal> neighbourAnimalsInValidCoordinates = new ArrayList<>();
 
-    for (List<Integer> coordinate : SavannahConfiguration.POSSIBLE_NEARBY_COORDINATE_DIFFERENCES) {
+    for (List<Integer> coordinate : habitatConfiguration.POSSIBLE_NEARBY_COORDINATE_DIFFERENCES) {
       int xCoordinate = animalPosition.xCoordinate() + coordinate.get(0);
       int yCoordinate = animalPosition.yCoordinate() + coordinate.get(1);
 

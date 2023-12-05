@@ -3,18 +3,18 @@ package net.tamasnovak.model.animal;
 import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Animal {
-  private int currentAge;
-  private final int maximumAge;
+  protected int currentAge;
+  protected final int maximumAge;
   protected boolean isAlive;
-  private Cell livingArea;
-  private final AnimalType animalType;
+  protected Cell livingArea;
+  protected final AnimalSpecies animalSpecies;
 
-  public Animal(Cell livingArea, int maximumAge, AnimalType animalType) {
+  public Animal(Cell livingArea, int maximumAge, AnimalSpecies animalSpecies) {
     this.currentAge = 0;
     this.isAlive = true;
     this.livingArea = livingArea;
     this.maximumAge = maximumAge;
-    this.animalType = animalType;
+    this.animalSpecies = animalSpecies;
   }
 
   public int getCurrentAge() {
@@ -41,8 +41,8 @@ public abstract class Animal {
     this.isAlive = alive;
   }
 
-  public AnimalType getAnimalType() {
-    return animalType;
+  public AnimalSpecies getAnimalType() {
+    return animalSpecies;
   }
 
   public void removeDeadAnimal() {

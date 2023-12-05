@@ -1,18 +1,21 @@
 package net.tamasnovak.model.animal.carnivore;
 
 import net.tamasnovak.model.animal.Animal;
-import net.tamasnovak.model.animal.AnimalType;
+import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.matrix.Cell;
 
 import java.util.Random;
 
-public class Lion extends Carnivore {
+public final class Lion extends Carnivore {
+  private static int idCounter = 0;
+  private final String id;
   private static final int[] MAXIMUM_AGE_VALUES = new int[]{ 9, 10, 11, 12 };
   private static final int MAXIMUM_HUNGER_LEVEL = 2;
-  private static final AnimalType animalType = AnimalType.LION;
+  private static final AnimalSpecies SPECIES = AnimalSpecies.LION;
 
   public Lion(Cell livingArea, Random random) {
-    super(livingArea, drawMaximumAgeValue(random), animalType);
+    super(livingArea, drawMaximumAgeValue(random), SPECIES);
+    this.id = String.format("%s-%s", SPECIES, ++idCounter);
   }
 
   private static int drawMaximumAgeValue(Random random) {
@@ -36,5 +39,10 @@ public class Lion extends Carnivore {
   @Override
   public Animal makeNewAnimal() {
     return null;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("[ID]: %s | [SPECIES]: %s | [TYPE]: %s | [LIVING AREA]: %s | [MAXIMUM AGE]: %s | [CURRENT AGE]: %s | [IS ALIVE?]: %s", id, SPECIES, TYPE, livingArea, maximumAge, currentAge, isAlive);
   }
 }

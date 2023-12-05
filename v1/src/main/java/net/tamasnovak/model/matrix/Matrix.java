@@ -1,7 +1,7 @@
 package net.tamasnovak.model.matrix;
 
 import net.tamasnovak.model.animal.Animal;
-import net.tamasnovak.model.animal.AnimalType;
+import net.tamasnovak.model.animal.AnimalSpecies;
 
 import java.util.HashSet;
 import java.util.List;
@@ -54,24 +54,24 @@ public class Matrix {
     matrix[xCoordinate][yCoordinate] = null;
   }
 
-  public Set<AnimalType> findAllAnimaLType() {
-    Set<AnimalType> animalTypes = new HashSet<>();
+  public Set<AnimalSpecies> findAllAnimaLType() {
+    Set<AnimalSpecies> animalSpecies = new HashSet<>();
 
     Stream.of(matrix)
       .flatMap(Stream::of)
       .forEach(animal -> {
         if (animal != null) {
-          animalTypes.add(animal.getAnimalType());
+          animalSpecies.add(animal.getAnimalType());
         }
       });
 
-    return animalTypes;
+    return animalSpecies;
   }
 
-  public int countAnimalType(AnimalType animalType) {
+  public int countAnimalType(AnimalSpecies animalSpecies) {
     return (int) Stream.of(matrix)
       .flatMap(Stream::of)
-      .filter(animal -> animal != null && animal.getAnimalType().equals(animalType))
+      .filter(animal -> animal != null && animal.getAnimalType().equals(animalSpecies))
       .count();
   }
 

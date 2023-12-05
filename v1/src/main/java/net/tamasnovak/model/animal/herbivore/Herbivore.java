@@ -1,12 +1,15 @@
 package net.tamasnovak.model.animal.herbivore;
 
 import net.tamasnovak.model.animal.Animal;
+import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Herbivore extends Animal implements Hunted {
-  public Herbivore(Cell livingArea, int maximumAge, AnimalType animalType) {
-    super(livingArea, maximumAge, animalType);
+  protected static final AnimalType TYPE = AnimalType.HERBIVORE;
+
+  public Herbivore(Cell livingArea, int maximumAge, AnimalSpecies animalSpecies) {
+    super(livingArea, maximumAge, animalSpecies);
   }
 
   @Override
