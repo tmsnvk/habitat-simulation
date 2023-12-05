@@ -1,4 +1,4 @@
-package net.tamasnovak.logic.savannah;
+package net.tamasnovak.logic.habitat.savannah;
 
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.matrix.Cell;
@@ -15,31 +15,31 @@ public class SavannahAnimalSearch {
     this.matrix = matrix;
   }
 
-  <T extends Animal> List<T> findSpecificNeighbourAnimalType(Animal animalToCheckAgainst, Class<?> classTypeToFind) {
+  <T extends Animal> List<T> findNeighbourAnimalTypeInstances(Animal animalToCheckAgainst, Class<?> animalTypeToFind) {
     Cell animalPosition = animalToCheckAgainst.getLivingArea();
-    List<Animal> listNeighbourAnimals = findValidNeighbourCoordinates(animalPosition);
+    List<Animal> neighbourAnimals = findNeighbourAnimalsInValidCoordinates(animalPosition);
 
-    return listNeighbourAnimals.stream()
-      .filter(classTypeToFind::isInstance)
+    return neighbourAnimals.stream()
+      .filter(animalTypeToFind::isInstance)
       .map(neighbour -> (T) neighbour)
       .collect(Collectors.toList());
   }
 
-  private List<Animal> findValidNeighbourCoordinates(Cell animalPosition) {
-    List<Animal> validNeighbourCoordinates = new ArrayList<>();
+  private List<Animal> findNeighbourAnimalsInValidCoordinates(Cell animalPosition) {
+    List<Animal> neighbourAnimalsInValidCoordinates = new ArrayList<>();
 
     for (List<Integer> coordinate : SavannahConfiguration.POSSIBLE_NEARBY_COORDINATE_DIFFERENCES) {
       int xCoordinate = animalPosition.xCoordinate() + coordinate.get(0);
       int yCoordinate = animalPosition.yCoordinate() + coordinate.get(1);
 
       if (areCoordinatesValid(xCoordinate, yCoordinate)) {
-        Animal animalInCell = matrix.getCoordinate(xCoordinate, yCoordinate);
+        Animal animal = matrix.findAnimalInCoordinate(xCoordinate, yCoordinate);
 
-        validNeighbourCoordinates.add(animalInCell);
+        neighbourAnimalsInValidCoordinates.add(animal);
       }
     }
 
-    return validNeighbourCoordinates;
+    return neighbourAnimalsInValidCoordinates;
   }
 
   private boolean areCoordinatesValid(int xCoordinate, int yCoordinate) {

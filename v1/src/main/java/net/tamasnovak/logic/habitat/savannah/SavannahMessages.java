@@ -1,4 +1,4 @@
-package net.tamasnovak.logic.savannah;
+package net.tamasnovak.logic.habitat.savannah;
 
 final class SavannahMessages {
   static final String START_SIMULATION = "Simulation is starting... now!";

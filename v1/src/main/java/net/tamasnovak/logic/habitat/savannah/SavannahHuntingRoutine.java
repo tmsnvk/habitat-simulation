@@ -1,4 +1,4 @@
-package net.tamasnovak.logic.savannah;
+package net.tamasnovak.logic.habitat.savannah;
 
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
@@ -18,20 +18,25 @@ public class SavannahHuntingRoutine {
     this.savannahAnimalSearch = savannahAnimalSearch;
   }
 
-  void run(Carnivore carnivore) {
-    List<Herbivore> neighbourHerbivores = savannahAnimalSearch.findSpecificNeighbourAnimalType(carnivore, Herbivore.class);
+  Herbivore run(Carnivore carnivore) {
+    List<Herbivore> neighbourHerbivores = savannahAnimalSearch.findNeighbourAnimalTypeInstances(carnivore, Herbivore.class);
+    Herbivore killedHerbivore = null;
 
     if (neighbourHerbivores.isEmpty()) {
       carnivore.increaseHungerLevelAfterUnsuccessfulHunt();
     } else {
-      perishRandomHerbivoreNeighbourAfterSuccessfulHunt(neighbourHerbivores);
+      killedHerbivore = killRandomHerbivoreNeighbour(neighbourHerbivores);
       carnivore.resetHungerLevelAfterSuccessfulHunt();
     }
+
+    return killedHerbivore;
   }
 
-  private void perishRandomHerbivoreNeighbourAfterSuccessfulHunt(List<Herbivore> neighbourHerbivores) {
+  private Herbivore killRandomHerbivoreNeighbour(List<Herbivore> neighbourHerbivores) {
     int randomNumber = random.nextInt(neighbourHerbivores.size());
     Herbivore randomNeighbourHerbivore = neighbourHerbivores.get(randomNumber);
     randomNeighbourHerbivore.perishIfKilledByCarnivore();
+
+    return randomNeighbourHerbivore;
   }
 }

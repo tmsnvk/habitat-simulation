@@ -1,10 +1,14 @@
 package net.tamasnovak;
 
-import net.tamasnovak.logic.savannah.SavannahAnimalSearch;
-import net.tamasnovak.logic.savannah.SavannahHuntingRoutine;
-import net.tamasnovak.logic.savannah.SavannahPopulatingRoutine;
+import net.tamasnovak.logic.habitat.Habitat;
+import net.tamasnovak.logic.habitat.HabitatConfiguration;
+import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
+import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
+import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutineMessages;
+import net.tamasnovak.logic.habitat.savannah.SavannahAnimalSearch;
+import net.tamasnovak.logic.habitat.savannah.SavannahHuntingRoutine;
 import net.tamasnovak.model.matrix.Matrix;
-import net.tamasnovak.logic.savannah.Savannah;
+import net.tamasnovak.logic.habitat.savannah.Savannah;
 import net.tamasnovak.ui.logger.ConsoleLogger;
 import net.tamasnovak.ui.logger.Logger;
 
@@ -15,13 +19,17 @@ public class Application {
     Random random = new Random();
     Logger logger = new ConsoleLogger();
 
-    Matrix matrix = new Matrix();
+    Matrix savannahMatrix = new Matrix();
 
-    SavannahPopulatingRoutine savannahPopulatingRoutine = new SavannahPopulatingRoutine(random, logger, matrix);
-    SavannahAnimalSearch savannahAnimalSearch = new SavannahAnimalSearch(matrix);
+    HabitatConfiguration savannahConfiguration = new SavannahConfiguration();
+
+    PopulatorRoutineMessages populatorRoutineMessages = new PopulatorRoutineMessages();
+    PopulatorRoutine savannahPopulatorRoutine = new PopulatorRoutine(random, logger, savannahMatrix, savannahConfiguration, populatorRoutineMessages);
+
+    SavannahAnimalSearch savannahAnimalSearch = new SavannahAnimalSearch(savannahMatrix);
     SavannahHuntingRoutine savannahHuntingRoutine = new SavannahHuntingRoutine(logger, random, savannahAnimalSearch);
 
-    Savannah savannah = new Savannah(random, logger, matrix, savannahPopulatingRoutine, savannahHuntingRoutine, savannahAnimalSearch);
+    Habitat savannah = new Savannah(random, logger, savannahMatrix, savannahPopulatorRoutine, savannahHuntingRoutine, savannahAnimalSearch);
 
     savannah.runSimulation();
   }

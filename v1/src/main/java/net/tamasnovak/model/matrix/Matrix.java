@@ -39,7 +39,7 @@ public class Matrix {
     return matrix;
   }
 
-  public Animal getCoordinate(int xCoordinate, int yCoordinate) {
+  public Animal findAnimalInCoordinate(int xCoordinate, int yCoordinate) {
     return matrix[xCoordinate][yCoordinate];
   }
 
@@ -75,7 +75,7 @@ public class Matrix {
       .count();
   }
 
-  public List<Animal> findAnimalsCurrentlyLivingOnSavannah() {
+  public List<Animal> findAliveAnimals() {
     return Stream.of(matrix)
       .flatMap(Stream::of)
       .filter(animal -> animal != null && animal.isAlive())
