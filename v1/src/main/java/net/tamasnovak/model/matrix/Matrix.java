@@ -5,6 +5,7 @@ import net.tamasnovak.model.animal.AnimalSpecies;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,19 +13,12 @@ import java.util.stream.Stream;
 public class Matrix {
   private static final int LENGTH = 20;
   private static final int WIDTH = 20;
+  private final Random random;
   private final Animal[][] matrix;
 
-  public Matrix() {
+  public Matrix(Random random) {
+    this.random = random;
     this.matrix = new Animal[LENGTH][WIDTH];
-    generateEmptyMatrix();
-  }
-
-  private void generateEmptyMatrix() {
-    for (int x = 0; x < LENGTH; x++) {
-      for (int y = 0; y < WIDTH; y++) {
-        matrix[x][y] = null;
-      }
-    }
   }
 
   public int getLength() {
@@ -43,7 +37,7 @@ public class Matrix {
     return matrix[xCoordinate][yCoordinate];
   }
 
-  public void placeAnimalInCoordinate(int xCoordinate, int yCoordinate, Animal animal) {
+  public void placeAnimal(int xCoordinate, int yCoordinate, Animal animal) {
     matrix[xCoordinate][yCoordinate] = animal;
   }
 
@@ -68,7 +62,7 @@ public class Matrix {
     return animalSpecies;
   }
 
-  public int countAnimalType(AnimalSpecies animalSpecies) {
+  public int countNumberofAnimalsPerSpecies(AnimalSpecies animalSpecies) {
     return (int) Stream.of(matrix)
       .flatMap(Stream::of)
       .filter(animal -> animal != null && animal.getAnimalType().equals(animalSpecies))

@@ -16,7 +16,7 @@ public class HerbivoreFactoryImpl implements HerbivoreFactory {
     return new Zebra(livingArea, random);
   }
 
-  public Animal createAnimal(AnimalSpecies animalSpecies, Cell livingArea, Random random) {
+  public Animal createHerbivore(AnimalSpecies animalSpecies, Cell livingArea, Random random) {
     switch (animalSpecies) {
       case ZEBRA -> animal = createZebra(livingArea, random);
     }

@@ -1,7 +1,6 @@
 package net.tamasnovak.logic.routines.populatorRoutine;
 
 import net.tamasnovak.logic.animalFactory.AbstractFactory;
-import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalSpecies;
@@ -17,11 +16,11 @@ public final class PopulatorRoutine {
   private final Random random;
   private final Logger logger;
   private final Matrix matrix;
-  private final HabitatConfiguration habitatConfiguration;
+  private final SavannahConfiguration habitatConfiguration;
   private final AbstractFactory<Animal> animalFactory;
   private final PopulatorRoutineMessages routineMessages;
 
-  public PopulatorRoutine(Random random, Logger logger, Matrix matrix, HabitatConfiguration habitatConfiguration, AbstractFactory<Animal> animalFactory, PopulatorRoutineMessages routineMessages) {
+  public PopulatorRoutine(Random random, Logger logger, Matrix matrix, SavannahConfiguration habitatConfiguration, AbstractFactory<Animal> animalFactory, PopulatorRoutineMessages routineMessages) {
     this.random = random;
     this.logger = logger;
     this.matrix = matrix;
@@ -54,16 +53,18 @@ public final class PopulatorRoutine {
   }
 
   private void addAnimalToMatrix(int xCoordinate, int yCoordinate, double coinFlipValue) {
-    Animal animal;
     Cell livingArea = new Cell(xCoordinate, yCoordinate);
+    Animal animal = createAnimal(coinFlipValue, livingArea);
 
-    if (coinFlipValue <= SavannahConfiguration.CHANCE_OF_HERBIVORE) {
-      animal = animalFactory.createAnimal(AnimalType.HERBIVORE, AnimalSpecies.ZEBRA, livingArea);
+    matrix.placeAnimal(xCoordinate, yCoordinate, animal);
+  }
+
+  private Animal createAnimal(double coinFlipValue, Cell livingArea) {
+    if (coinFlipValue <= habitatConfiguration.CHANCE_OF_HERBIVORE) {
+      return animalFactory.createAnimal(AnimalType.HERBIVORE, AnimalSpecies.ZEBRA, livingArea);
     } else {
-      animal = animalFactory.createAnimal(AnimalType.CARNIVORE, AnimalSpecies.LION, livingArea);
+      return animalFactory.createAnimal(AnimalType.CARNIVORE, AnimalSpecies.LION, livingArea);
     }
-
-    matrix.placeAnimalInCoordinate(xCoordinate, yCoordinate, animal);
   }
 
   public void displayRoutineEndingLogging() {
@@ -73,8 +74,8 @@ public final class PopulatorRoutine {
     Set<AnimalSpecies> animalTypesInMatrices = matrix.findAllAnimaLType();
 
     for (AnimalSpecies animalSpecies : animalTypesInMatrices) {
-      int numberOfAnimals = matrix.countAnimalType(animalSpecies);
-      logger.logInfo(String.format(routineMessages.ANIMAL_STATS_DETAIL, numberOfAnimals, animalSpecies.name()));
+      int numberOfAnimals = matrix.countNumberofAnimalsPerSpecies(animalSpecies);
+      logger.logInfo(String.format(routineMessages.ANIMAL_STATS_SUMMARY, numberOfAnimals, animalSpecies.name()));
     }
   }
 }

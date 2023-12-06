@@ -16,7 +16,7 @@ public class CarnivoreFactoryImpl implements CarnivoreFactory {
     return new Lion(livingArea, random);
   }
 
-  public Animal createAnimal(AnimalSpecies animalSpecies, Cell livingArea, Random random) {
+  public Animal createCarnivore(AnimalSpecies animalSpecies, Cell livingArea, Random random) {
     switch (animalSpecies) {
       case LION -> animal = createLion(livingArea, random);
     }

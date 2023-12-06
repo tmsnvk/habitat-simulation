@@ -20,8 +20,8 @@ public final class AnimalFactory implements AbstractFactory<Animal> {
   @Override
   public Animal createAnimal(AnimalType animalType, AnimalSpecies animalSpecies, Cell livingArea) {
     switch (animalType) {
-      case CARNIVORE -> animal = new CarnivoreFactoryImpl().createAnimal(animalSpecies, livingArea, random);
-      case HERBIVORE -> animal = new HerbivoreFactoryImpl().createAnimal(animalSpecies, livingArea, random);
+      case CARNIVORE -> animal = new CarnivoreFactoryImpl().createCarnivore(animalSpecies, livingArea, random);
+      case HERBIVORE -> animal = new HerbivoreFactoryImpl().createHerbivore(animalSpecies, livingArea, random);
     }
 
     return animal;

@@ -3,7 +3,6 @@ package net.tamasnovak;
 import net.tamasnovak.logic.animalFactory.AbstractFactory;
 import net.tamasnovak.logic.animalFactory.AnimalFactory;
 import net.tamasnovak.logic.habitat.Habitat;
-import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutineMessages;
@@ -15,6 +14,8 @@ import net.tamasnovak.logic.habitat.savannah.Savannah;
 import net.tamasnovak.ui.logger.ConsoleLogger;
 import net.tamasnovak.ui.logger.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Application {
@@ -23,14 +24,16 @@ public class Application {
     Logger logger = new ConsoleLogger();
     AbstractFactory<Animal> animalFactory = new AnimalFactory(random);
 
+    List<Habitat> habitats = new ArrayList<>();
     Habitat savannah = buildSavannahSimulation(random, logger, animalFactory);
+    habitats.add(savannah);
 
     savannah.runSimulation();
   }
 
   private static Habitat buildSavannahSimulation(Random random, Logger logger, AbstractFactory<Animal> animalFactory) {
-    Matrix savannahMatrix = new Matrix();
-    HabitatConfiguration savannahConfiguration = new SavannahConfiguration();
+    Matrix savannahMatrix = new Matrix(random);
+    SavannahConfiguration savannahConfiguration = new SavannahConfiguration();
 
     PopulatorRoutineMessages populatorRoutineMessages = new PopulatorRoutineMessages();
     PopulatorRoutine savannahPopulatorRoutine = new PopulatorRoutine(random, logger, savannahMatrix, savannahConfiguration, animalFactory, populatorRoutineMessages);

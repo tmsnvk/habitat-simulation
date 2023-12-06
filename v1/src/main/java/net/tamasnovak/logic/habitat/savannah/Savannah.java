@@ -3,7 +3,6 @@ package net.tamasnovak.logic.habitat.savannah;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
-import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Matrix;
@@ -34,7 +33,7 @@ public final class Savannah extends Habitat {
 
     while (yearCounter < habitatConfiguration.LENGTH_OF_SIMULATION_YEARS) {
       doPreAnnualRoutine();
-      doAnnualAnimalRoutine();
+      doAnnualRoutine();
       doPostAnnualRoutine();
 
       yearCounter++;
@@ -47,7 +46,7 @@ public final class Savannah extends Habitat {
 
   }
 
-  private void doAnnualAnimalRoutine() {
+  private void doAnnualRoutine() {
     List<Animal> eligibleAnimalsForTheYear = matrix.findAliveAnimals();
     Set<Animal> animalsDiedDuringTheYear = new HashSet<>();
     Collections.shuffle(eligibleAnimalsForTheYear);
