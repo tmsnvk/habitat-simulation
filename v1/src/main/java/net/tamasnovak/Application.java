@@ -21,10 +21,15 @@ public class Application {
   public static void main(String[] args) {
     Random random = new Random();
     Logger logger = new ConsoleLogger();
-
-    Matrix savannahMatrix = new Matrix();
     AbstractFactory<Animal> animalFactory = new AnimalFactory(random);
 
+    Habitat savannah = buildSavannahSimulation(random, logger, animalFactory);
+
+    savannah.runSimulation();
+  }
+
+  private static Habitat buildSavannahSimulation(Random random, Logger logger, AbstractFactory<Animal> animalFactory) {
+    Matrix savannahMatrix = new Matrix();
     HabitatConfiguration savannahConfiguration = new SavannahConfiguration();
 
     PopulatorRoutineMessages populatorRoutineMessages = new PopulatorRoutineMessages();
@@ -33,14 +38,6 @@ public class Application {
     SavannahAnimalSearch savannahAnimalSearch = new SavannahAnimalSearch(savannahMatrix);
     SavannahHuntingRoutine savannahHuntingRoutine = new SavannahHuntingRoutine(logger, random, savannahAnimalSearch);
 
-    Habitat savannah = new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine, savannahHuntingRoutine, savannahAnimalSearch);
-
-    savannah.runSimulation();
+    return new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine, savannahHuntingRoutine, savannahAnimalSearch);
   }
 }
-
-// possible extensions / further ideas:
-// - terminal user input to decide on the size of the board
-// - the number of animals should always be the half of the board size, e.g. a 20x20 board would have 200 animals on it (and always keep herbivore/carnivore ratio at 65%).
-// - terminal user input to decide on how long the simulation should run - need to have a check method that stops the simulation if all animals are dead.
-// - add a hyena/vulture class that eats dead animals.

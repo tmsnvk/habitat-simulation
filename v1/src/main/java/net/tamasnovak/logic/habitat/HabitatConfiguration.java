@@ -17,6 +17,4 @@ public abstract class HabitatConfiguration {
 //    List.of(-1, -1),
 //    List.of(-1, 1)
   );
-
-  public HabitatConfiguration() {}
 }

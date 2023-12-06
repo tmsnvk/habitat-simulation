@@ -17,6 +17,7 @@ public final class AnimalFactory implements AbstractFactory<Animal> {
     this.random = random;
   }
 
+  @Override
   public Animal createAnimal(AnimalType animalType, AnimalSpecies animalSpecies, Cell livingArea) {
     switch (animalType) {
       case CARNIVORE -> animal = new CarnivoreFactoryImpl().createAnimal(animalSpecies, livingArea, random);

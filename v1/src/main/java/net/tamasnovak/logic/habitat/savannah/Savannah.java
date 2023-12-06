@@ -3,6 +3,7 @@ package net.tamasnovak.logic.habitat.savannah;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
+import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Matrix;
@@ -37,8 +38,8 @@ public final class Savannah extends Habitat {
       doPostAnnualRoutine();
 
       yearCounter++;
-//      System.out.printf("zebra - %s%n", matrix.countAnimalType(AnimalType.ZEBRA));
-//      System.out.printf("lion - %s%n", matrix.countAnimalType(AnimalType.LION));
+//      System.out.printf("zebra - %s%n", matrix.countAnimalType(AnimalSpecies.ZEBRA));
+//      System.out.printf("lion - %s%n", matrix.countAnimalType(AnimalSpecies.LION));
     }
   }
 
