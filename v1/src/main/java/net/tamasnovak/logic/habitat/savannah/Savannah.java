@@ -3,6 +3,7 @@ package net.tamasnovak.logic.habitat.savannah;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
+import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Matrix;
@@ -16,34 +17,43 @@ import java.util.Random;
 import java.util.Set;
 
 public final class Savannah extends Habitat {
+  private final SavannahMessages savannahMessages;
   private final SavannahHuntingRoutine savannahHuntingRoutine;
   private final SavannahAnimalSearch savannahAnimalSearch;
 
-  public Savannah(Random random, Logger logger, HabitatConfiguration configuration, Matrix matrix, PopulatorRoutine populatorRoutine, SavannahHuntingRoutine savannahHuntingRoutine, SavannahAnimalSearch savannahAnimalSearch) {
+  public Savannah(
+    Random random,
+    Logger logger,
+    HabitatConfiguration configuration,
+    Matrix matrix,
+    SavannahMessages savannahMessages,
+    PopulatorRoutine populatorRoutine,
+    SavannahHuntingRoutine savannahHuntingRoutine,
+    SavannahAnimalSearch savannahAnimalSearch) {
     super(random, logger, configuration, matrix, populatorRoutine);
+    this.savannahMessages = savannahMessages;
     this.savannahHuntingRoutine = savannahHuntingRoutine;
     this.savannahAnimalSearch = savannahAnimalSearch;
   }
 
   @Override
-  public void runSimulation() {
-    logger.logInfo(SavannahMessages.START_SIMULATION);
+  public void runHabitat() {
+    logger.logInfo(savannahMessages.START_SIMULATION);
     populatorRoutine.run();
-    int yearCounter = 0;
 
+    int yearCounter = 0;
     while (yearCounter < habitatConfiguration.LENGTH_OF_SIMULATION_YEARS) {
       doPreAnnualRoutine();
       doAnnualRoutine();
       doPostAnnualRoutine();
 
       yearCounter++;
-//      System.out.printf("zebra - %s%n", matrix.countAnimalType(AnimalSpecies.ZEBRA));
-//      System.out.printf("lion - %s%n", matrix.countAnimalType(AnimalSpecies.LION));
+//      System.out.printf("zebra - %s%n", matrix.countNumberOfAnimalsPerSpecies(AnimalSpecies.ZEBRA));
+//      System.out.printf("lion - %s%n", matrix.countNumberOfAnimalsPerSpecies(AnimalSpecies.LION));
     }
   }
 
   private void doPreAnnualRoutine() {
-
   }
 
   private void doAnnualRoutine() {
@@ -74,7 +84,7 @@ public final class Savannah extends Habitat {
   }
 
   private void doPostAnnualRoutine() {
-
+    matrix.removeDeadAnimals();
   }
 
   private void doHuntingRoutine(Carnivore carnivore, Set<Animal> deadAnimals) {
@@ -86,20 +96,7 @@ public final class Savannah extends Habitat {
   }
 
   private void doBreedingRoutine(Animal animal) {
-    List<? extends Animal> listNeighbourSameSpecies = savannahAnimalSearch.findNeighbourAnimalTypeInstances(animal, animal.getClass().getSuperclass());
-    boolean canAnimalBreed = animal.canBreed();
-
-    if (canAnimalBreed) {
-//      try {
-////        Animal newBornAnimal = animal.getClass().getDeclaredConstructor().newInstance();
-////        newBornAnimal.
-//      } catch (Exception exception) {
-//        logger.logError(exception.getMessage());
-//      }
-    }
+//    List<? extends Animal> listNeighbourSameSpecies = savannahAnimalSearch.findNeighbourAnimalTypeInstances(animal, animal.getClass().getSuperclass());
+//    boolean canAnimalBreed = animal.canBreed();
   }
-
-//  private void removeDeadAnimal(Animal animal) {
-//    matrix.removeDeadAnimal(animal);
-//  }
 }

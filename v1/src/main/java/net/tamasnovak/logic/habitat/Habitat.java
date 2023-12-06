@@ -21,5 +21,5 @@ public abstract class Habitat {
     this.populatorRoutine = populatorRoutine;
   }
 
-  public abstract void runSimulation();
+  public abstract void runHabitat();
 }

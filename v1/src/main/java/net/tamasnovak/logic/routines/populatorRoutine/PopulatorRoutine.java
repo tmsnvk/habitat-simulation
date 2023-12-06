@@ -20,7 +20,13 @@ public final class PopulatorRoutine {
   private final AbstractFactory<Animal> animalFactory;
   private final PopulatorRoutineMessages routineMessages;
 
-  public PopulatorRoutine(Random random, Logger logger, Matrix matrix, SavannahConfiguration habitatConfiguration, AbstractFactory<Animal> animalFactory, PopulatorRoutineMessages routineMessages) {
+  public PopulatorRoutine(
+    Random random,
+    Logger logger,
+    Matrix matrix,
+    SavannahConfiguration habitatConfiguration,
+    AbstractFactory<Animal> animalFactory,
+    PopulatorRoutineMessages routineMessages) {
     this.random = random;
     this.logger = logger;
     this.matrix = matrix;
@@ -30,7 +36,7 @@ public final class PopulatorRoutine {
   }
 
   public void run() {
-    logger.logInfo(routineMessages.START_POPULATE_MATRIX);
+    displayRoutineStartingLogging();
 
     int animalCounter = 0;
 
@@ -67,6 +73,10 @@ public final class PopulatorRoutine {
     }
   }
 
+  private void displayRoutineStartingLogging() {
+    logger.logInfo(routineMessages.START_POPULATE_MATRIX);
+  }
+
   public void displayRoutineEndingLogging() {
     logger.logInfo(routineMessages.END_POPULATE_MATRIX);
     logger.logInfo(routineMessages.ANIMAL_STATS_INTRO);
@@ -74,8 +84,12 @@ public final class PopulatorRoutine {
     Set<AnimalSpecies> animalTypesInMatrices = matrix.findAllAnimaLType();
 
     for (AnimalSpecies animalSpecies : animalTypesInMatrices) {
-      int numberOfAnimals = matrix.countNumberofAnimalsPerSpecies(animalSpecies);
-      logger.logInfo(String.format(routineMessages.ANIMAL_STATS_SUMMARY, numberOfAnimals, animalSpecies.name()));
+      int numberOfAnimals = matrix.countNumberOfAnimalsPerSpecies(animalSpecies);
+      logger.logInfo(String.format(
+        numberOfAnimals == 1 ? routineMessages.ANIMAL_STATS_SUMMARY_SINGULAR : routineMessages.ANIMAL_STATS_SUMMARY_PLURAL,
+        numberOfAnimals,
+        animalSpecies.name())
+      );
     }
   }
 }

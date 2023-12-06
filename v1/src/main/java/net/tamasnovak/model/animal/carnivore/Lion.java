@@ -43,6 +43,6 @@ public final class Lion extends Carnivore {
 
   @Override
   public String toString() {
-    return String.format("[ID]: %s | [SPECIES]: %s | [TYPE]: %s | [LIVING AREA]: %s | [MAXIMUM AGE]: %s | [CURRENT AGE]: %s | [IS ALIVE?]: %s", id, SPECIES, TYPE, livingArea, maximumAge, currentAge, isAlive);
+    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Living area]: %s | [Maximum age]: %s | [Current Age]: %s | [Is alive?]: %s", id, SPECIES, TYPE, livingArea, maximumAge, currentAge, isAlive);
   }
 }

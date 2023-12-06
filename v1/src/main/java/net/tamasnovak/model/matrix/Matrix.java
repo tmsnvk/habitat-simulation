@@ -41,13 +41,6 @@ public class Matrix {
     matrix[xCoordinate][yCoordinate] = animal;
   }
 
-  public void removeDeadAnimal(Animal animal) {
-    int xCoordinate = animal.getLivingArea().xCoordinate();
-    int yCoordinate = animal.getLivingArea().yCoordinate();
-
-    matrix[xCoordinate][yCoordinate] = null;
-  }
-
   public Set<AnimalSpecies> findAllAnimaLType() {
     Set<AnimalSpecies> animalSpecies = new HashSet<>();
 
@@ -62,7 +55,7 @@ public class Matrix {
     return animalSpecies;
   }
 
-  public int countNumberofAnimalsPerSpecies(AnimalSpecies animalSpecies) {
+  public int countNumberOfAnimalsPerSpecies(AnimalSpecies animalSpecies) {
     return (int) Stream.of(matrix)
       .flatMap(Stream::of)
       .filter(animal -> animal != null && animal.getAnimalType().equals(animalSpecies))
@@ -74,5 +67,18 @@ public class Matrix {
       .flatMap(Stream::of)
       .filter(animal -> animal != null && animal.isAlive())
       .collect(Collectors.toList());
+  }
+
+  public void removeDeadAnimals() {
+    Stream.of(matrix)
+      .flatMap(Stream::of)
+      .filter(animal -> animal != null && !animal.isAlive())
+      .collect(Collectors.toList())
+      .forEach(animal -> {
+        int xCoordinate = animal.getLivingArea().xCoordinate();
+        int yCoordinate = animal.getLivingArea().yCoordinate();
+
+        matrix[xCoordinate][yCoordinate] = null;
+      });
   }
 }
