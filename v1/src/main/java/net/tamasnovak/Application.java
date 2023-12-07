@@ -12,6 +12,9 @@ import net.tamasnovak.logic.habitat.savannah.SavannahHuntingRoutine;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.logic.habitat.savannah.Savannah;
+import net.tamasnovak.ui.UiMessages;
+import net.tamasnovak.ui.display.Display;
+import net.tamasnovak.ui.input.Input;
 import net.tamasnovak.ui.logger.ConsoleLogger;
 import net.tamasnovak.ui.logger.Logger;
 import net.tamasnovak.ui.simulation.SimulationController;
@@ -21,15 +24,19 @@ import java.util.Random;
 public class Application {
   public static void main(String[] args) {
     Random random = new Random();
+    Display display = new Display();
+    Input input = new Input();
     Logger logger = new ConsoleLogger();
     AbstractFactory<Animal> animalFactory = new AnimalFactory(random);
 
-    SimulationController simulationController = new SimulationController();
+    UiMessages uiMessages = new UiMessages();
+    SimulationController simulationController = new SimulationController(display, input, logger, uiMessages);
+
     Habitat savannah = buildSavannahSimulation(random, logger, animalFactory);
 
     simulationController.addHabitat(savannah);
 
-    simulationController.runSimulation();
+//    simulationController.runSimulation();
     savannah.runHabitat();
   }
 

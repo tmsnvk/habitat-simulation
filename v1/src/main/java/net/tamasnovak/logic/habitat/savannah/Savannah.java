@@ -2,8 +2,8 @@ package net.tamasnovak.logic.habitat.savannah;
 
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.HabitatConfiguration;
+import net.tamasnovak.logic.habitat.HabitatType;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
-import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Matrix;
@@ -17,6 +17,7 @@ import java.util.Random;
 import java.util.Set;
 
 public final class Savannah extends Habitat {
+  private static final HabitatType HABITAT_TYPE = HabitatType.SAVANNAH;
   private final SavannahMessages savannahMessages;
   private final SavannahHuntingRoutine savannahHuntingRoutine;
   private final SavannahAnimalSearch savannahAnimalSearch;
@@ -30,7 +31,7 @@ public final class Savannah extends Habitat {
     PopulatorRoutine populatorRoutine,
     SavannahHuntingRoutine savannahHuntingRoutine,
     SavannahAnimalSearch savannahAnimalSearch) {
-    super(random, logger, configuration, matrix, populatorRoutine);
+    super(random, logger, HABITAT_TYPE, configuration, matrix, populatorRoutine);
     this.savannahMessages = savannahMessages;
     this.savannahHuntingRoutine = savannahHuntingRoutine;
     this.savannahAnimalSearch = savannahAnimalSearch;
