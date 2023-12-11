@@ -1,5 +1,6 @@
 # the-habitat-simulation
 
+
 ### simulation parameters - the savannah
 + a 20x20 matrix area.
 + contains 200 animals that are 65% percent herbivores (zebras), the rest are carnivores (lions).
