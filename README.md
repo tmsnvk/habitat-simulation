@@ -1,4 +1,4 @@
-# the-savannah-simulation
+# the-habitat-simulation
 
 ### simulation parameters - the savannah
 + a 20x20 matrix area.
