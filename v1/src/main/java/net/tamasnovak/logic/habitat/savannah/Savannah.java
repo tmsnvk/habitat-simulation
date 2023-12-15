@@ -77,6 +77,7 @@ public final class Savannah extends Habitat {
       if (animal instanceof Carnivore carnivore) {
         doHuntingRoutine(carnivore, animalsDiedDuringTheYear);
       }
+      // animal lifecycle method that includes all lower level methods, so only one method would have to be called here
 
       doBreedingRoutine(animal);
 

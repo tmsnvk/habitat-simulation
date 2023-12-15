@@ -44,6 +44,7 @@ public class Matrix {
   public Set<AnimalSpecies> findAllAnimaLType() {
     Set<AnimalSpecies> animalSpecies = new HashSet<>();
 
+    // filter and map, so no need to create hashset above
     Stream.of(matrix)
       .flatMap(Stream::of)
       .forEach(animal -> {

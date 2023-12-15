@@ -2,6 +2,8 @@ package net.tamasnovak;
 
 import net.tamasnovak.logic.animalFactory.AbstractFactory;
 import net.tamasnovak.logic.animalFactory.AnimalFactory;
+import net.tamasnovak.logic.animalFactory.carnivoreFactory.CarnivoreFactory;
+import net.tamasnovak.logic.animalFactory.herbivoreFactory.HerbivoreFactory;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
 import net.tamasnovak.logic.habitat.savannah.SavannahMessages;
@@ -27,17 +29,26 @@ public class Application {
     Display display = new Display();
     Input input = new Input();
     Logger logger = new ConsoleLogger();
-    AbstractFactory<Animal> animalFactory = new AnimalFactory(random);
+
+    AbstractFactory<Animal> animalFactory = buildAbstractFactory(random);
 
     UiMessages uiMessages = new UiMessages();
     SimulationController simulationController = new SimulationController(display, input, logger, uiMessages);
 
+    // reorganise this build process, so only that simulation gets built that is selected by the user.
     Habitat savannah = buildSavannahSimulation(random, logger, animalFactory);
 
     simulationController.addHabitat(savannah);
 
 //    simulationController.runSimulation();
     savannah.runHabitat();
+  }
+
+  private static AbstractFactory<Animal> buildAbstractFactory(Random random) {
+    HerbivoreFactory herbivoreFactory = new HerbivoreFactory();
+    CarnivoreFactory carnivoreFactory = new CarnivoreFactory();
+
+    return new AnimalFactory(random, herbivoreFactory, carnivoreFactory);
   }
 
   private static Habitat buildSavannahSimulation(Random random, Logger logger, AbstractFactory<Animal> animalFactory) {

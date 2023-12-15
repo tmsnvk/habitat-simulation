@@ -17,7 +17,7 @@ public class SavannahAnimalSearch {
     this.matrix = matrix;
   }
 
-  <T extends Animal> List<T> findNeighbourAnimalTypeInstances(Animal animalToCheckAgainst, Class<?> animalTypeToFind) {
+  <T extends Animal> List<T> findNeighbourAnimalTypeInstances(Animal animalToCheckAgainst, Class<T> animalTypeToFind) {
     Cell animalPosition = animalToCheckAgainst.getLivingArea();
     List<Animal> neighbourAnimals = findNeighbourAnimalsInValidCoordinates(animalPosition);
 
