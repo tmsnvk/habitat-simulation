@@ -8,8 +8,14 @@ import net.tamasnovak.model.matrix.Cell;
 
 import java.util.Random;
 
-public class HerbivoreFactory {
-  public Animal createHerbivore(AnimalSpecies animalSpecies, Cell livingArea, Random random) {
+public final class HerbivoreFactory {
+  private final Random random;
+
+  public HerbivoreFactory(Random random) {
+    this.random = random;
+  }
+
+  public Animal createHerbivore(AnimalSpecies animalSpecies, Cell livingArea) {
     Herbivore animal = null;
 
     switch (animalSpecies) {

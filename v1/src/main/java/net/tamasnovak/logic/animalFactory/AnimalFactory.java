@@ -7,15 +7,11 @@ import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
-import java.util.Random;
-
 public final class AnimalFactory implements AbstractFactory<Animal> {
-  private final Random random;
   private final CarnivoreFactory carnivoreFactory;
   private final HerbivoreFactory herbivoreFactory;
 
-  public AnimalFactory(Random random, HerbivoreFactory herbivoreFactory, CarnivoreFactory carnivoreFactory) {
-    this.random = random;
+  public AnimalFactory(HerbivoreFactory herbivoreFactory, CarnivoreFactory carnivoreFactory) {
     this.herbivoreFactory = herbivoreFactory;
     this.carnivoreFactory = carnivoreFactory;
   }
@@ -25,8 +21,8 @@ public final class AnimalFactory implements AbstractFactory<Animal> {
     Animal animal = null;
 
     switch (animalType) {
-      case CARNIVORE -> animal = carnivoreFactory.createCarnivore(animalSpecies, livingArea, random);
-      case HERBIVORE -> animal = herbivoreFactory.createHerbivore(animalSpecies, livingArea, random);
+      case CARNIVORE -> animal = carnivoreFactory.createCarnivore(animalSpecies, livingArea);
+      case HERBIVORE -> animal = herbivoreFactory.createHerbivore(animalSpecies, livingArea);
     }
 
     return animal;

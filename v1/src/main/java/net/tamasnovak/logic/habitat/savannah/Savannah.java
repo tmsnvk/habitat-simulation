@@ -4,6 +4,7 @@ import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.habitat.HabitatType;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
+import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Matrix;
@@ -18,7 +19,6 @@ import java.util.Set;
 
 public final class Savannah extends Habitat {
   private static final HabitatType HABITAT_TYPE = HabitatType.SAVANNAH;
-  private final SavannahMessages savannahMessages;
   private final SavannahHuntingRoutine savannahHuntingRoutine;
   private final SavannahAnimalSearch savannahAnimalSearch;
 
@@ -27,30 +27,28 @@ public final class Savannah extends Habitat {
     Logger logger,
     HabitatConfiguration configuration,
     Matrix matrix,
-    SavannahMessages savannahMessages,
     PopulatorRoutine populatorRoutine,
     SavannahHuntingRoutine savannahHuntingRoutine,
     SavannahAnimalSearch savannahAnimalSearch) {
     super(random, logger, HABITAT_TYPE, configuration, matrix, populatorRoutine);
-    this.savannahMessages = savannahMessages;
     this.savannahHuntingRoutine = savannahHuntingRoutine;
     this.savannahAnimalSearch = savannahAnimalSearch;
   }
 
   @Override
   public void runHabitat() {
-    logger.logInfo(savannahMessages.START_SIMULATION);
+    logger.logInfo(SavannahMessages.START_SIMULATION);
     populatorRoutine.run();
 
     int yearCounter = 0;
     while (yearCounter < habitatConfiguration.LENGTH_OF_SIMULATION_YEARS) {
+      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
+      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
       doPreAnnualRoutine();
       doAnnualRoutine();
       doPostAnnualRoutine();
 
       yearCounter++;
-//      System.out.printf("zebra - %s%n", matrix.countNumberOfAnimalsPerSpecies(AnimalSpecies.ZEBRA));
-//      System.out.printf("lion - %s%n", matrix.countNumberOfAnimalsPerSpecies(AnimalSpecies.LION));
     }
   }
 

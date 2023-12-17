@@ -3,14 +3,14 @@ package net.tamasnovak.model.matrix;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalSpecies;
 
-import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Matrix {
+public final class Matrix {
   private static final int LENGTH = 20;
   private static final int WIDTH = 20;
   private final Random random;
@@ -29,34 +29,23 @@ public class Matrix {
     return WIDTH;
   }
 
-  public Animal[][] getMatrix() {
-    return matrix;
-  }
-
-  public Animal findAnimalInCoordinate(int xCoordinate, int yCoordinate) {
+  public Animal findAnimalByCoordinate(int xCoordinate, int yCoordinate) {
     return matrix[xCoordinate][yCoordinate];
   }
 
-  public void placeAnimal(int xCoordinate, int yCoordinate, Animal animal) {
+  public void placeAnimalByCoordinate(int xCoordinate, int yCoordinate, Animal animal) {
     matrix[xCoordinate][yCoordinate] = animal;
   }
 
-  public Set<AnimalSpecies> findAllAnimaLType() {
-    Set<AnimalSpecies> animalSpecies = new HashSet<>();
-
-    // filter and map, so no need to create hashset above
-    Stream.of(matrix)
+  public Set<AnimalSpecies> findAllAnimalSpecies() {
+    return Stream.of(matrix)
       .flatMap(Stream::of)
-      .forEach(animal -> {
-        if (animal != null) {
-          animalSpecies.add(animal.getAnimalType());
-        }
-      });
-
-    return animalSpecies;
+      .filter(Objects::nonNull)
+      .map(Animal::getAnimalType)
+      .collect(Collectors.toSet());
   }
 
-  public int countNumberOfAnimalsPerSpecies(AnimalSpecies animalSpecies) {
+  public int countAnimalsBySpecies(AnimalSpecies animalSpecies) {
     return (int) Stream.of(matrix)
       .flatMap(Stream::of)
       .filter(animal -> animal != null && animal.getAnimalType().equals(animalSpecies))

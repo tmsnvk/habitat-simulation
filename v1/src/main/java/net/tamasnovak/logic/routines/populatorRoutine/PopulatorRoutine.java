@@ -18,78 +18,78 @@ public final class PopulatorRoutine {
   private final Matrix matrix;
   private final SavannahConfiguration habitatConfiguration;
   private final AbstractFactory<Animal> animalFactory;
-  private final PopulatorRoutineMessages routineMessages;
 
   public PopulatorRoutine(
     Random random,
     Logger logger,
     Matrix matrix,
     SavannahConfiguration habitatConfiguration,
-    AbstractFactory<Animal> animalFactory,
-    PopulatorRoutineMessages routineMessages) {
+    AbstractFactory<Animal> animalFactory) {
     this.random = random;
     this.logger = logger;
     this.matrix = matrix;
     this.habitatConfiguration = habitatConfiguration;
     this.animalFactory = animalFactory;
-    this.routineMessages = routineMessages;
   }
 
   public void run() {
-    displayRoutineStartingLogging();
+    displayPreRoutineLogs();
+    populateMatrix();
+    displayPostRoutineLogs();
+  }
 
+  private void populateMatrix() {
     int animalCounter = 0;
 
     while (animalCounter < habitatConfiguration.NUMBER_OF_ANIMALS) {
       int xCoordinate = random.nextInt(matrix.getLength());
       int yCoordinate = random.nextInt(matrix.getWidth());
-      Animal animal = matrix.findAnimalInCoordinate(xCoordinate, yCoordinate);
+      Animal animalByCoordinate = matrix.findAnimalByCoordinate(xCoordinate, yCoordinate);
 
-      if (animal != null) {
+      if (animalByCoordinate != null) {
         continue;
       }
 
-      double coinFlipValue = random.nextDouble(0, 1);
-      addAnimalToMatrix(xCoordinate, yCoordinate, coinFlipValue);
+      addAnimalToMatrix(xCoordinate, yCoordinate);
 
       animalCounter++;
     }
-
-    displayRoutineEndingLogging();
   }
 
-  private void addAnimalToMatrix(int xCoordinate, int yCoordinate, double coinFlipValue) {
+  private void addAnimalToMatrix(int xCoordinate, int yCoordinate) {
     Cell livingArea = new Cell(xCoordinate, yCoordinate);
-    Animal animal = createAnimal(coinFlipValue, livingArea);
+    Animal animal = createAnimal(livingArea);
 
-    matrix.placeAnimal(xCoordinate, yCoordinate, animal);
+    matrix.placeAnimalByCoordinate(xCoordinate, yCoordinate, animal);
   }
 
-  private Animal createAnimal(double coinFlipValue, Cell livingArea) {
+  private Animal createAnimal(Cell livingArea) {
+    double coinFlipValue = random.nextDouble(0, 1);
+
     if (coinFlipValue <= habitatConfiguration.CHANCE_OF_HERBIVORE) {
-      return animalFactory.createAnimal(AnimalType.HERBIVORE, AnimalSpecies.ZEBRA, livingArea);
+      return animalFactory.createAnimal(AnimalType.HERBIVORE, habitatConfiguration.HERBIVORE, livingArea);
     } else {
-      return animalFactory.createAnimal(AnimalType.CARNIVORE, AnimalSpecies.LION, livingArea);
+      return animalFactory.createAnimal(AnimalType.CARNIVORE, habitatConfiguration.CARNIVORE, livingArea);
     }
   }
 
-  private void displayRoutineStartingLogging() {
-    logger.logInfo(routineMessages.START_POPULATE_MATRIX);
+  private void displayPreRoutineLogs() {
+    logger.logInfo(PopulatorRoutineMessages.START_POPULATE_MATRIX);
   }
 
-  public void displayRoutineEndingLogging() {
-    logger.logInfo(routineMessages.END_POPULATE_MATRIX);
-    logger.logInfo(routineMessages.ANIMAL_STATS_INTRO);
+  private void displayPostRoutineLogs() {
+    logger.logInfo(PopulatorRoutineMessages.END_POPULATE_MATRIX);
+    logger.logInfo(PopulatorRoutineMessages.ANIMAL_STATS_INTRO);
 
-    Set<AnimalSpecies> animalTypesInMatrices = matrix.findAllAnimaLType();
+    Set<AnimalSpecies> animalTypesInMatrices = matrix.findAllAnimalSpecies();
 
     for (AnimalSpecies animalSpecies : animalTypesInMatrices) {
-      int numberOfAnimals = matrix.countNumberOfAnimalsPerSpecies(animalSpecies);
+      int numberOfAnimals = matrix.countAnimalsBySpecies(animalSpecies);
       logger.logInfo(String.format(
-        numberOfAnimals == 1 ? routineMessages.ANIMAL_STATS_SUMMARY_SINGULAR : routineMessages.ANIMAL_STATS_SUMMARY_PLURAL,
+        numberOfAnimals == 1 ? PopulatorRoutineMessages.ANIMAL_STATS_SUMMARY_SINGULAR : PopulatorRoutineMessages.ANIMAL_STATS_SUMMARY_PLURAL,
         numberOfAnimals,
-        animalSpecies.name())
-      );
+        animalSpecies.name()
+      ));
     }
   }
 }

@@ -14,14 +14,12 @@ public class SimulationController {
   private final Display display;
   private final Input input;
   private final Logger logger;
-  private final UiMessages uiMessages;
   private final List<Habitat> habitats;
 
-  public SimulationController(Display display, Input input, Logger logger, UiMessages uiMessages) {
+  public SimulationController(Display display, Input input, Logger logger) {
     this.display = display;
     this.input = input;
     this.logger = logger;
-    this.uiMessages = uiMessages;
     this.habitats = new ArrayList<>();
   }
 
@@ -37,9 +35,9 @@ public class SimulationController {
   private Habitat selectHabitat() {
     while (true) {
       try {
-        display.displayMessage(uiMessages.INTRO_TEXT);
+        display.displayMessage(UiMessages.INTRO_TEXT);
         printEnumCategories(HabitatType.values());
-        display.displayMessage(uiMessages.PROMPT_TO_SELECT_HABITAT);
+        display.displayMessage(UiMessages.PROMPT_TO_SELECT_HABITAT);
 
         String userInput = input.getInputFromUser();
 
@@ -48,7 +46,7 @@ public class SimulationController {
           .findFirst()
           .orElseThrow();
       } catch (Exception error) {
-        logger.logError(uiMessages.INCORRECT_USER_INPUT_WARNING);
+        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
       }
     }
   }

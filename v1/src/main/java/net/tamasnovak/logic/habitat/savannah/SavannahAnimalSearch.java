@@ -35,7 +35,7 @@ public class SavannahAnimalSearch {
       int yCoordinate = animalPosition.yCoordinate() + coordinate.get(1);
 
       if (areCoordinatesValid(xCoordinate, yCoordinate)) {
-        Animal animal = matrix.findAnimalInCoordinate(xCoordinate, yCoordinate);
+        Animal animal = matrix.findAnimalByCoordinate(xCoordinate, yCoordinate);
 
         neighbourAnimalsInValidCoordinates.add(animal);
       }

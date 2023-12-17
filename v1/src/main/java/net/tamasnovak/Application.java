@@ -32,10 +32,9 @@ public class Application {
 
     AbstractFactory<Animal> animalFactory = buildAbstractFactory(random);
 
-    UiMessages uiMessages = new UiMessages();
-    SimulationController simulationController = new SimulationController(display, input, logger, uiMessages);
+    SimulationController simulationController = new SimulationController(display, input, logger);
 
-    // reorganise this build process, so only that simulation gets built that is selected by the user.
+    // reorganise this build process, so only that simulation gets built that is selected by the user (need to take out the ui input into its own class or move the habitat generations into another one).
     Habitat savannah = buildSavannahSimulation(random, logger, animalFactory);
 
     simulationController.addHabitat(savannah);
@@ -45,23 +44,31 @@ public class Application {
   }
 
   private static AbstractFactory<Animal> buildAbstractFactory(Random random) {
-    HerbivoreFactory herbivoreFactory = new HerbivoreFactory();
-    CarnivoreFactory carnivoreFactory = new CarnivoreFactory();
+    HerbivoreFactory herbivoreFactory = new HerbivoreFactory(random);
+    CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random);
 
-    return new AnimalFactory(random, herbivoreFactory, carnivoreFactory);
+    return new AnimalFactory(herbivoreFactory, carnivoreFactory);
   }
 
   private static Habitat buildSavannahSimulation(Random random, Logger logger, AbstractFactory<Animal> animalFactory) {
     SavannahConfiguration savannahConfiguration = new SavannahConfiguration();
     Matrix savannahMatrix = new Matrix(random);
-    SavannahMessages savannahMessages = new SavannahMessages();
 
-    PopulatorRoutineMessages populatorRoutineMessages = new PopulatorRoutineMessages();
-    PopulatorRoutine savannahPopulatorRoutine = new PopulatorRoutine(random, logger, savannahMatrix, savannahConfiguration, animalFactory, populatorRoutineMessages);
+    PopulatorRoutine savannahPopulatorRoutine = new PopulatorRoutine(random, logger, savannahMatrix, savannahConfiguration, animalFactory);
 
     SavannahAnimalSearch savannahAnimalSearch = new SavannahAnimalSearch(savannahMatrix);
     SavannahHuntingRoutine savannahHuntingRoutine = new SavannahHuntingRoutine(logger, random, savannahAnimalSearch);
 
-    return new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahMessages, savannahPopulatorRoutine, savannahHuntingRoutine, savannahAnimalSearch);
+    return new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine, savannahHuntingRoutine, savannahAnimalSearch);
   }
 }
+
+
+// wishlist:
+// 1. deploy on digital ocean as a terminal programme;
+// 2. start/end array positions saved to a db and can be retrieved with a seed number;
+// 3. multiple habitats;
+// 4. multiple languages;
+// 5. variables can be selected by the user;
+// 6. terminal running is colour-coded and array prints are with animal emojis;
+// 7. full test coverage;

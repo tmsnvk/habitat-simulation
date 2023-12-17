@@ -1,16 +1,16 @@
 package net.tamasnovak.model.animal;
 
 public enum AnimalSpecies {
-  ZEBRA('Z'),
-  LION('L');
+  ZEBRA("🦓"),
+  LEOPARD("🐆");
 
-  private final Character sign;
+  private final String sign;
 
-  AnimalSpecies(Character sign) {
+  AnimalSpecies(String sign) {
     this.sign = sign;
   }
 
-  public Character getSign() {
+  public String getSign() {
     return sign;
   }
 }

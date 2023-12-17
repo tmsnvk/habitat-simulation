@@ -6,14 +6,14 @@ import net.tamasnovak.model.matrix.Cell;
 
 import java.util.Random;
 
-public final class Lion extends Carnivore {
+public final class Leopard extends Carnivore {
   private static int idCounter = 0;
   private final String id;
   private static final int[] MAXIMUM_AGE_VALUES = new int[]{ 9, 10, 11, 12 };
   private static final int MAXIMUM_HUNGER_LEVEL = 2;
-  private static final AnimalSpecies SPECIES = AnimalSpecies.LION;
+  private static final AnimalSpecies SPECIES = AnimalSpecies.LEOPARD;
 
-  public Lion(Cell livingArea, Random random) {
+  public Leopard(Cell livingArea, Random random) {
     super(livingArea, drawMaximumAgeValue(random), SPECIES);
     this.id = String.format("%s-%s", SPECIES, ++idCounter);
   }
