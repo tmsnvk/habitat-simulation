@@ -9,7 +9,7 @@ public abstract class Herbivore extends Animal implements Hunted {
   protected static final AnimalType TYPE = AnimalType.HERBIVORE;
 
   public Herbivore(Cell livingArea, int maximumAge, AnimalSpecies animalSpecies) {
-    super(livingArea, maximumAge, animalSpecies);
+    super(livingArea, maximumAge, animalSpecies, TYPE);
   }
 
   @Override

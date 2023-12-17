@@ -1,9 +1,8 @@
 package net.tamasnovak;
 
-import net.tamasnovak.logic.animalFactory.AbstractFactory;
 import net.tamasnovak.logic.animalFactory.AnimalFactory;
-import net.tamasnovak.logic.animalFactory.carnivoreFactory.CarnivoreFactory;
-import net.tamasnovak.logic.animalFactory.herbivoreFactory.HerbivoreFactory;
+import net.tamasnovak.logic.animalFactory.CarnivoreFactory;
+import net.tamasnovak.logic.animalFactory.HerbivoreFactory;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
@@ -26,7 +25,7 @@ public class Application {
     Input input = new Input();
     Logger logger = new ConsoleLogger();
 
-    AbstractFactory<Animal> animalFactory = buildAbstractFactory(random);
+    AnimalFactory animalFactory = buildAbstractFactory(random);
 
     SimulationController simulationController = new SimulationController(display, input, logger);
 
@@ -39,14 +38,14 @@ public class Application {
     savannah.runHabitat();
   }
 
-  private static AbstractFactory<Animal> buildAbstractFactory(Random random) {
+  private static AnimalFactory buildAbstractFactory(Random random) {
     HerbivoreFactory herbivoreFactory = new HerbivoreFactory(random);
     CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random);
 
     return new AnimalFactory(herbivoreFactory, carnivoreFactory);
   }
 
-  private static Habitat buildSavannahSimulation(Random random, Logger logger, AbstractFactory<Animal> animalFactory) {
+  private static Habitat buildSavannahSimulation(Random random, Logger logger, AnimalFactory animalFactory) {
     SavannahConfiguration savannahConfiguration = new SavannahConfiguration();
     Matrix savannahMatrix = new Matrix(random);
 
@@ -62,6 +61,6 @@ public class Application {
 // 2. start/end array positions saved to a db and can be retrieved with a seed number;
 // 3. multiple habitats;
 // 4. multiple languages;
-// 5. variables can be selected by the user;
+// 5. variables can be selected by the user (including animal types);
 // 6. terminal running is colour-coded and array prints are with animal emojis;
 // 7. full test coverage;

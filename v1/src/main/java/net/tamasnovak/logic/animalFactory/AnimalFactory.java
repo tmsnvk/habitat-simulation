@@ -1,13 +1,11 @@
 package net.tamasnovak.logic.animalFactory;
 
-import net.tamasnovak.logic.animalFactory.carnivoreFactory.CarnivoreFactory;
-import net.tamasnovak.logic.animalFactory.herbivoreFactory.HerbivoreFactory;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
-public final class AnimalFactory implements AbstractFactory<Animal> {
+public final class AnimalFactory {
   private final CarnivoreFactory carnivoreFactory;
   private final HerbivoreFactory herbivoreFactory;
 
@@ -16,8 +14,7 @@ public final class AnimalFactory implements AbstractFactory<Animal> {
     this.carnivoreFactory = carnivoreFactory;
   }
 
-  @Override
-  public Animal buildAnimal(AnimalType animalType, AnimalSpecies animalSpecies, Cell livingArea) {
+  public Animal createAnimal(AnimalType animalType, AnimalSpecies animalSpecies, Cell livingArea) {
     Animal animal = null;
 
     switch (animalType) {

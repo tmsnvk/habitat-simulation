@@ -50,7 +50,7 @@ public final class Matrix {
     matrix[xCoordinate][yCoordinate] = animal;
   }
 
-  public Set<AnimalSpecies> findDistinctAnimalSpecies() {
+  public Set<AnimalSpecies> findDistinctSpecies() {
     return Stream.of(matrix)
       .flatMap(Stream::of)
       .filter(Objects::nonNull)
@@ -65,12 +65,12 @@ public final class Matrix {
       .count();
   }
 
-  public <T extends Animal> List<T> findNeighbourAnimalTypeInstances(Animal animalToCheckAgainst, Class<T> animalTypeToFind) {
-    Cell animalPosition = animalToCheckAgainst.getLivingArea();
+  public <T extends Animal> List<T> findNeighbourAnimalsByType(Animal animalInstance, Class<T> animalType) {
+    Cell animalPosition = animalInstance.getLivingArea();
     List<Animal> neighbourAnimals = findNeighbourAnimalsInValidCoordinates(animalPosition);
 
     return neighbourAnimals.stream()
-      .filter(animalTypeToFind::isInstance)
+      .filter(animalType::isInstance)
       .map(neighbour -> (T) neighbour)
       .collect(Collectors.toList());
   }
@@ -92,10 +92,6 @@ public final class Matrix {
     return neighbourAnimalsInValidCoordinates;
   }
 
-  private boolean areCoordinatesValid(int xCoordinate, int yCoordinate) {
-    return xCoordinate >= 0 && xCoordinate < LENGTH && yCoordinate >= 0 && yCoordinate < WIDTH;
-  }
-
   public List<Animal> findAliveAnimals() {
     return Stream.of(matrix)
       .flatMap(Stream::of)
@@ -114,5 +110,9 @@ public final class Matrix {
 
         matrix[xCoordinate][yCoordinate] = null;
       });
+  }
+
+  private boolean areCoordinatesValid(int xCoordinate, int yCoordinate) {
+    return xCoordinate >= 0 && xCoordinate < LENGTH && yCoordinate >= 0 && yCoordinate < WIDTH;
   }
 }

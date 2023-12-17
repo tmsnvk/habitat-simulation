@@ -20,7 +20,7 @@ public class SavannahHuntingRoutine {
   }
 
   Herbivore run(Carnivore carnivore) {
-    List<Herbivore> neighbourHerbivores = matrix.findNeighbourAnimalTypeInstances(carnivore, Herbivore.class);
+    List<Herbivore> neighbourHerbivores = matrix.findNeighbourAnimalsByType(carnivore, Herbivore.class);
     Herbivore killedHerbivore = null;
 
     if (neighbourHerbivores.isEmpty()) {

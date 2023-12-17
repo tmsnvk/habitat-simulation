@@ -1,6 +1,5 @@
-package net.tamasnovak.logic.animalFactory.herbivoreFactory;
+package net.tamasnovak.logic.animalFactory;
 
-import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
 import net.tamasnovak.model.animal.herbivore.Zebra;
@@ -15,17 +14,17 @@ public final class HerbivoreFactory {
     this.random = random;
   }
 
-  public Animal createHerbivore(AnimalSpecies animalSpecies, Cell livingArea) {
+  Herbivore createHerbivore(AnimalSpecies animalSpecies, Cell livingArea) {
     Herbivore animal = null;
 
     switch (animalSpecies) {
-      case ZEBRA -> animal = createZebra(livingArea, random);
+      case ZEBRA -> animal = createZebra(livingArea);
     }
 
     return animal;
   }
 
-  private Zebra createZebra(Cell livingArea, Random random) {
+  private Zebra createZebra(Cell livingArea) {
     return new Zebra(livingArea, random);
   }
 }
