@@ -15,7 +15,7 @@ public final class Leopard extends Carnivore {
   private static int idCounter = 0;
 
   public Leopard(Cell livingArea, HuntingRoutine huntingRoutine, Random random) {
-    super(createId(), livingArea, drawMaximumAgeValue(random), ICON, SPECIES, huntingRoutine);
+    super(createId(), MAXIMUM_HUNGER_LEVEL, livingArea, drawMaximumAgeValue(random), ICON, SPECIES, huntingRoutine);
   }
 
   private static String createId() {
@@ -34,13 +34,6 @@ public final class Leopard extends Carnivore {
   }
 
   @Override
-  public void dieIfTooHungry() {
-    if (this.getHungerLevel() == MAXIMUM_HUNGER_LEVEL) {
-      die();
-    }
-  }
-
-  @Override
   public boolean canBreed() {
     return this.getCurrentAge() % 3 == 0 && this.getHungerLevel() == 0;
   }
@@ -52,6 +45,6 @@ public final class Leopard extends Carnivore {
 
   @Override
   public String toString() {
-    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Living area]: %s | [Maximum age]: %s | [Current Age]: %s | [Is alive?]: %s", id, SPECIES, TYPE, livingArea, maximumAge, currentAge, isAlive);
+    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Living area]: %s | [Maximum age]: %s | [Current Age]: %s | [Maximum Hunger Level]: %s | [Is alive?]: %s", id, SPECIES, TYPE, livingArea, maximumAge, currentAge, MAXIMUM_HUNGER_LEVEL,  isAlive);
   }
 }

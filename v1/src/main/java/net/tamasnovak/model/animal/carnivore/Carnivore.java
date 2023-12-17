@@ -8,11 +8,13 @@ import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Carnivore extends Animal implements Hunting {
   protected static final AnimalType TYPE = AnimalType.CARNIVORE;
-  protected int hungerLevel;
+  private int hungerLevel;
+  private final int maximumHungerLevel;
   private final HuntingRoutine huntingRoutine;
 
   public Carnivore(
     String id,
+    int maximumHungerLevel,
     Cell livingArea,
     int maximumAge,
     String animalIcon,
@@ -20,6 +22,7 @@ public abstract class Carnivore extends Animal implements Hunting {
     HuntingRoutine huntingRoutine) {
     super(id, livingArea, maximumAge, animalIcon, animalSpecies, TYPE);
     this.hungerLevel = 0;
+    this.maximumHungerLevel = maximumHungerLevel;
     this.huntingRoutine = huntingRoutine;
   }
 
@@ -44,6 +47,13 @@ public abstract class Carnivore extends Animal implements Hunting {
     if (this.isAlive) {
       huntingRoutine.run(this);
       dieIfTooHungry();
+    }
+  }
+
+  @Override
+  public void dieIfTooHungry() {
+    if (this.getHungerLevel() == maximumHungerLevel) {
+      die();
     }
   }
 

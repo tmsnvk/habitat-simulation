@@ -54,7 +54,7 @@ public final class Savannah extends Habitat {
       if (!animal.isAlive()) {
         continue;
       }
-
+      System.out.println(animal);
       animal.doLifeCycleMethods();
     }
   }
