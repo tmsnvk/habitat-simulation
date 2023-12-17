@@ -1,7 +1,7 @@
 package net.tamasnovak.model.animal.carnivore;
 
+import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
 import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
-import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.matrix.Cell;
 
@@ -14,8 +14,8 @@ public final class Leopard extends Carnivore {
   private static final String ICON = "🐆";
   private static int idCounter = 0;
 
-  public Leopard(Cell livingArea, HuntingRoutine huntingRoutine, Random random) {
-    super(createId(), MAXIMUM_HUNGER_LEVEL, livingArea, drawMaximumAgeValue(random), ICON, SPECIES, huntingRoutine);
+  public Leopard(Random random, Cell livingArea, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine) {
+    super(createId(), MAXIMUM_HUNGER_LEVEL, livingArea, drawMaximumAgeValue(random), ICON, SPECIES, huntingRoutine, breedingRoutine);
   }
 
   private static String createId() {
@@ -34,13 +34,8 @@ public final class Leopard extends Carnivore {
   }
 
   @Override
-  public boolean canBreed() {
+  public boolean isAbleToBreed() {
     return this.getCurrentAge() % 3 == 0 && this.getHungerLevel() == 0;
-  }
-
-  @Override
-  public Animal breed() {
-    return null;
   }
 
   @Override

@@ -54,17 +54,12 @@ public final class Savannah extends Habitat {
       if (!animal.isAlive()) {
         continue;
       }
-      System.out.println(animal);
+
       animal.doLifeCycleMethods();
     }
   }
 
   private void doPostAnnualRoutine() {
     matrix.removeDeadAnimals();
-  }
-
-  private void doBreedingRoutine(Animal animal) {
-//    List<? extends Animal> listNeighbourSameSpecies = savannahAnimalSearch.findNeighbourAnimalTypeInstances(animal, animal.getClass().getSuperclass());
-//    boolean canAnimalBreed = animal.canBreed();
   }
 }

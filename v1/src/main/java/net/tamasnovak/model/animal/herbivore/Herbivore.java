@@ -1,5 +1,6 @@
 package net.tamasnovak.model.animal.herbivore;
 
+import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.AnimalType;
@@ -13,8 +14,9 @@ public abstract class Herbivore extends Animal implements Hunted {
     Cell livingArea,
     int maximumAge,
     String animalIcon,
-    AnimalSpecies animalSpecies) {
-    super(id, livingArea, maximumAge, animalIcon, animalSpecies, TYPE);
+    AnimalSpecies animalSpecies,
+    BreedingRoutine breedingRoutine) {
+    super(id, livingArea, maximumAge, animalIcon, animalSpecies, TYPE, breedingRoutine);
   }
 
   @Override

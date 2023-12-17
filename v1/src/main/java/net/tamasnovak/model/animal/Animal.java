@@ -1,5 +1,6 @@
 package net.tamasnovak.model.animal;
 
+import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
 import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Animal {
@@ -12,6 +13,7 @@ public abstract class Animal {
   private String animalIcon;
   private final AnimalSpecies animalSpecies;
   private final AnimalType animalType;
+  private final BreedingRoutine breedingRoutine;
 
   public Animal(
     String id,
@@ -19,7 +21,8 @@ public abstract class Animal {
     int maximumAge,
     String animalIcon,
     AnimalSpecies animalSpecies,
-    AnimalType animalType) {
+    AnimalType animalType,
+    BreedingRoutine breedingRoutine) {
     this.id = id;
     this.currentAge = 0;
     this.isAlive = true;
@@ -28,6 +31,7 @@ public abstract class Animal {
     this.animalIcon = animalIcon;
     this.animalSpecies = animalSpecies;
     this.animalType = animalType;
+    this.breedingRoutine = breedingRoutine;
   }
 
   public int getCurrentAge() {
@@ -77,9 +81,11 @@ public abstract class Animal {
     }
   }
 
-  protected abstract boolean canBreed();
+  protected abstract boolean isAbleToBreed();
 
-  protected abstract Animal breed();
+  protected void breed() {
+
+  }
 
   protected abstract void move();
 }

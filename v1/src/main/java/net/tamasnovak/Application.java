@@ -5,6 +5,7 @@ import net.tamasnovak.logic.animalFactory.CarnivoreFactory;
 import net.tamasnovak.logic.animalFactory.HerbivoreFactory;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
+import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.model.matrix.Matrix;
@@ -25,8 +26,9 @@ public class Application {
     Logger logger = new ConsoleLogger();
 
     Matrix habitatMatrix = new Matrix();
-    HuntingRoutine huntingRoutine = new HuntingRoutine(logger, random, habitatMatrix);
-    AnimalFactory animalFactory = buildAbstractFactory(random, huntingRoutine);
+    HuntingRoutine huntingRoutine = new HuntingRoutine(random, logger, habitatMatrix);
+    BreedingRoutine breedingRoutine = new BreedingRoutine(random, logger, habitatMatrix);
+    AnimalFactory animalFactory = buildAbstractFactory(random, huntingRoutine, breedingRoutine);
 
     SimulationController simulationController = new SimulationController(display, input, logger);
 
@@ -39,9 +41,9 @@ public class Application {
     savannah.runHabitat();
   }
 
-  private static AnimalFactory buildAbstractFactory(Random random, HuntingRoutine huntingRoutine) {
-    CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random, huntingRoutine);
-    HerbivoreFactory herbivoreFactory = new HerbivoreFactory(random);
+  private static AnimalFactory buildAbstractFactory(Random random, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine) {
+    CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random, huntingRoutine, breedingRoutine);
+    HerbivoreFactory herbivoreFactory = new HerbivoreFactory(random, breedingRoutine);
 
     return new AnimalFactory(herbivoreFactory, carnivoreFactory);
   }

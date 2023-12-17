@@ -2,6 +2,7 @@ package net.tamasnovak.logic.routines.populatorRoutine;
 
 import net.tamasnovak.logic.animalFactory.AnimalFactory;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
+import net.tamasnovak.logic.routines.Routine;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.AnimalType;
@@ -12,10 +13,7 @@ import net.tamasnovak.ui.logger.Logger;
 import java.util.Random;
 import java.util.Set;
 
-public final class PopulatorRoutine {
-  private final Random random;
-  private final Logger logger;
-  private final Matrix matrix;
+public final class PopulatorRoutine extends Routine {
   private final SavannahConfiguration habitatConfiguration;
   private final AnimalFactory animalFactory;
 
@@ -25,9 +23,7 @@ public final class PopulatorRoutine {
     Matrix matrix,
     SavannahConfiguration habitatConfiguration,
     AnimalFactory animalFactory) {
-    this.random = random;
-    this.logger = logger;
-    this.matrix = matrix;
+    super(random, logger, matrix);
     this.habitatConfiguration = habitatConfiguration;
     this.animalFactory = animalFactory;
   }

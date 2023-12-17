@@ -1,5 +1,6 @@
 package net.tamasnovak.model.animal.herbivore;
 
+import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.matrix.Cell;
@@ -12,8 +13,8 @@ public final class Zebra extends Herbivore {
   private static final String ICON = "🦓";
   private static int idCounter = 0;
 
-  public Zebra(Cell livingArea, Random random) {
-    super(createId(), livingArea , drawMaximumAgeValue(random), ICON, SPECIES);
+  public Zebra(Random random, Cell livingArea, BreedingRoutine breedingRoutine) {
+    super(createId(), livingArea, drawMaximumAgeValue(random), ICON, SPECIES, breedingRoutine);
   }
 
   private static String createId() {
@@ -27,18 +28,13 @@ public final class Zebra extends Herbivore {
   }
 
   @Override
-  protected void move() {
-
-  }
-
-  @Override
-  public boolean canBreed() {
+  public boolean isAbleToBreed() {
     return this.getCurrentAge() % 2 == 0;
   }
 
   @Override
-  public Animal breed() {
-    return null;
+  protected void move() {
+
   }
 
   @Override

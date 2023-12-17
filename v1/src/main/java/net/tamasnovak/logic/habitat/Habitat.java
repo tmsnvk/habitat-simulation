@@ -14,7 +14,13 @@ public abstract class Habitat {
   protected final HabitatConfiguration habitatConfiguration;
   protected final PopulatorRoutine populatorRoutine;
 
-  protected Habitat(Random random, Logger logger, HabitatType habitatType, HabitatConfiguration habitatConfiguration, Matrix matrix, PopulatorRoutine populatorRoutine) {
+  protected Habitat(
+    Random random,
+    Logger logger,
+    HabitatType habitatType,
+    HabitatConfiguration habitatConfiguration,
+    Matrix matrix,
+    PopulatorRoutine populatorRoutine) {
     this.random = random;
     this.logger = logger;
     this.habitatType = habitatType;
