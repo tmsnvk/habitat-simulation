@@ -48,11 +48,9 @@ public class Application {
 
   private static Habitat buildSavannahSimulation(Random random, Logger logger, Matrix savannahMatrix, AnimalFactory animalFactory) {
     SavannahConfiguration savannahConfiguration = new SavannahConfiguration();
-
     PopulatorRoutine savannahPopulatorRoutine = new PopulatorRoutine(random, logger, savannahMatrix, savannahConfiguration, animalFactory);
-    HuntingRoutine huntingRoutine = new HuntingRoutine(logger, random, savannahMatrix);
 
-    return new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine, huntingRoutine);
+    return new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine);
   }
 }
 

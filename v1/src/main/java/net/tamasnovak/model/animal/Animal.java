@@ -4,15 +4,23 @@ import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Animal {
   private static final String DEAD_ANIMAL_ICON = "☠";
+  protected final String id;
   protected int currentAge;
   protected final int maximumAge;
   protected boolean isAlive;
   protected Cell livingArea;
   private String animalIcon;
-  protected final AnimalSpecies animalSpecies;
-  protected final AnimalType animalType;
+  private final AnimalSpecies animalSpecies;
+  private final AnimalType animalType;
 
-  public Animal(Cell livingArea, int maximumAge, String animalIcon, AnimalSpecies animalSpecies, AnimalType animalType) {
+  public Animal(
+    String id,
+    Cell livingArea,
+    int maximumAge,
+    String animalIcon,
+    AnimalSpecies animalSpecies,
+    AnimalType animalType) {
+    this.id = id;
     this.currentAge = 0;
     this.isAlive = true;
     this.livingArea = livingArea;
@@ -57,10 +65,6 @@ public abstract class Animal {
   protected void die() {
     this.isAlive = false;
     this.animalIcon = DEAD_ANIMAL_ICON;
-  }
-
-  public void removeDeadAnimal() {
-    this.livingArea = null;
   }
 
   public abstract void doLifeCycleMethods();

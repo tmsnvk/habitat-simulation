@@ -11,8 +11,14 @@ public abstract class Carnivore extends Animal implements Hunting {
   protected int hungerLevel;
   private final HuntingRoutine huntingRoutine;
 
-  public Carnivore(Cell livingArea, int maximumAge, String animalIcon, AnimalSpecies animalSpecies, HuntingRoutine huntingRoutine) {
-    super(livingArea, maximumAge, animalIcon, animalSpecies, TYPE);
+  public Carnivore(
+    String id,
+    Cell livingArea,
+    int maximumAge,
+    String animalIcon,
+    AnimalSpecies animalSpecies,
+    HuntingRoutine huntingRoutine) {
+    super(id, livingArea, maximumAge, animalIcon, animalSpecies, TYPE);
     this.hungerLevel = 0;
     this.huntingRoutine = huntingRoutine;
   }

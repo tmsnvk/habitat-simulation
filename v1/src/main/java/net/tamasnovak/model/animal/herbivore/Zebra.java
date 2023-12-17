@@ -11,11 +11,13 @@ public final class Zebra extends Herbivore {
   private static final AnimalSpecies SPECIES = AnimalSpecies.ZEBRA;
   private static final String ICON = "🦓";
   private static int idCounter = 0;
-  private final String id;
 
   public Zebra(Cell livingArea, Random random) {
-    super(livingArea, drawMaximumAgeValue(random), ICON, SPECIES);
-    this.id = String.format("%s-%s", SPECIES, ++idCounter);
+    super(createId(), livingArea , drawMaximumAgeValue(random), ICON, SPECIES);
+  }
+
+  private static String createId() {
+    return String.format("%s-%s", SPECIES, ++idCounter);
   }
 
   private static int drawMaximumAgeValue(Random random) {
