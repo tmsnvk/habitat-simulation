@@ -25,6 +25,16 @@ public final class Leopard extends Carnivore {
   }
 
   @Override
+  protected void move() {
+
+  }
+
+  @Override
+  protected void hunt() {
+
+  }
+
+  @Override
   public void perishIfTooHungry() {
     if (this.getHungerLevel() == MAXIMUM_HUNGER_LEVEL) {
       this.setAlive(false);
@@ -37,7 +47,7 @@ public final class Leopard extends Carnivore {
   }
 
   @Override
-  public Animal makeNewAnimal() {
+  public Animal breed() {
     return null;
   }
 

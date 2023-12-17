@@ -7,7 +7,6 @@ import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.logic.habitat.savannah.SavannahHuntingRoutine;
-import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.logic.habitat.savannah.Savannah;
 import net.tamasnovak.ui.display.Display;
@@ -63,4 +62,5 @@ public class Application {
 // 4. multiple languages;
 // 5. variables can be selected by the user (including animal types);
 // 6. terminal running is colour-coded and array prints are with animal emojis;
-// 7. full test coverage;
+// 7. terminal should provide messages about the animals, e.g. how long they live, etc.
+// 8. full test coverage;

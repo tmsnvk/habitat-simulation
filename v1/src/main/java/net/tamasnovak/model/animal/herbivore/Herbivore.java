@@ -13,6 +13,18 @@ public abstract class Herbivore extends Animal implements Hunted {
   }
 
   @Override
+  public void doLifeCycleMethods() {
+    increaseAge();
+
+    if (!isAlive) {
+      return;
+    }
+
+    breed();
+    move();
+  }
+
+  @Override
   public void perishIfKilledByCarnivore() {
     this.setAlive(false);
   }

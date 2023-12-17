@@ -24,12 +24,17 @@ public final class Zebra extends Herbivore {
   }
 
   @Override
+  protected void move() {
+
+  }
+
+  @Override
   public boolean canBreed() {
     return this.getCurrentAge() % 2 == 0;
   }
 
   @Override
-  public Animal makeNewAnimal() {
+  public Animal breed() {
     return null;
   }
 

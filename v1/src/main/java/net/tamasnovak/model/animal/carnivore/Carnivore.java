@@ -22,6 +22,21 @@ public abstract class Carnivore extends Animal implements Hunting {
     this.hungerLevel = hungerLevel;
   }
 
+  protected abstract void hunt();
+
+  @Override
+  public void doLifeCycleMethods() {
+    increaseAge();
+
+    if (!isAlive) {
+      return;
+    }
+
+    hunt();
+    breed();
+    move();
+  }
+
   @Override
   public void increaseHungerLevelAfterUnsuccessfulHunt() {
     this.setHungerLevel(this.getHungerLevel() + 1);

@@ -55,7 +55,9 @@ public abstract class Animal {
     this.livingArea = null;
   }
 
-  public void increaseAge() {
+  public abstract void doLifeCycleMethods();
+
+  protected void increaseAge() {
     if (this.getCurrentAge() == maximumAge) {
       isAlive = false;
     } else {
@@ -63,11 +65,9 @@ public abstract class Animal {
     }
   }
 
-  public abstract boolean canBreed();
+  protected abstract boolean canBreed();
 
-  public abstract Animal makeNewAnimal();
+  protected abstract Animal breed();
 
-  public void move() {
-
-  }
+  protected abstract void move();
 }

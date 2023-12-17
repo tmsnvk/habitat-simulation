@@ -54,6 +54,7 @@ public final class Savannah extends Habitat {
   private void doAnnualRoutine() {
     List<Animal> eligibleAnimalsForTheYear = matrix.findAliveAnimals();
     Set<Animal> animalsDiedDuringTheYear = new HashSet<>();
+
     Collections.shuffle(eligibleAnimalsForTheYear);
 
     for (Animal animal : eligibleAnimalsForTheYear) {
@@ -61,21 +62,19 @@ public final class Savannah extends Habitat {
         continue;
       }
 
-      animal.increaseAge();
+      animal.doLifeCycleMethods();
 
       if (!animal.isAlive()) {
         animalsDiedDuringTheYear.add(animal);
-        continue;
       }
 
-      if (animal instanceof Carnivore carnivore) {
-        doHuntingRoutine(carnivore, animalsDiedDuringTheYear);
-      }
-      // animal lifecycle method that includes all lower level methods, so only one method would have to be called here
 
-      doBreedingRoutine(animal);
-
-      animal.move();
+//      if (animal instanceof Carnivore carnivore) {
+//        doHuntingRoutine(carnivore, animalsDiedDuringTheYear);
+//      }
+//      // animal lifecycle method that includes all lower level methods, so only one method would have to be called here
+//
+//      doBreedingRoutine(animal);
     }
   }
 
