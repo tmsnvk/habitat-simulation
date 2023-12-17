@@ -7,13 +7,14 @@ import net.tamasnovak.model.matrix.Cell;
 import java.util.Random;
 
 public final class Zebra extends Herbivore {
-  private static int idCounter = 0;
-  private final String id;
   private static final int[] MAXIMUM_AGE_VALUES = new int[]{ 11, 12, 13, 14 };
   private static final AnimalSpecies SPECIES = AnimalSpecies.ZEBRA;
+  private static final String ICON = "🦓";
+  private static int idCounter = 0;
+  private final String id;
 
   public Zebra(Cell livingArea, Random random) {
-    super(livingArea, drawMaximumAgeValue(random), SPECIES);
+    super(livingArea, drawMaximumAgeValue(random), ICON, SPECIES);
     this.id = String.format("%s-%s", SPECIES, ++idCounter);
   }
 

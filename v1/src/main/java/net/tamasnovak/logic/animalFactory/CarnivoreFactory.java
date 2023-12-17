@@ -1,5 +1,6 @@
 package net.tamasnovak.logic.animalFactory;
 
+import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.carnivore.Leopard;
@@ -9,9 +10,11 @@ import java.util.Random;
 
 public final class CarnivoreFactory {
   private final Random random;
+  private final HuntingRoutine huntingRoutine;
 
-  public CarnivoreFactory(Random random) {
+  public CarnivoreFactory(Random random, HuntingRoutine huntingRoutine) {
     this.random = random;
+    this.huntingRoutine = huntingRoutine;
   }
 
   Carnivore createCarnivore(AnimalSpecies animalSpecies, Cell livingArea) {
@@ -25,6 +28,6 @@ public final class CarnivoreFactory {
   }
 
   private Leopard createLeopard(Cell livingArea) {
-    return new Leopard(livingArea, random);
+    return new Leopard(livingArea, huntingRoutine, random);
   }
 }

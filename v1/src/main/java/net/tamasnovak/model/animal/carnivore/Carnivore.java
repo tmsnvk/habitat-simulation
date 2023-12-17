@@ -1,5 +1,6 @@
 package net.tamasnovak.model.animal.carnivore;
 
+import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.AnimalType;
@@ -8,10 +9,12 @@ import net.tamasnovak.model.matrix.Cell;
 public abstract class Carnivore extends Animal implements Hunting {
   protected static final AnimalType TYPE = AnimalType.CARNIVORE;
   protected int hungerLevel;
+  private final HuntingRoutine huntingRoutine;
 
-  public Carnivore(Cell livingArea, int maximumAge, AnimalSpecies animalSpecies) {
-    super(livingArea, maximumAge, animalSpecies, TYPE);
+  public Carnivore(Cell livingArea, int maximumAge, String animalIcon, AnimalSpecies animalSpecies, HuntingRoutine huntingRoutine) {
+    super(livingArea, maximumAge, animalIcon, animalSpecies, TYPE);
     this.hungerLevel = 0;
+    this.huntingRoutine = huntingRoutine;
   }
 
   int getHungerLevel() {
@@ -22,28 +25,29 @@ public abstract class Carnivore extends Animal implements Hunting {
     this.hungerLevel = hungerLevel;
   }
 
-  protected abstract void hunt();
-
   @Override
   public void doLifeCycleMethods() {
     increaseAge();
-
-    if (!isAlive) {
-      return;
-    }
-
     hunt();
     breed();
     move();
   }
 
   @Override
-  public void increaseHungerLevelAfterUnsuccessfulHunt() {
+  public void hunt() {
+    if (this.isAlive) {
+      huntingRoutine.run(this);
+      dieIfTooHungry();
+    }
+  }
+
+  @Override
+  public void increaseHungerLevel() {
     this.setHungerLevel(this.getHungerLevel() + 1);
   }
 
   @Override
-  public void resetHungerLevelAfterSuccessfulHunt() {
+  public void resetHungerLevel() {
     this.setHungerLevel(0);
   }
 }

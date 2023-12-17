@@ -8,8 +8,8 @@ import net.tamasnovak.model.matrix.Cell;
 public abstract class Herbivore extends Animal implements Hunted {
   protected static final AnimalType TYPE = AnimalType.HERBIVORE;
 
-  public Herbivore(Cell livingArea, int maximumAge, AnimalSpecies animalSpecies) {
-    super(livingArea, maximumAge, animalSpecies, TYPE);
+  public Herbivore(Cell livingArea, int maximumAge, String animalIcon, AnimalSpecies animalSpecies) {
+    super(livingArea, maximumAge, animalIcon, animalSpecies, TYPE);
   }
 
   @Override
@@ -25,7 +25,7 @@ public abstract class Herbivore extends Animal implements Hunted {
   }
 
   @Override
-  public void perishIfKilledByCarnivore() {
-    this.setAlive(false);
+  public void dieByBeingHunted() {
+    die();
   }
 }

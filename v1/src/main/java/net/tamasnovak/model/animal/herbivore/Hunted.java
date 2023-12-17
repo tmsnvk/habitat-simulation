@@ -1,5 +1,5 @@
 package net.tamasnovak.model.animal.herbivore;
 
 public interface Hunted {
-  void perishIfKilledByCarnivore();
+  void dieByBeingHunted();
 }

@@ -3,7 +3,9 @@ package net.tamasnovak.logic.habitat.savannah;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.habitat.HabitatType;
+import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
+import net.tamasnovak.model.animal.AnimalSpecies;
 import net.tamasnovak.model.animal.carnivore.Carnivore;
 import net.tamasnovak.model.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Matrix;
@@ -18,7 +20,7 @@ import java.util.Set;
 
 public final class Savannah extends Habitat {
   private static final HabitatType HABITAT_TYPE = HabitatType.SAVANNAH;
-  private final SavannahHuntingRoutine savannahHuntingRoutine;
+  private final HuntingRoutine huntingRoutine;
 
   public Savannah(
     Random random,
@@ -26,9 +28,9 @@ public final class Savannah extends Habitat {
     HabitatConfiguration configuration,
     Matrix matrix,
     PopulatorRoutine populatorRoutine,
-    SavannahHuntingRoutine savannahHuntingRoutine) {
+    HuntingRoutine huntingRoutine) {
     super(random, logger, HABITAT_TYPE, configuration, matrix, populatorRoutine);
-    this.savannahHuntingRoutine = savannahHuntingRoutine;
+    this.huntingRoutine = huntingRoutine;
   }
 
   @Override
@@ -38,8 +40,8 @@ public final class Savannah extends Habitat {
 
     int yearCounter = 0;
     while (yearCounter < habitatConfiguration.LENGTH_OF_SIMULATION_YEARS) {
-//      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
-//      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
+      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
+      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
       doPreAnnualRoutine();
       doAnnualRoutine();
       doPostAnnualRoutine();
@@ -53,28 +55,14 @@ public final class Savannah extends Habitat {
 
   private void doAnnualRoutine() {
     List<Animal> eligibleAnimalsForTheYear = matrix.findAliveAnimals();
-    Set<Animal> animalsDiedDuringTheYear = new HashSet<>();
-
     Collections.shuffle(eligibleAnimalsForTheYear);
 
     for (Animal animal : eligibleAnimalsForTheYear) {
-      if (animalsDiedDuringTheYear.contains(animal)) {
+      if (!animal.isAlive()) {
         continue;
       }
 
       animal.doLifeCycleMethods();
-
-      if (!animal.isAlive()) {
-        animalsDiedDuringTheYear.add(animal);
-      }
-
-
-//      if (animal instanceof Carnivore carnivore) {
-//        doHuntingRoutine(carnivore, animalsDiedDuringTheYear);
-//      }
-//      // animal lifecycle method that includes all lower level methods, so only one method would have to be called here
-//
-//      doBreedingRoutine(animal);
     }
   }
 
@@ -82,13 +70,13 @@ public final class Savannah extends Habitat {
     matrix.removeDeadAnimals();
   }
 
-  private void doHuntingRoutine(Carnivore carnivore, Set<Animal> deadAnimals) {
-    Herbivore killedHerbivore = savannahHuntingRoutine.run(carnivore);
-
-    if (killedHerbivore != null) {
-      deadAnimals.add(killedHerbivore);
-    }
-  }
+//  private void doHuntingRoutine(Carnivore carnivore, Set<Animal> deadAnimals) {
+//    Herbivore killedHerbivore = huntingRoutine.run(carnivore);
+//
+//    if (killedHerbivore != null) {
+//      deadAnimals.add(killedHerbivore);
+//    }
+//  }
 
   private void doBreedingRoutine(Animal animal) {
 //    List<? extends Animal> listNeighbourSameSpecies = savannahAnimalSearch.findNeighbourAnimalTypeInstances(animal, animal.getClass().getSuperclass());

@@ -6,7 +6,7 @@ import net.tamasnovak.logic.animalFactory.HerbivoreFactory;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
-import net.tamasnovak.logic.habitat.savannah.SavannahHuntingRoutine;
+import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.logic.habitat.savannah.Savannah;
 import net.tamasnovak.ui.display.Display;
@@ -24,12 +24,14 @@ public class Application {
     Input input = new Input();
     Logger logger = new ConsoleLogger();
 
-    AnimalFactory animalFactory = buildAbstractFactory(random);
+    Matrix habitatMatrix = new Matrix();
+    HuntingRoutine huntingRoutine = new HuntingRoutine(logger, random, habitatMatrix);
+    AnimalFactory animalFactory = buildAbstractFactory(random, huntingRoutine);
 
     SimulationController simulationController = new SimulationController(display, input, logger);
 
     // reorganise this build process, so only that simulation gets built that is selected by the user (need to take out the ui input into its own class or move the habitat generations into another one).
-    Habitat savannah = buildSavannahSimulation(random, logger, animalFactory);
+    Habitat savannah = buildSavannahSimulation(random, logger, habitatMatrix, animalFactory);
 
     simulationController.addHabitat(savannah);
 
@@ -37,21 +39,20 @@ public class Application {
     savannah.runHabitat();
   }
 
-  private static AnimalFactory buildAbstractFactory(Random random) {
+  private static AnimalFactory buildAbstractFactory(Random random, HuntingRoutine huntingRoutine) {
+    CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random, huntingRoutine);
     HerbivoreFactory herbivoreFactory = new HerbivoreFactory(random);
-    CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random);
 
     return new AnimalFactory(herbivoreFactory, carnivoreFactory);
   }
 
-  private static Habitat buildSavannahSimulation(Random random, Logger logger, AnimalFactory animalFactory) {
+  private static Habitat buildSavannahSimulation(Random random, Logger logger, Matrix savannahMatrix, AnimalFactory animalFactory) {
     SavannahConfiguration savannahConfiguration = new SavannahConfiguration();
-    Matrix savannahMatrix = new Matrix(random);
 
     PopulatorRoutine savannahPopulatorRoutine = new PopulatorRoutine(random, logger, savannahMatrix, savannahConfiguration, animalFactory);
-    SavannahHuntingRoutine savannahHuntingRoutine = new SavannahHuntingRoutine(logger, random, savannahMatrix);
+    HuntingRoutine huntingRoutine = new HuntingRoutine(logger, random, savannahMatrix);
 
-    return new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine, savannahHuntingRoutine);
+    return new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine, huntingRoutine);
   }
 }
 

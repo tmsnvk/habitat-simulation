@@ -1,7 +1,8 @@
 package net.tamasnovak.model.animal.carnivore;
 
 public interface Hunting {
-  void increaseHungerLevelAfterUnsuccessfulHunt();
-  void resetHungerLevelAfterSuccessfulHunt();
-  void perishIfTooHungry();
+  void hunt();
+  void increaseHungerLevel();
+  void resetHungerLevel();
+  void dieIfTooHungry();
 }

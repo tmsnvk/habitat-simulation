@@ -3,18 +3,21 @@ package net.tamasnovak.model.animal;
 import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Animal {
+  private static final String DEAD_ANIMAL_ICON = "☠";
   protected int currentAge;
   protected final int maximumAge;
   protected boolean isAlive;
   protected Cell livingArea;
+  private String animalIcon;
   protected final AnimalSpecies animalSpecies;
   protected final AnimalType animalType;
 
-  public Animal(Cell livingArea, int maximumAge, AnimalSpecies animalSpecies, AnimalType animalType) {
+  public Animal(Cell livingArea, int maximumAge, String animalIcon, AnimalSpecies animalSpecies, AnimalType animalType) {
     this.currentAge = 0;
     this.isAlive = true;
     this.livingArea = livingArea;
     this.maximumAge = maximumAge;
+    this.animalIcon = animalIcon;
     this.animalSpecies = animalSpecies;
     this.animalType = animalType;
   }
@@ -39,16 +42,21 @@ public abstract class Animal {
     return isAlive;
   }
 
-  protected void setAlive(boolean alive) {
-    this.isAlive = alive;
+  public String getAnimalIcon() {
+    return animalIcon;
+  }
+
+  public AnimalSpecies getAnimalSpecies() {
+    return animalSpecies;
   }
 
   public AnimalSpecies getAnimalType() {
     return animalSpecies;
   }
 
-  public AnimalSpecies getAnimalSpecies() {
-    return animalSpecies;
+  protected void die() {
+    this.isAlive = false;
+    this.animalIcon = DEAD_ANIMAL_ICON;
   }
 
   public void removeDeadAnimal() {
@@ -59,7 +67,7 @@ public abstract class Animal {
 
   protected void increaseAge() {
     if (this.getCurrentAge() == maximumAge) {
-      isAlive = false;
+      die();
     } else {
       this.setCurrentAge(this.getCurrentAge() + 1);
     }

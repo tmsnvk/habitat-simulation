@@ -6,7 +6,6 @@ import net.tamasnovak.model.animal.AnimalSpecies;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,11 +25,9 @@ public final class Matrix {
 //    List.of(-1, -1),
 //    List.of(-1, 1)
   );
-  private final Random random;
   private final Animal[][] matrix;
 
-  public Matrix(Random random) {
-    this.random = random;
+  public Matrix() {
     this.matrix = new Animal[LENGTH][WIDTH];
   }
 
