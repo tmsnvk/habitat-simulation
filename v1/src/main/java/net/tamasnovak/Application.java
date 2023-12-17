@@ -6,15 +6,11 @@ import net.tamasnovak.logic.animalFactory.carnivoreFactory.CarnivoreFactory;
 import net.tamasnovak.logic.animalFactory.herbivoreFactory.HerbivoreFactory;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
-import net.tamasnovak.logic.habitat.savannah.SavannahMessages;
 import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
-import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutineMessages;
-import net.tamasnovak.logic.habitat.savannah.SavannahAnimalSearch;
 import net.tamasnovak.logic.habitat.savannah.SavannahHuntingRoutine;
 import net.tamasnovak.model.animal.Animal;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.logic.habitat.savannah.Savannah;
-import net.tamasnovak.ui.UiMessages;
 import net.tamasnovak.ui.display.Display;
 import net.tamasnovak.ui.input.Input;
 import net.tamasnovak.ui.logger.ConsoleLogger;
@@ -55,14 +51,11 @@ public class Application {
     Matrix savannahMatrix = new Matrix(random);
 
     PopulatorRoutine savannahPopulatorRoutine = new PopulatorRoutine(random, logger, savannahMatrix, savannahConfiguration, animalFactory);
+    SavannahHuntingRoutine savannahHuntingRoutine = new SavannahHuntingRoutine(logger, random, savannahMatrix);
 
-    SavannahAnimalSearch savannahAnimalSearch = new SavannahAnimalSearch(savannahMatrix);
-    SavannahHuntingRoutine savannahHuntingRoutine = new SavannahHuntingRoutine(logger, random, savannahAnimalSearch);
-
-    return new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine, savannahHuntingRoutine, savannahAnimalSearch);
+    return new Savannah(random, logger, savannahConfiguration, savannahMatrix, savannahPopulatorRoutine, savannahHuntingRoutine);
   }
 }
-
 
 // wishlist:
 // 1. deploy on digital ocean as a terminal programme;

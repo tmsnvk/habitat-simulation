@@ -17,7 +17,7 @@ public final class AnimalFactory implements AbstractFactory<Animal> {
   }
 
   @Override
-  public Animal createAnimal(AnimalType animalType, AnimalSpecies animalSpecies, Cell livingArea) {
+  public Animal buildAnimal(AnimalType animalType, AnimalSpecies animalSpecies, Cell livingArea) {
     Animal animal = null;
 
     switch (animalType) {

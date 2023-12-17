@@ -51,7 +51,6 @@ public final class PopulatorRoutine {
       }
 
       addAnimalToMatrix(xCoordinate, yCoordinate);
-
       animalCounter++;
     }
   }
@@ -67,9 +66,9 @@ public final class PopulatorRoutine {
     double coinFlipValue = random.nextDouble(0, 1);
 
     if (coinFlipValue <= habitatConfiguration.CHANCE_OF_HERBIVORE) {
-      return animalFactory.createAnimal(AnimalType.HERBIVORE, habitatConfiguration.HERBIVORE, livingArea);
+      return animalFactory.buildAnimal(AnimalType.HERBIVORE, habitatConfiguration.HERBIVORE, livingArea);
     } else {
-      return animalFactory.createAnimal(AnimalType.CARNIVORE, habitatConfiguration.CARNIVORE, livingArea);
+      return animalFactory.buildAnimal(AnimalType.CARNIVORE, habitatConfiguration.CARNIVORE, livingArea);
     }
   }
 
@@ -81,9 +80,9 @@ public final class PopulatorRoutine {
     logger.logInfo(PopulatorRoutineMessages.END_POPULATE_MATRIX);
     logger.logInfo(PopulatorRoutineMessages.ANIMAL_STATS_INTRO);
 
-    Set<AnimalSpecies> animalTypesInMatrices = matrix.findAllAnimalSpecies();
+    Set<AnimalSpecies> animalSpeciesInMatrix = matrix.findDistinctAnimalSpecies();
 
-    for (AnimalSpecies animalSpecies : animalTypesInMatrices) {
+    for (AnimalSpecies animalSpecies : animalSpeciesInMatrix) {
       int numberOfAnimals = matrix.countAnimalsBySpecies(animalSpecies);
       logger.logInfo(String.format(
         numberOfAnimals == 1 ? PopulatorRoutineMessages.ANIMAL_STATS_SUMMARY_SINGULAR : PopulatorRoutineMessages.ANIMAL_STATS_SUMMARY_PLURAL,
