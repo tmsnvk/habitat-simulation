@@ -20,4 +20,8 @@ public abstract class Nature {
   public String getIcon() {
     return icon;
   }
+
+  public Cell getCoordinates() {
+    return coordinates;
+  }
 }

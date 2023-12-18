@@ -28,7 +28,7 @@ public final class Zebra extends Herbivore {
 
   @Override
   protected boolean isAbleToBreed() {
-    return this.getCurrentAge() % 2 == 0;
+    return this.currentAge % 2 == 0;
   }
 
   @Override
@@ -38,6 +38,6 @@ public final class Zebra extends Herbivore {
 
   @Override
   public String toString() {
-    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Living area]: %s | [Maximum age]: %s | [Current Age]: %s | [Is alive?]: %s", id, SPECIES, TYPE, coordinates, maximumAge, currentAge, isAlive);
+    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Coordinates]: %s | [Maximum age]: %s | [Current Age]: %s | [Is alive?]: %s", id, species, type, coordinates, maximumAge, currentAge, isAlive);
   }
 }

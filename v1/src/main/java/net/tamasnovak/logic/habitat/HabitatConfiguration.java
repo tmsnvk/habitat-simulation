@@ -1,6 +1,5 @@
 package net.tamasnovak.logic.habitat;
 
-import net.tamasnovak.model.nature.Nature;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;

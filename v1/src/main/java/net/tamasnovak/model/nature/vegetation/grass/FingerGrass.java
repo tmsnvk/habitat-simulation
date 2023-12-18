@@ -18,4 +18,9 @@ public final class FingerGrass extends Vegetation {
   private static String createId() {
     return String.format("%s-%s", SPECIES, ++idCounter);
   }
+
+  @Override
+  public String toString() {
+    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Coordinates]: %s", id, species, type, coordinates);
+  }
 }

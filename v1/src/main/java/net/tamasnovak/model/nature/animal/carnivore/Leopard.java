@@ -35,11 +35,11 @@ public final class Leopard extends Carnivore {
 
   @Override
   protected boolean isAbleToBreed() {
-    return this.getCurrentAge() % 3 == 0 && this.getHungerLevel() == 0;
+    return this.currentAge % 3 == 0 && this.hungerLevel == 0;
   }
 
   @Override
   public String toString() {
-    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Living area]: %s | [Maximum age]: %s | [Current Age]: %s | [Maximum Hunger Level]: %s | [Is alive?]: %s", id, SPECIES, TYPE, coordinates, maximumAge, currentAge, MAXIMUM_HUNGER_LEVEL,  isAlive);
+    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Coordinates]: %s | [Maximum age]: %s | [Current Age]: %s | [Maximum Hunger Level]: %s | [Current Hunger Level]: %s | [Is alive?]: %s", id, species, type, coordinates, maximumAge, currentAge, MAXIMUM_HUNGER_LEVEL, hungerLevel, isAlive);
   }
 }

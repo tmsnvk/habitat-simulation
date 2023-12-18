@@ -9,8 +9,9 @@ public abstract class Animal extends Nature {
   protected int currentAge;
   protected final int maximumAge;
   protected boolean isAlive;
-  protected final AnimalSpecies animalSpecies;
-  protected final AnimalType animalType;
+  protected boolean didAlreadyBreedInGivenYear;
+  protected final AnimalSpecies species;
+  protected final AnimalType type;
   protected final BreedingRoutine breedingRoutine;
 
   public Animal(
@@ -18,45 +19,42 @@ public abstract class Animal extends Nature {
     Cell coordinates,
     int maximumAge,
     String icon,
-    AnimalSpecies animalSpecies,
-    AnimalType animalType,
+    AnimalSpecies species,
+    AnimalType type,
     BreedingRoutine breedingRoutine) {
     super(id, coordinates, icon);
     this.currentAge = 0;
     this.isAlive = true;
+    this.didAlreadyBreedInGivenYear = false;
     this.coordinates = coordinates;
     this.maximumAge = maximumAge;
-    this.animalSpecies = animalSpecies;
-    this.animalType = animalType;
+    this.species = species;
+    this.type = type;
     this.breedingRoutine = breedingRoutine;
-  }
-
-  public Cell getCoordinates() {
-    return coordinates;
   }
 
   public void setCoordinates(Cell coordinates) {
     this.coordinates = coordinates;
   }
 
-  public int getCurrentAge() {
-    return currentAge;
-  }
-
-  private void setCurrentAge(int currentAge) {
-    this.currentAge = currentAge;
-  }
-
   public boolean isAlive() {
     return isAlive;
   }
 
-  public AnimalSpecies getAnimalSpecies() {
-    return animalSpecies;
+  public boolean didAlreadyBreedInGivenYear() {
+    return didAlreadyBreedInGivenYear;
   }
 
-  public AnimalType getAnimalType() {
-    return animalType;
+  public void setDidAlreadyBreedInGivenYear(boolean didAlreadyBreedInGivenYear) {
+    this.didAlreadyBreedInGivenYear = didAlreadyBreedInGivenYear;
+  }
+
+  public AnimalSpecies getSpecies() {
+    return species;
+  }
+
+  public AnimalType getType() {
+    return type;
   }
 
   protected void die() {
@@ -66,21 +64,20 @@ public abstract class Animal extends Nature {
 
   public abstract void doLifeCycleMethods();
 
+  protected abstract boolean isAbleToBreed();
+  protected abstract void move();
+
   protected void increaseAge() {
-    if (this.getCurrentAge() == maximumAge) {
+    if (this.currentAge == maximumAge) {
       die();
     } else {
-      this.setCurrentAge(this.getCurrentAge() + 1);
+      this.currentAge++;
     }
   }
-
-  protected abstract boolean isAbleToBreed();
 
   protected void breed() {
     if (isAbleToBreed()) {
       breedingRoutine.run(this);
     }
   }
-
-  protected abstract void move();
 }

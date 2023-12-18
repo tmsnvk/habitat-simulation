@@ -8,7 +8,6 @@ import net.tamasnovak.model.nature.vegetation.Vegetation;
 import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +32,6 @@ public final class Matrix {
   );
   private final Nature[][] matrix;
   private final VegetationFactory vegetationFactory;
-  private Field type;
 
   public Matrix(VegetationFactory vegetationFactory) {
     this.vegetationFactory = vegetationFactory;
@@ -45,7 +43,7 @@ public final class Matrix {
     for (int x = 0; x < LENGTH; x++) {
       for (int y = 0; y < WIDTH; y++) {
         Cell coordinates = new Cell(x, y);
-        // replace this hardcoded value with user choice;
+        // replace this hardcoded value with whatever is in the config class after the user has chosen a habitat.
         matrix[x][y] = vegetationFactory.createVegetation(VegetationType.GRASS, VegetationSpecies.FINGER_GRASS, coordinates);
       }
     }
@@ -72,7 +70,7 @@ public final class Matrix {
       .flatMap(Stream::of)
       .filter(Animal.class::isInstance)
       .map(Animal.class::cast)
-      .map(Animal::getAnimalSpecies)
+      .map(Animal::getSpecies)
       .collect(Collectors.toSet());
   }
 
@@ -81,7 +79,7 @@ public final class Matrix {
       .flatMap(Stream::of)
       .filter(Animal.class::isInstance)
       .map(Animal.class::cast)
-      .filter(animal -> animal.getAnimalSpecies().equals(animalSpecies))
+      .filter(animal -> animal.getSpecies().equals(animalSpecies))
       .count();
   }
 
@@ -130,7 +128,7 @@ public final class Matrix {
       .collect(Collectors.toList());
   }
 
-  public <T extends Nature> void replaceDeadAnimalsWithVegetation(VegetationType vegetationType, VegetationSpecies vegetationSpecies) {
+  public void replaceDeadAnimalsWithVegetation(VegetationType vegetationType, VegetationSpecies vegetationSpecies) {
     Stream.of(matrix)
       .flatMap(Stream::of)
       .filter(Animal.class::isInstance)
@@ -149,5 +147,13 @@ public final class Matrix {
 
   private boolean areCoordinatesValid(int xCoordinate, int yCoordinate) {
     return xCoordinate >= 0 && xCoordinate < LENGTH && yCoordinate >= 0 && yCoordinate < WIDTH;
+  }
+
+  public void setBreedingStatusToDefault() {
+    Stream.of(matrix)
+      .flatMap(Stream::of)
+      .filter(Animal.class::isInstance)
+      .map(Animal.class::cast)
+      .forEach(animal -> animal.setDidAlreadyBreedInGivenYear(false));
   }
 }

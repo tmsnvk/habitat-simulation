@@ -36,7 +36,10 @@ public class Application {
 
     HuntingRoutine huntingRoutine = new HuntingRoutine(random, logger, habitatMatrix);
     BreedingRoutine breedingRoutine = new BreedingRoutine(random, logger, habitatMatrix);
+
     AnimalFactory animalFactory = buildAbstractFactory(random, huntingRoutine, breedingRoutine);
+
+    breedingRoutine.setAnimalFactory(animalFactory);
 
     SimulationController simulationController = new SimulationController(display, input, logger);
 

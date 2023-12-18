@@ -28,7 +28,7 @@ public abstract class Herbivore extends Animal implements Hunted {
     }
 
     breed();
-    move();
+//    move();
   }
 
   @Override
