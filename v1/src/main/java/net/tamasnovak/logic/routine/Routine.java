@@ -1,4 +1,4 @@
-package net.tamasnovak.logic.routines;
+package net.tamasnovak.logic.routine;
 
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.ui.logger.Logger;

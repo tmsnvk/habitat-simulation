@@ -1,6 +1,7 @@
 package net.tamasnovak.logic.habitat;
 
-import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
+import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
+import net.tamasnovak.logic.routine.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.ui.logger.Logger;
 
@@ -18,7 +19,7 @@ public abstract class Habitat {
     Random random,
     Logger logger,
     HabitatType habitatType,
-    HabitatConfiguration habitatConfiguration,
+    SavannahConfiguration habitatConfiguration,
     Matrix matrix,
     PopulatorRoutine populatorRoutine) {
     this.random = random;

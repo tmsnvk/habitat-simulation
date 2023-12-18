@@ -1,13 +1,15 @@
-package net.tamasnovak.logic.routines.populatorRoutine;
+package net.tamasnovak.logic.routine.populatorRoutine;
 
-import net.tamasnovak.logic.animalFactory.AnimalFactory;
+import net.tamasnovak.logic.factory.animalFactory.AnimalFactory;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
-import net.tamasnovak.logic.routines.Routine;
-import net.tamasnovak.model.animal.Animal;
-import net.tamasnovak.model.animal.AnimalSpecies;
-import net.tamasnovak.model.animal.AnimalType;
+import net.tamasnovak.logic.routine.Routine;
+import net.tamasnovak.model.nature.Nature;
+import net.tamasnovak.model.nature.animal.Animal;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
+import net.tamasnovak.model.nature.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.matrix.Matrix;
+import net.tamasnovak.model.nature.vegetation.Vegetation;
 import net.tamasnovak.ui.logger.Logger;
 
 import java.util.Random;
@@ -40,9 +42,9 @@ public final class PopulatorRoutine extends Routine {
     while (animalCounter < habitatConfiguration.NUMBER_OF_ANIMALS) {
       int xCoordinate = random.nextInt(matrix.getLength());
       int yCoordinate = random.nextInt(matrix.getWidth());
-      Animal animalByCoordinate = matrix.findAnimalByCoordinate(xCoordinate, yCoordinate);
+      Nature position = matrix.findPosition(xCoordinate, yCoordinate);
 
-      if (animalByCoordinate != null) {
+      if (!(position instanceof Vegetation)) {
         continue;
       }
 
@@ -62,9 +64,9 @@ public final class PopulatorRoutine extends Routine {
     double coinFlipValue = random.nextDouble(0, 1);
 
     if (coinFlipValue <= habitatConfiguration.CHANCE_OF_HERBIVORE) {
-      return animalFactory.createAnimal(AnimalType.HERBIVORE, habitatConfiguration.HERBIVORE, livingArea);
+      return animalFactory.createAnimal(AnimalType.HERBIVORE, habitatConfiguration.getHerbivore(), livingArea);
     } else {
-      return animalFactory.createAnimal(AnimalType.CARNIVORE, habitatConfiguration.CARNIVORE, livingArea);
+      return animalFactory.createAnimal(AnimalType.CARNIVORE, habitatConfiguration.getCarnivore(), livingArea);
     }
   }
 
@@ -76,7 +78,7 @@ public final class PopulatorRoutine extends Routine {
     logger.logInfo(PopulatorRoutineMessages.END_POPULATE_MATRIX);
     logger.logInfo(PopulatorRoutineMessages.ANIMAL_STATS_INTRO);
 
-    Set<AnimalSpecies> animalSpeciesInMatrix = matrix.findDistinctSpecies();
+    Set<AnimalSpecies> animalSpeciesInMatrix = matrix.findDistinctAnimalSpecies();
 
     for (AnimalSpecies animalSpecies : animalSpeciesInMatrix) {
       int numberOfAnimals = matrix.countAnimalsBySpecies(animalSpecies);

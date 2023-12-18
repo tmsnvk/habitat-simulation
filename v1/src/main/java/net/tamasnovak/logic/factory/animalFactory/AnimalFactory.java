@@ -1,8 +1,8 @@
-package net.tamasnovak.logic.animalFactory;
+package net.tamasnovak.logic.factory.animalFactory;
 
-import net.tamasnovak.model.animal.Animal;
-import net.tamasnovak.model.animal.AnimalSpecies;
-import net.tamasnovak.model.animal.AnimalType;
+import net.tamasnovak.model.nature.animal.Animal;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
+import net.tamasnovak.model.nature.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 public final class AnimalFactory {

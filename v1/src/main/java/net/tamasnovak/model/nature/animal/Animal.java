@@ -1,37 +1,42 @@
-package net.tamasnovak.model.animal;
+package net.tamasnovak.model.nature.animal;
 
-import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
 import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.nature.Nature;
 
-public abstract class Animal {
+public abstract class Animal extends Nature {
   private static final String DEAD_ANIMAL_ICON = "☠";
-  protected final String id;
   protected int currentAge;
   protected final int maximumAge;
   protected boolean isAlive;
-  protected Cell livingArea;
-  private String animalIcon;
-  private final AnimalSpecies animalSpecies;
-  private final AnimalType animalType;
-  private final BreedingRoutine breedingRoutine;
+  protected final AnimalSpecies animalSpecies;
+  protected final AnimalType animalType;
+  protected final BreedingRoutine breedingRoutine;
 
   public Animal(
     String id,
-    Cell livingArea,
+    Cell coordinates,
     int maximumAge,
-    String animalIcon,
+    String icon,
     AnimalSpecies animalSpecies,
     AnimalType animalType,
     BreedingRoutine breedingRoutine) {
-    this.id = id;
+    super(id, coordinates, icon);
     this.currentAge = 0;
     this.isAlive = true;
-    this.livingArea = livingArea;
+    this.coordinates = coordinates;
     this.maximumAge = maximumAge;
-    this.animalIcon = animalIcon;
     this.animalSpecies = animalSpecies;
     this.animalType = animalType;
     this.breedingRoutine = breedingRoutine;
+  }
+
+  public Cell getCoordinates() {
+    return coordinates;
+  }
+
+  public void setCoordinates(Cell coordinates) {
+    this.coordinates = coordinates;
   }
 
   public int getCurrentAge() {
@@ -42,33 +47,21 @@ public abstract class Animal {
     this.currentAge = currentAge;
   }
 
-  public Cell getLivingArea() {
-    return livingArea;
-  }
-
-  public void setLivingArea(Cell livingArea) {
-    this.livingArea = livingArea;
-  }
-
   public boolean isAlive() {
     return isAlive;
-  }
-
-  public String getAnimalIcon() {
-    return animalIcon;
   }
 
   public AnimalSpecies getAnimalSpecies() {
     return animalSpecies;
   }
 
-  public AnimalSpecies getAnimalType() {
-    return animalSpecies;
+  public AnimalType getAnimalType() {
+    return animalType;
   }
 
   protected void die() {
     this.isAlive = false;
-    this.animalIcon = DEAD_ANIMAL_ICON;
+    this.icon = DEAD_ANIMAL_ICON;
   }
 
   public abstract void doLifeCycleMethods();
@@ -84,7 +77,9 @@ public abstract class Animal {
   protected abstract boolean isAbleToBreed();
 
   protected void breed() {
-
+    if (isAbleToBreed()) {
+      breedingRoutine.run(this);
+    }
   }
 
   protected abstract void move();

@@ -1,8 +1,8 @@
-package net.tamasnovak.logic.routines.huntingRoutine;
+package net.tamasnovak.logic.routine.huntingRoutine;
 
-import net.tamasnovak.logic.routines.Routine;
-import net.tamasnovak.model.animal.carnivore.Carnivore;
-import net.tamasnovak.model.animal.herbivore.Herbivore;
+import net.tamasnovak.logic.routine.Routine;
+import net.tamasnovak.model.nature.animal.carnivore.Carnivore;
+import net.tamasnovak.model.nature.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.ui.logger.Logger;
 
@@ -15,7 +15,7 @@ public class HuntingRoutine extends Routine {
   }
 
   public void run(Carnivore carnivore) {
-    List<Herbivore> neighbourHerbivores = matrix.findNeighbourAnimalsByType(carnivore, Herbivore.class);
+    List<Herbivore> neighbourHerbivores = matrix.findNeighbourAnimalsByTypeOrSpecies(carnivore, Herbivore.class);
 
     if (neighbourHerbivores.isEmpty()) {
       carnivore.increaseHungerLevel();

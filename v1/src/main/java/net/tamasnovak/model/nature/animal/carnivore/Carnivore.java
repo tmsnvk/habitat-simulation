@@ -1,10 +1,10 @@
-package net.tamasnovak.model.animal.carnivore;
+package net.tamasnovak.model.nature.animal.carnivore;
 
-import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
-import net.tamasnovak.model.animal.Animal;
-import net.tamasnovak.model.animal.AnimalSpecies;
-import net.tamasnovak.model.animal.AnimalType;
+import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.huntingRoutine.HuntingRoutine;
+import net.tamasnovak.model.nature.animal.Animal;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
+import net.tamasnovak.model.nature.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Carnivore extends Animal implements Hunting {
@@ -16,13 +16,13 @@ public abstract class Carnivore extends Animal implements Hunting {
   public Carnivore(
     String id,
     int maximumHungerLevel,
-    Cell livingArea,
+    Cell coordinates,
     int maximumAge,
     String animalIcon,
     AnimalSpecies animalSpecies,
     HuntingRoutine huntingRoutine,
     BreedingRoutine breedingRoutine) {
-    super(id, livingArea, maximumAge, animalIcon, animalSpecies, TYPE, breedingRoutine);
+    super(id, coordinates, maximumAge, animalIcon, animalSpecies, TYPE, breedingRoutine);
     this.hungerLevel = 0;
     this.maximumHungerLevel = maximumHungerLevel;
     this.huntingRoutine = huntingRoutine;

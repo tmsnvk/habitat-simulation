@@ -1,8 +1,7 @@
-package net.tamasnovak.model.animal.herbivore;
+package net.tamasnovak.model.nature.animal.herbivore;
 
-import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.model.animal.Animal;
-import net.tamasnovak.model.animal.AnimalSpecies;
+import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.matrix.Cell;
 
 import java.util.Random;
@@ -13,8 +12,8 @@ public final class Zebra extends Herbivore {
   private static final String ICON = "🦓";
   private static int idCounter = 0;
 
-  public Zebra(Random random, Cell livingArea, BreedingRoutine breedingRoutine) {
-    super(createId(), livingArea, drawMaximumAgeValue(random), ICON, SPECIES, breedingRoutine);
+  public Zebra(Random random, Cell coordinates, BreedingRoutine breedingRoutine) {
+    super(createId(), coordinates, drawMaximumAgeValue(random), ICON, SPECIES, breedingRoutine);
   }
 
   private static String createId() {
@@ -28,7 +27,7 @@ public final class Zebra extends Herbivore {
   }
 
   @Override
-  public boolean isAbleToBreed() {
+  protected boolean isAbleToBreed() {
     return this.getCurrentAge() % 2 == 0;
   }
 
@@ -39,6 +38,6 @@ public final class Zebra extends Herbivore {
 
   @Override
   public String toString() {
-    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Living area]: %s | [Maximum age]: %s | [Current Age]: %s | [Is alive?]: %s", id, SPECIES, TYPE, livingArea, maximumAge, currentAge, isAlive);
+    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Living area]: %s | [Maximum age]: %s | [Current Age]: %s | [Is alive?]: %s", id, SPECIES, TYPE, coordinates, maximumAge, currentAge, isAlive);
   }
 }

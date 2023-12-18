@@ -1,13 +1,15 @@
 package net.tamasnovak;
 
-import net.tamasnovak.logic.animalFactory.AnimalFactory;
-import net.tamasnovak.logic.animalFactory.CarnivoreFactory;
-import net.tamasnovak.logic.animalFactory.HerbivoreFactory;
+import net.tamasnovak.logic.factory.animalFactory.AnimalFactory;
+import net.tamasnovak.logic.factory.animalFactory.CarnivoreFactory;
+import net.tamasnovak.logic.factory.animalFactory.HerbivoreFactory;
+import net.tamasnovak.logic.factory.vegetationFactory.GrassFactory;
+import net.tamasnovak.logic.factory.vegetationFactory.VegetationFactory;
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
-import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
-import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
+import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.populatorRoutine.PopulatorRoutine;
+import net.tamasnovak.logic.routine.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.logic.habitat.savannah.Savannah;
 import net.tamasnovak.ui.display.Display;
@@ -25,7 +27,13 @@ public class Application {
     Input input = new Input();
     Logger logger = new ConsoleLogger();
 
-    Matrix habitatMatrix = new Matrix();
+    // user decision needs to be made for the habitat as the matrix has to be supplied with the vegetation type;
+    // for now it is hardcoded;
+    GrassFactory grassFactory = new GrassFactory();
+    VegetationFactory vegetationFactory = new VegetationFactory(grassFactory);
+
+    Matrix habitatMatrix = new Matrix(vegetationFactory);
+
     HuntingRoutine huntingRoutine = new HuntingRoutine(random, logger, habitatMatrix);
     BreedingRoutine breedingRoutine = new BreedingRoutine(random, logger, habitatMatrix);
     AnimalFactory animalFactory = buildAbstractFactory(random, huntingRoutine, breedingRoutine);
@@ -57,11 +65,15 @@ public class Application {
 }
 
 // wishlist:
-// 1. deploy on digital ocean as a terminal programme;
-// 2. start/end array positions saved to a db and can be retrieved with a seed number;
-// 3. multiple habitats;
-// 4. multiple languages;
-// 5. variables can be selected by the user (including animal types);
-// 6. terminal running is colour-coded and array prints are with animal emojis;
-// 7. terminal should provide messages about the animals, e.g. how long they live, etc.
-// 8. full test coverage;
+// features:
+// while building the habitat, it should not be filled with blank fields but actual soil, e.g. grass or trees. some terrain, like water, would not be passable.
+// multiple habitats;
+// multiple languages;
+// variables can be selected by the user (including animal types);
+// terminal running is colour-coded and array prints are with animal emojis;
+// terminal should provide messages about the animals, e.g. how long they live, etc.
+
+// deployment, etc.:
+// deploy on digital ocean as a terminal programme;
+// start/end array positions saved to a db and can be retrieved with a seed number;
+// full test coverage;

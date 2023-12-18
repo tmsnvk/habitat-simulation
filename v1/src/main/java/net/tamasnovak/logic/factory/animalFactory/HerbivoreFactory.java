@@ -1,9 +1,9 @@
-package net.tamasnovak.logic.animalFactory;
+package net.tamasnovak.logic.factory.animalFactory;
 
-import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.model.animal.AnimalSpecies;
-import net.tamasnovak.model.animal.herbivore.Herbivore;
-import net.tamasnovak.model.animal.herbivore.Zebra;
+import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
+import net.tamasnovak.model.nature.animal.herbivore.Herbivore;
+import net.tamasnovak.model.nature.animal.herbivore.Zebra;
 import net.tamasnovak.model.matrix.Cell;
 
 import java.util.Random;

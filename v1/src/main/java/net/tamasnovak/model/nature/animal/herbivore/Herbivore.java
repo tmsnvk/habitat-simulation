@@ -1,9 +1,9 @@
-package net.tamasnovak.model.animal.herbivore;
+package net.tamasnovak.model.nature.animal.herbivore;
 
-import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.model.animal.Animal;
-import net.tamasnovak.model.animal.AnimalSpecies;
-import net.tamasnovak.model.animal.AnimalType;
+import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.model.nature.animal.Animal;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
+import net.tamasnovak.model.nature.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
 public abstract class Herbivore extends Animal implements Hunted {
@@ -11,12 +11,12 @@ public abstract class Herbivore extends Animal implements Hunted {
 
   public Herbivore(
     String id,
-    Cell livingArea,
+    Cell coordinates,
     int maximumAge,
     String animalIcon,
     AnimalSpecies animalSpecies,
     BreedingRoutine breedingRoutine) {
-    super(id, livingArea, maximumAge, animalIcon, animalSpecies, TYPE, breedingRoutine);
+    super(id, coordinates, maximumAge, animalIcon, animalSpecies, TYPE, breedingRoutine);
   }
 
   @Override

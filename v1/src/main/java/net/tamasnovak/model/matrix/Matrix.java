@@ -1,11 +1,17 @@
 package net.tamasnovak.model.matrix;
 
-import net.tamasnovak.model.animal.Animal;
-import net.tamasnovak.model.animal.AnimalSpecies;
+import net.tamasnovak.logic.factory.vegetationFactory.VegetationFactory;
+import net.tamasnovak.model.nature.Nature;
+import net.tamasnovak.model.nature.animal.Animal;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
+import net.tamasnovak.model.nature.vegetation.Vegetation;
+import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
+import net.tamasnovak.model.nature.vegetation.VegetationType;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,10 +31,24 @@ public final class Matrix {
 //    List.of(-1, -1),
 //    List.of(-1, 1)
   );
-  private final Animal[][] matrix;
+  private final Nature[][] matrix;
+  private final VegetationFactory vegetationFactory;
+  private Field type;
 
-  public Matrix() {
-    this.matrix = new Animal[LENGTH][WIDTH];
+  public Matrix(VegetationFactory vegetationFactory) {
+    this.vegetationFactory = vegetationFactory;
+    this.matrix = new Nature[LENGTH][WIDTH];
+    createHabitat();
+  }
+
+  private void createHabitat() {
+    for (int x = 0; x < LENGTH; x++) {
+      for (int y = 0; y < WIDTH; y++) {
+        Cell coordinates = new Cell(x, y);
+        // replace this hardcoded value with user choice;
+        matrix[x][y] = vegetationFactory.createVegetation(VegetationType.GRASS, VegetationSpecies.FINGER_GRASS, coordinates);
+      }
+    }
   }
 
   public int getLength() {
@@ -39,7 +59,7 @@ public final class Matrix {
     return WIDTH;
   }
 
-  public Animal findAnimalByCoordinate(int xCoordinate, int yCoordinate) {
+  public Nature findPosition(int xCoordinate, int yCoordinate) {
     return matrix[xCoordinate][yCoordinate];
   }
 
@@ -47,40 +67,53 @@ public final class Matrix {
     matrix[xCoordinate][yCoordinate] = animal;
   }
 
-  public Set<AnimalSpecies> findDistinctSpecies() {
+  public Set<AnimalSpecies> findDistinctAnimalSpecies() {
     return Stream.of(matrix)
       .flatMap(Stream::of)
-      .filter(Objects::nonNull)
-      .map(Animal::getAnimalType)
+      .filter(Animal.class::isInstance)
+      .map(Animal.class::cast)
+      .map(Animal::getAnimalSpecies)
       .collect(Collectors.toSet());
   }
 
   public int countAnimalsBySpecies(AnimalSpecies animalSpecies) {
     return (int) Stream.of(matrix)
       .flatMap(Stream::of)
-      .filter(animal -> animal != null && animal.getAnimalType().equals(animalSpecies))
+      .filter(Animal.class::isInstance)
+      .map(Animal.class::cast)
+      .filter(animal -> animal.getAnimalSpecies().equals(animalSpecies))
       .count();
   }
 
-  public <T extends Animal> List<T> findNeighbourAnimalsByType(Animal animalInstance, Class<T> animalType) {
-    Cell animalPosition = animalInstance.getLivingArea();
-    List<Animal> neighbourAnimals = findNeighbourAnimalsInValidCoordinates(animalPosition);
+  public <T extends Animal> List<T> findNeighbourAnimalsByTypeOrSpecies(Animal animalInstance, Class<T> animalClass) {
+    Cell animalPosition = animalInstance.getCoordinates();
+    List<Nature> validNeighbourCoordinates = findValidNeighbourCoordinates(animalPosition);
 
-    return neighbourAnimals.stream()
-      .filter(animalType::isInstance)
+    return validNeighbourCoordinates.stream()
+      .filter(animalClass::isInstance)
       .map(neighbour -> (T) neighbour)
       .collect(Collectors.toList());
   }
 
-  private List<Animal> findNeighbourAnimalsInValidCoordinates(Cell animalPosition) {
-    List<Animal> neighbourAnimalsInValidCoordinates = new ArrayList<>();
+  public List<Vegetation> findNeighbourVegetation(Animal animalInstance) {
+    Cell animalPosition = animalInstance.getCoordinates();
+    List<Nature> validNeighbourCoordinates = findValidNeighbourCoordinates(animalPosition);
+
+    return validNeighbourCoordinates.stream()
+      .filter(Vegetation.class::isInstance)
+      .map(Vegetation.class::cast)
+      .collect(Collectors.toList());
+  }
+
+  private List<Nature> findValidNeighbourCoordinates(Cell animalPosition) {
+    List<Nature> neighbourAnimalsInValidCoordinates = new ArrayList<>();
 
     for (List<Integer> coordinate : POSSIBLE_NEARBY_COORDINATE_DIFFERENCES) {
       int xCoordinate = animalPosition.xCoordinate() + coordinate.get(0);
       int yCoordinate = animalPosition.yCoordinate() + coordinate.get(1);
 
       if (areCoordinatesValid(xCoordinate, yCoordinate)) {
-        Animal animal = findAnimalByCoordinate(xCoordinate, yCoordinate);
+        Nature animal = findPosition(xCoordinate, yCoordinate);
 
         neighbourAnimalsInValidCoordinates.add(animal);
       }
@@ -92,20 +125,25 @@ public final class Matrix {
   public List<Animal> findAliveAnimals() {
     return Stream.of(matrix)
       .flatMap(Stream::of)
-      .filter(animal -> animal != null && animal.isAlive())
+      .filter(Animal.class::isInstance)
+      .map(Animal.class::cast)
       .collect(Collectors.toList());
   }
 
-  public void removeDeadAnimals() {
+  public <T extends Nature> void replaceDeadAnimalsWithVegetation(VegetationType vegetationType, VegetationSpecies vegetationSpecies) {
     Stream.of(matrix)
       .flatMap(Stream::of)
-      .filter(animal -> animal != null && !animal.isAlive())
-      .collect(Collectors.toList())
+      .filter(Animal.class::isInstance)
+      .map(Animal.class::cast)
+      .filter(animal -> !animal.isAlive())
       .forEach(animal -> {
-        int xCoordinate = animal.getLivingArea().xCoordinate();
-        int yCoordinate = animal.getLivingArea().yCoordinate();
+        int xCoordinate = animal.getCoordinates().xCoordinate();
+        int yCoordinate = animal.getCoordinates().yCoordinate();
 
-        matrix[xCoordinate][yCoordinate] = null;
+        Cell position = new Cell(xCoordinate, yCoordinate);
+        Vegetation vegetation = vegetationFactory.createVegetation(vegetationType, vegetationSpecies, position);
+
+        matrix[xCoordinate][yCoordinate] = vegetation;
       });
   }
 

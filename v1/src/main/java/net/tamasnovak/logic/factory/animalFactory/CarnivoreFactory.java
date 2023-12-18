@@ -1,10 +1,10 @@
-package net.tamasnovak.logic.animalFactory;
+package net.tamasnovak.logic.factory.animalFactory;
 
-import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
-import net.tamasnovak.model.animal.AnimalSpecies;
-import net.tamasnovak.model.animal.carnivore.Carnivore;
-import net.tamasnovak.model.animal.carnivore.Leopard;
+import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.huntingRoutine.HuntingRoutine;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
+import net.tamasnovak.model.nature.animal.carnivore.Carnivore;
+import net.tamasnovak.model.nature.animal.carnivore.Leopard;
 import net.tamasnovak.model.matrix.Cell;
 
 import java.util.Random;

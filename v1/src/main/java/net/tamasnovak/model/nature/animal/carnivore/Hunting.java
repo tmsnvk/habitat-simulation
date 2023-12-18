@@ -1,4 +1,4 @@
-package net.tamasnovak.model.animal.carnivore;
+package net.tamasnovak.model.nature.animal.carnivore;
 
 public interface Hunting {
   void hunt();

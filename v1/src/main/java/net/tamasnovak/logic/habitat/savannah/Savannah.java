@@ -1,12 +1,11 @@
 package net.tamasnovak.logic.habitat.savannah;
 
 import net.tamasnovak.logic.habitat.Habitat;
-import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.habitat.HabitatType;
-import net.tamasnovak.logic.routines.populatorRoutine.PopulatorRoutine;
-import net.tamasnovak.model.animal.AnimalSpecies;
+import net.tamasnovak.logic.routine.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.model.matrix.Matrix;
-import net.tamasnovak.model.animal.Animal;
+import net.tamasnovak.model.nature.animal.Animal;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.ui.logger.Logger;
 
 import java.util.Collections;
@@ -19,7 +18,7 @@ public final class Savannah extends Habitat {
   public Savannah(
     Random random,
     Logger logger,
-    HabitatConfiguration configuration,
+    SavannahConfiguration configuration,
     Matrix matrix,
     PopulatorRoutine populatorRoutine) {
     super(random, logger, HABITAT_TYPE, configuration, matrix, populatorRoutine);
@@ -32,8 +31,8 @@ public final class Savannah extends Habitat {
 
     int yearCounter = 0;
     while (yearCounter < habitatConfiguration.LENGTH_OF_SIMULATION_YEARS) {
-//      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
-//      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
+      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
+      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
       doPreAnnualRoutine();
       doAnnualRoutine();
       doPostAnnualRoutine();
@@ -60,6 +59,6 @@ public final class Savannah extends Habitat {
   }
 
   private void doPostAnnualRoutine() {
-    matrix.removeDeadAnimals();
+    matrix.replaceDeadAnimalsWithVegetation(habitatConfiguration.getVegetationType(), habitatConfiguration.getVegetationSpecies());
   }
 }

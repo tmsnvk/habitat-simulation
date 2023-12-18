@@ -1,8 +1,8 @@
-package net.tamasnovak.model.animal.carnivore;
+package net.tamasnovak.model.nature.animal.carnivore;
 
-import net.tamasnovak.logic.routines.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.logic.routines.huntingRoutine.HuntingRoutine;
-import net.tamasnovak.model.animal.AnimalSpecies;
+import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.huntingRoutine.HuntingRoutine;
+import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.matrix.Cell;
 
 import java.util.Random;
@@ -14,8 +14,8 @@ public final class Leopard extends Carnivore {
   private static final String ICON = "🐆";
   private static int idCounter = 0;
 
-  public Leopard(Random random, Cell livingArea, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine) {
-    super(createId(), MAXIMUM_HUNGER_LEVEL, livingArea, drawMaximumAgeValue(random), ICON, SPECIES, huntingRoutine, breedingRoutine);
+  public Leopard(Random random, Cell coordinates, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine) {
+    super(createId(), MAXIMUM_HUNGER_LEVEL, coordinates, drawMaximumAgeValue(random), ICON, SPECIES, huntingRoutine, breedingRoutine);
   }
 
   private static String createId() {
@@ -34,12 +34,12 @@ public final class Leopard extends Carnivore {
   }
 
   @Override
-  public boolean isAbleToBreed() {
+  protected boolean isAbleToBreed() {
     return this.getCurrentAge() % 3 == 0 && this.getHungerLevel() == 0;
   }
 
   @Override
   public String toString() {
-    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Living area]: %s | [Maximum age]: %s | [Current Age]: %s | [Maximum Hunger Level]: %s | [Is alive?]: %s", id, SPECIES, TYPE, livingArea, maximumAge, currentAge, MAXIMUM_HUNGER_LEVEL,  isAlive);
+    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Living area]: %s | [Maximum age]: %s | [Current Age]: %s | [Maximum Hunger Level]: %s | [Is alive?]: %s", id, SPECIES, TYPE, coordinates, maximumAge, currentAge, MAXIMUM_HUNGER_LEVEL,  isAlive);
   }
 }
