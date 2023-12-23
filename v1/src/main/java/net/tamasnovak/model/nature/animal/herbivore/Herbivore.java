@@ -7,7 +7,7 @@ import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.nature.animal.AnimalType;
 import net.tamasnovak.model.matrix.Cell;
 
-public abstract class Herbivore extends Animal implements Hunted {
+public abstract class Herbivore extends Animal {
   protected static final AnimalType TYPE = AnimalType.HERBIVORE;
 
   public Herbivore(
@@ -23,18 +23,13 @@ public abstract class Herbivore extends Animal implements Hunted {
 
   @Override
   public void doLifeCycleMethods() {
-    increaseAge();
+    agingRoutine.run(this);
 
     if (!isAlive) {
       return;
     }
 
-    breed();
+    breedingRoutine.run(this);
 //    move();
-  }
-
-  @Override
-  public void dieByBeingHunted() {
-    die();
   }
 }

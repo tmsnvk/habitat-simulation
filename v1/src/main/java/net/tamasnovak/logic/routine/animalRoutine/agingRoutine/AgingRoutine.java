@@ -15,7 +15,7 @@ public final class AgingRoutine extends AnimalInstanceRoutine {
   @Override
   public <T extends Animal> void run(T animal) {
     if (animal.getCurrentAge() == animal.getMaximumAge()) {
-      animal.die();
+      animal.perish();
     } else {
       animal.setCurrentAge(animal.getCurrentAge() + 1);
     }

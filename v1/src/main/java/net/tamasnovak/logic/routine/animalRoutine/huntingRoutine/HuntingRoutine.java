@@ -40,7 +40,7 @@ public final class HuntingRoutine extends AnimalInstanceRoutine {
 
   private void dieIfTooHungry(Carnivore carnivore) {
     if (carnivore.getHungerLevel() == carnivore.getMaximumHungerLevel()) {
-      carnivore.die();
+      carnivore.perish();
     }
   }
 
@@ -48,6 +48,6 @@ public final class HuntingRoutine extends AnimalInstanceRoutine {
     int randomNumber = random.nextInt(neighbourHerbivores.size());
     Herbivore randomNeighbourHerbivore = neighbourHerbivores.get(randomNumber);
 
-    randomNeighbourHerbivore.dieByBeingHunted();
+    randomNeighbourHerbivore.perish();
   }
 }

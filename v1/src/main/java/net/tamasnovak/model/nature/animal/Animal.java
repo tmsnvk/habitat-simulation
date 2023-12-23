@@ -75,16 +75,12 @@ public abstract class Animal extends Nature {
 
   public abstract void doLifeCycleMethods();
 
-  protected void increaseAge() {
-    agingRoutine.run(this);
-  }
-
-  public void die() {
+  public void perish() {
     this.isAlive = false;
     this.icon = DEAD_ANIMAL_ICON;
   }
 
-  protected abstract boolean isAbleToBreed();
+  public abstract boolean isAbleToBreed();
   protected abstract void move();
 
   protected void breed() {

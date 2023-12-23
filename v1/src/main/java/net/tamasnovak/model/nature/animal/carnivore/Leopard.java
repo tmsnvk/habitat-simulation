@@ -35,7 +35,7 @@ public final class Leopard extends Carnivore {
   }
 
   @Override
-  protected boolean isAbleToBreed() {
+  public boolean isAbleToBreed() {
     return this.currentAge % 3 == 0 && this.hungerLevel == 0;
   }
 

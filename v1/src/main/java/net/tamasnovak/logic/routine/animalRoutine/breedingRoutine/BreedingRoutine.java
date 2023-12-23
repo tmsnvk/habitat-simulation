@@ -26,31 +26,35 @@ public final class BreedingRoutine extends AnimalInstanceRoutine {
   @Override
   public <T extends Animal> void run(T animal) {
     List<? extends Animal> neighboursOfSameSpecies = matrix.findNeighbourAnimalsByTypeOrSpecies(animal, animal.getClass());
-    List<Vegetation> vegetationPositions = matrix.findNeighbourVegetation(animal);
+    List<Vegetation> neighbourEmptyPositions = matrix.findNeighbourVegetation(animal);
 
-    if (!neighboursOfSameSpecies.isEmpty() && !vegetationPositions.isEmpty()) {
-      addNewAnimalToHabitat(neighboursOfSameSpecies, vegetationPositions);
+    if (isAbleToBreed(neighboursOfSameSpecies, neighbourEmptyPositions, animal)) {
+      addNewAnimalToHabitat(neighboursOfSameSpecies, neighbourEmptyPositions);
       changeBreedingStatus(animal);
     } else {
 //      logger.logInfo(String.format("This %s was not able to breed this year.", animal.getSpecies()));
     }
   }
 
-  private void addNewAnimalToHabitat(List<? extends Animal> neighboursOfSameSpecies, List<Vegetation> vegetationPositions) {
-    int randomNeighbourIndex = random.nextInt(neighboursOfSameSpecies.size());
-    Animal randomNeighbourOfSameSpecies = neighboursOfSameSpecies.get(randomNeighbourIndex);
+  private <T extends Animal> boolean isAbleToBreed(List<T> neighboursOfSameSpecies, List<Vegetation> neighbourEmptyPositions, Animal animal) {
+    return !neighboursOfSameSpecies.isEmpty() && !neighbourEmptyPositions.isEmpty() && animal.isAbleToBreed() && !animal.didAlreadyBreedInGivenYear();
+  }
 
-    int randomEmptyPositionIndex = random.nextInt(vegetationPositions.size());
-    Vegetation randomEmptyPosition = vegetationPositions.get(randomEmptyPositionIndex);
+  private <T extends Animal> void addNewAnimalToHabitat(List<T> neighboursOfSameSpecies, List<Vegetation> neighbourEmptyPositions) {
+    int randomNeighbourIndex = random.nextInt(neighboursOfSameSpecies.size());
+    Animal breedingMate = neighboursOfSameSpecies.get(randomNeighbourIndex);
+
+    int randomEmptyPositionIndex = random.nextInt(neighbourEmptyPositions.size());
+    Vegetation randomEmptyPosition = neighbourEmptyPositions.get(randomEmptyPositionIndex);
 
     int xCoordinate = randomEmptyPosition.getCoordinates().xCoordinate();
     int yCoordinate = randomEmptyPosition.getCoordinates().yCoordinate();
 
     Cell coordinates = new Cell(xCoordinate, yCoordinate);
-    Animal newAnimal = animalFactory.createAnimal(randomNeighbourOfSameSpecies.getType(), randomNeighbourOfSameSpecies.getSpecies(), coordinates);
+    Animal newAnimal = animalFactory.createAnimal(breedingMate.getType(), breedingMate.getSpecies(), coordinates);
     matrix.placeAnimalByCoordinate(xCoordinate, yCoordinate, newAnimal);
 
-    changeBreedingStatus(randomNeighbourOfSameSpecies);
+    changeBreedingStatus(breedingMate);
   }
 
   private void changeBreedingStatus(Animal animal) {

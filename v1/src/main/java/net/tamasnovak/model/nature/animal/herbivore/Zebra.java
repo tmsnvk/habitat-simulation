@@ -28,7 +28,7 @@ public final class Zebra extends Herbivore {
   }
 
   @Override
-  protected boolean isAbleToBreed() {
+  public boolean isAbleToBreed() {
     return this.currentAge % 2 == 0;
   }
 
