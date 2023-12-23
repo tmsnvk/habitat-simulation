@@ -29,31 +29,30 @@ public final class BreedingRoutine extends Routine {
 
     if (!neighboursOfSameSpecies.isEmpty() && !vegetationPositions.isEmpty()) {
       addNewAnimalToHabitat(neighboursOfSameSpecies, vegetationPositions);
-      changeBreedIndicator(animal);
+      changeBreedingStatus(animal);
     } else {
-//      logger.logInfo(String.format("This %s was not able to breed this year.", animal.getAnimalSpecies()));
+//      logger.logInfo(String.format("This %s was not able to breed this year.", animal.getSpecies()));
     }
   }
 
   private void addNewAnimalToHabitat(List<? extends Animal> neighboursOfSameSpecies, List<Vegetation> vegetationPositions) {
-    int neighbourNumber = random.nextInt(neighboursOfSameSpecies.size());
-    Animal randomNeighbourOfSameSpecies = neighboursOfSameSpecies.get(neighbourNumber);
+    int randomNeighbourIndex = random.nextInt(neighboursOfSameSpecies.size());
+    Animal randomNeighbourOfSameSpecies = neighboursOfSameSpecies.get(randomNeighbourIndex);
 
-    int emptyPositionNumber = random.nextInt(vegetationPositions.size());
-    Vegetation randomEmptyPosition = vegetationPositions.get(emptyPositionNumber);
+    int randomEmptyPositionIndex = random.nextInt(vegetationPositions.size());
+    Vegetation randomEmptyPosition = vegetationPositions.get(randomEmptyPositionIndex);
 
     int xCoordinate = randomEmptyPosition.getCoordinates().xCoordinate();
     int yCoordinate = randomEmptyPosition.getCoordinates().yCoordinate();
-
 
     Cell coordinates = new Cell(xCoordinate, yCoordinate);
     Animal newAnimal = animalFactory.createAnimal(randomNeighbourOfSameSpecies.getType(), randomNeighbourOfSameSpecies.getSpecies(), coordinates);
     matrix.placeAnimalByCoordinate(xCoordinate, yCoordinate, newAnimal);
 
-    changeBreedIndicator(randomNeighbourOfSameSpecies);
+    changeBreedingStatus(randomNeighbourOfSameSpecies);
   }
 
-  private void changeBreedIndicator(Animal animal) {
+  private void changeBreedingStatus(Animal animal) {
     animal.setDidAlreadyBreedInGivenYear(true);
   }
 }

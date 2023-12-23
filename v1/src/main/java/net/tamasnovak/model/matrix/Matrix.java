@@ -9,7 +9,6 @@ import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -83,12 +82,12 @@ public final class Matrix {
       .count();
   }
 
-  public <T extends Animal> List<T> findNeighbourAnimalsByTypeOrSpecies(Animal animalInstance, Class<T> animalClass) {
+  public <T extends Animal> List<T> findNeighbourAnimalsByTypeOrSpecies(Animal animalInstance, Class<T> targetAnimalClass) {
     Cell animalPosition = animalInstance.getCoordinates();
     List<Nature> validNeighbourCoordinates = findValidNeighbourCoordinates(animalPosition);
 
     return validNeighbourCoordinates.stream()
-      .filter(animalClass::isInstance)
+      .filter(targetAnimalClass::isInstance)
       .map(neighbour -> (T) neighbour)
       .collect(Collectors.toList());
   }

@@ -27,6 +27,8 @@ public class Application {
     Input input = new Input();
     Logger logger = new ConsoleLogger();
 
+    SimulationController simulationController = new SimulationController(display, input, logger);
+
     // user decision needs to be made for the habitat as the matrix has to be supplied with the vegetation type;
     // for now it is hardcoded;
     GrassFactory grassFactory = new GrassFactory();
@@ -41,7 +43,6 @@ public class Application {
 
     breedingRoutine.setAnimalFactory(animalFactory);
 
-    SimulationController simulationController = new SimulationController(display, input, logger);
 
     // reorganise this build process, so only that simulation gets built that is selected by the user (need to take out the ui input into its own class or move the habitat generations into another one).
     Habitat savannah = buildSavannahSimulation(random, logger, habitatMatrix, animalFactory);
