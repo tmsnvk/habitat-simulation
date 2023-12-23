@@ -1,7 +1,7 @@
-package net.tamasnovak.logic.routine.breedingRoutine;
+package net.tamasnovak.logic.routine.animalRoutine.breedingRoutine;
 
 import net.tamasnovak.logic.factory.animalFactory.AnimalFactory;
-import net.tamasnovak.logic.routine.Routine;
+import net.tamasnovak.logic.routine.animalRoutine.AnimalInstanceRoutine;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.matrix.Matrix;
@@ -11,7 +11,7 @@ import net.tamasnovak.ui.logger.Logger;
 import java.util.List;
 import java.util.Random;
 
-public final class BreedingRoutine extends Routine {
+public final class BreedingRoutine extends AnimalInstanceRoutine {
   private AnimalFactory animalFactory;
 
   public BreedingRoutine(Random random, Logger logger, Matrix matrix) {
@@ -23,7 +23,8 @@ public final class BreedingRoutine extends Routine {
     this.animalFactory = animalFactory;
   }
 
-  public void run(Animal animal) {
+  @Override
+  public <T extends Animal> void run(T animal) {
     List<? extends Animal> neighboursOfSameSpecies = matrix.findNeighbourAnimalsByTypeOrSpecies(animal, animal.getClass());
     List<Vegetation> vegetationPositions = matrix.findNeighbourVegetation(animal);
 
@@ -53,6 +54,6 @@ public final class BreedingRoutine extends Routine {
   }
 
   private void changeBreedingStatus(Animal animal) {
-    animal.setDidAlreadyBreedInGivenYear(true);
+    animal.setDidAlreadyBreedInRunningYear(true);
   }
 }

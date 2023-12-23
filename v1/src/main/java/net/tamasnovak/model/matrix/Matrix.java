@@ -153,6 +153,6 @@ public final class Matrix {
       .flatMap(Stream::of)
       .filter(Animal.class::isInstance)
       .map(Animal.class::cast)
-      .forEach(animal -> animal.setDidAlreadyBreedInGivenYear(false));
+      .forEach(animal -> animal.setDidAlreadyBreedInRunningYear(false));
   }
 }

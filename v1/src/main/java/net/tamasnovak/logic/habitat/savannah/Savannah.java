@@ -2,7 +2,7 @@ package net.tamasnovak.logic.habitat.savannah;
 
 import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.HabitatType;
-import net.tamasnovak.logic.routine.populatorRoutine.PopulatorRoutine;
+import net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;

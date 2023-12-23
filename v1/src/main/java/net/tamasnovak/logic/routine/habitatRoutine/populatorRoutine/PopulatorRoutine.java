@@ -1,8 +1,8 @@
-package net.tamasnovak.logic.routine.populatorRoutine;
+package net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine;
 
 import net.tamasnovak.logic.factory.animalFactory.AnimalFactory;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
-import net.tamasnovak.logic.routine.Routine;
+import net.tamasnovak.logic.routine.habitatRoutine.HabitatInstanceRoutine;
 import net.tamasnovak.model.nature.Nature;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
@@ -15,7 +15,7 @@ import net.tamasnovak.ui.logger.Logger;
 import java.util.Random;
 import java.util.Set;
 
-public final class PopulatorRoutine extends Routine {
+public final class PopulatorRoutine extends HabitatInstanceRoutine {
   private final SavannahConfiguration habitatConfiguration;
   private final AnimalFactory animalFactory;
 
@@ -30,6 +30,7 @@ public final class PopulatorRoutine extends Routine {
     this.animalFactory = animalFactory;
   }
 
+  @Override
   public void run() {
     displayPreRoutineLogs();
     populateMatrix();

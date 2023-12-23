@@ -1,7 +1,8 @@
 package net.tamasnovak.logic.factory.animalFactory;
 
-import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.logic.routine.huntingRoutine.HuntingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.nature.animal.carnivore.Carnivore;
 import net.tamasnovak.model.nature.animal.carnivore.Leopard;
@@ -11,11 +12,13 @@ import java.util.Random;
 
 public final class CarnivoreFactory {
   private final Random random;
+  private final AgingRoutine agingRoutine;
   private final HuntingRoutine huntingRoutine;
   private final BreedingRoutine breedingRoutine;
 
-  public CarnivoreFactory(Random random, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine) {
+  public CarnivoreFactory(Random random, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine) {
     this.random = random;
+    this.agingRoutine = agingRoutine;
     this.huntingRoutine = huntingRoutine;
     this.breedingRoutine = breedingRoutine;
   }
@@ -31,6 +34,6 @@ public final class CarnivoreFactory {
   }
 
   private Leopard createLeopard(Cell livingArea) {
-    return new Leopard(random, livingArea, huntingRoutine, breedingRoutine);
+    return new Leopard(random, livingArea, agingRoutine, huntingRoutine, breedingRoutine);
   }
 }

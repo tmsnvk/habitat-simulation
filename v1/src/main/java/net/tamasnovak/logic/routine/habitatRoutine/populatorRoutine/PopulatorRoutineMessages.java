@@ -1,4 +1,4 @@
-package net.tamasnovak.logic.routine.populatorRoutine;
+package net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine;
 
 public final class PopulatorRoutineMessages {
   public static final String START_POPULATE_MATRIX = "Populating matrix is starting... now!";

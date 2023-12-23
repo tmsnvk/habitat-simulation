@@ -1,6 +1,7 @@
 package net.tamasnovak.model.nature.animal.herbivore;
 
-import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.matrix.Cell;
 
@@ -12,8 +13,8 @@ public final class Zebra extends Herbivore {
   private static final String ICON = "🦓";
   private static int idCounter = 0;
 
-  public Zebra(Random random, Cell coordinates, BreedingRoutine breedingRoutine) {
-    super(createId(), coordinates, drawMaximumAgeValue(random), ICON, SPECIES, breedingRoutine);
+  public Zebra(Random random, Cell coordinates, AgingRoutine agingRoutine, BreedingRoutine breedingRoutine) {
+    super(createId(), coordinates, drawMaximumAgeValue(random), ICON, SPECIES, agingRoutine, breedingRoutine);
   }
 
   private static String createId() {

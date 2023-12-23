@@ -1,7 +1,8 @@
 package net.tamasnovak.model.nature.animal.carnivore;
 
-import net.tamasnovak.logic.routine.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.logic.routine.huntingRoutine.HuntingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.matrix.Cell;
 
@@ -14,8 +15,8 @@ public final class Leopard extends Carnivore {
   private static final String ICON = "🐆";
   private static int idCounter = 0;
 
-  public Leopard(Random random, Cell coordinates, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine) {
-    super(createId(), MAXIMUM_HUNGER_LEVEL, coordinates, drawMaximumAgeValue(random), ICON, SPECIES, huntingRoutine, breedingRoutine);
+  public Leopard(Random random, Cell coordinates, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine) {
+    super(createId(), MAXIMUM_HUNGER_LEVEL, coordinates, drawMaximumAgeValue(random), ICON, SPECIES, agingRoutine, huntingRoutine, breedingRoutine);
   }
 
   private static String createId() {
