@@ -3,6 +3,7 @@ package net.tamasnovak.model.nature.animal.carnivore;
 import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.huntingRoutine.HuntingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutine;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.nature.animal.AnimalType;
@@ -14,17 +15,8 @@ public abstract class Carnivore extends Animal {
   private final int maximumHungerLevel;
   private final HuntingRoutine huntingRoutine;
 
-  public Carnivore(
-    String id,
-    int maximumHungerLevel,
-    Cell coordinates,
-    int maximumAge,
-    String animalIcon,
-    AnimalSpecies animalSpecies,
-    AgingRoutine agingRoutine,
-    HuntingRoutine huntingRoutine,
-    BreedingRoutine breedingRoutine) {
-    super(id, coordinates, maximumAge, animalIcon, animalSpecies, TYPE, agingRoutine, breedingRoutine);
+  public Carnivore(String id, int maximumHungerLevel, int maximumCellMovement, Cell coordinates, int maximumAge, String animalIcon, AnimalSpecies animalSpecies, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
+    super(id, maximumCellMovement, coordinates, maximumAge, animalIcon, animalSpecies, TYPE, agingRoutine, breedingRoutine, movementRoutine);
     this.hungerLevel = 0;
     this.maximumHungerLevel = maximumHungerLevel;
     this.huntingRoutine = huntingRoutine;
@@ -52,6 +44,6 @@ public abstract class Carnivore extends Animal {
 
     huntingRoutine.run(this);
     breedingRoutine.run(this);
-//    move();
+    movementRoutine.run(this);
   }
 }

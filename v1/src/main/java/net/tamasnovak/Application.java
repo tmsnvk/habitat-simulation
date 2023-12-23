@@ -9,6 +9,7 @@ import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
 import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutine;
 import net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.model.matrix.Matrix;
@@ -40,8 +41,9 @@ public class Application {
     AgingRoutine agingRoutine = new AgingRoutine(random, logger, habitatMatrix);
     HuntingRoutine huntingRoutine = new HuntingRoutine(random, logger, habitatMatrix);
     BreedingRoutine breedingRoutine = new BreedingRoutine(random, logger, habitatMatrix);
+    MovementRoutine movementRoutine = new MovementRoutine(random, logger, habitatMatrix);
 
-    AnimalFactory animalFactory = buildAbstractFactory(random, agingRoutine, huntingRoutine, breedingRoutine);
+    AnimalFactory animalFactory = buildAbstractFactory(random, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
 
     breedingRoutine.setAnimalFactory(animalFactory);
 
@@ -55,9 +57,9 @@ public class Application {
     savannah.runHabitat();
   }
 
-  private static AnimalFactory buildAbstractFactory(Random random, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine) {
-    CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random, agingRoutine, huntingRoutine, breedingRoutine);
-    HerbivoreFactory herbivoreFactory = new HerbivoreFactory(random, agingRoutine, breedingRoutine);
+  private static AnimalFactory buildAbstractFactory(Random random, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
+    CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
+    HerbivoreFactory herbivoreFactory = new HerbivoreFactory(random, agingRoutine, breedingRoutine, movementRoutine);
 
     return new AnimalFactory(herbivoreFactory, carnivoreFactory);
   }

@@ -2,11 +2,13 @@ package net.tamasnovak.model.nature.animal;
 
 import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutine;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.nature.Nature;
 
 public abstract class Animal extends Nature {
   private static final String DEAD_ANIMAL_ICON = "☠";
+  protected final int maximumCellMovement;
   protected int currentAge;
   protected final int maximumAge;
   protected boolean isAlive;
@@ -15,17 +17,11 @@ public abstract class Animal extends Nature {
   protected final AnimalType type;
   protected final AgingRoutine agingRoutine;
   protected final BreedingRoutine breedingRoutine;
+  protected final MovementRoutine movementRoutine;
 
-  public Animal(
-    String id,
-    Cell coordinates,
-    int maximumAge,
-    String icon,
-    AnimalSpecies species,
-    AnimalType type,
-    AgingRoutine agingRoutine,
-    BreedingRoutine breedingRoutine) {
+  public Animal(String id, int maximumCellMovement, Cell coordinates, int maximumAge, String icon, AnimalSpecies species, AnimalType type, AgingRoutine agingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
     super(id, coordinates, icon);
+    this.maximumCellMovement = maximumCellMovement;
     this.currentAge = 0;
     this.isAlive = true;
     this.didAlreadyBreedInRunningYear = false;
@@ -35,10 +31,15 @@ public abstract class Animal extends Nature {
     this.type = type;
     this.agingRoutine = agingRoutine;
     this.breedingRoutine = breedingRoutine;
+    this.movementRoutine = movementRoutine;
   }
 
   public void setCoordinates(Cell coordinates) {
     this.coordinates = coordinates;
+  }
+
+  public int getMaximumCellMovement() {
+    return maximumCellMovement;
   }
 
   public int getCurrentAge() {
@@ -73,19 +74,11 @@ public abstract class Animal extends Nature {
     return type;
   }
 
-  public abstract void doLifeCycleMethods();
-
   public void perish() {
     this.isAlive = false;
     this.icon = DEAD_ANIMAL_ICON;
   }
 
   public abstract boolean isAbleToBreed();
-  protected abstract void move();
-
-  protected void breed() {
-    if (isAbleToBreed()) {
-      breedingRoutine.run(this);
-    }
-  }
+  public abstract void doLifeCycleMethods();
 }

@@ -8,6 +8,7 @@ import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.ui.logger.Logger;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -40,6 +41,8 @@ public final class Savannah extends Habitat {
 
       yearCounter++;
     }
+
+    System.out.println(Arrays.deepToString(matrix.getMatrix()));
   }
 
   private void doPreAnnualRoutine() {

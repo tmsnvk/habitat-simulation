@@ -2,6 +2,7 @@ package net.tamasnovak.model.nature.animal.herbivore;
 
 import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutine;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.matrix.Cell;
 
@@ -9,12 +10,13 @@ import java.util.Random;
 
 public final class Zebra extends Herbivore {
   private static final int[] MAXIMUM_AGE_VALUES = new int[]{ 11, 12, 13, 14 };
+  private static final int MAXIMUM_CELL_MOVEMENT = 1;
   private static final AnimalSpecies SPECIES = AnimalSpecies.ZEBRA;
   private static final String ICON = "🦓";
   private static int idCounter = 0;
 
-  public Zebra(Random random, Cell coordinates, AgingRoutine agingRoutine, BreedingRoutine breedingRoutine) {
-    super(createId(), coordinates, drawMaximumAgeValue(random), ICON, SPECIES, agingRoutine, breedingRoutine);
+  public Zebra(Random random, Cell coordinates, AgingRoutine agingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
+    super(createId(), MAXIMUM_CELL_MOVEMENT, coordinates, drawMaximumAgeValue(random), ICON, SPECIES, agingRoutine, breedingRoutine, movementRoutine);
   }
 
   private static String createId() {
@@ -30,11 +32,6 @@ public final class Zebra extends Herbivore {
   @Override
   public boolean isAbleToBreed() {
     return this.currentAge % 2 == 0;
-  }
-
-  @Override
-  protected void move() {
-
   }
 
   @Override

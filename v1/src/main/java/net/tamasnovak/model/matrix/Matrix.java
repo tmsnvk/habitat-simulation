@@ -48,6 +48,10 @@ public final class Matrix {
     }
   }
 
+  public Nature[][] getMatrix() {
+    return matrix;
+  }
+
   public int getLength() {
     return LENGTH;
   }
@@ -141,6 +145,7 @@ public final class Matrix {
         Vegetation vegetation = vegetationFactory.createVegetation(vegetationType, vegetationSpecies, position);
 
         matrix[xCoordinate][yCoordinate] = vegetation;
+        System.out.println( matrix[xCoordinate][yCoordinate]);
       });
   }
 
