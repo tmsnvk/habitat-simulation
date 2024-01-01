@@ -52,7 +52,7 @@ public final class BreedingRoutine extends AnimalInstanceRoutine {
 
     Cell coordinates = new Cell(xCoordinate, yCoordinate);
     Animal newAnimal = animalFactory.createAnimal(breedingMate.getType(), breedingMate.getSpecies(), coordinates);
-    matrix.placeAnimalByCoordinate(xCoordinate, yCoordinate, newAnimal);
+    matrix.placeNatureInstanceByCoordinate(xCoordinate, yCoordinate, newAnimal);
 
     changeBreedingStatus(breedingMate);
   }

@@ -5,7 +5,7 @@ import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
 
 public abstract class HabitatConfiguration {
-  public final int LENGTH_OF_SIMULATION_YEARS = 100;
+  public final int LENGTH_OF_SIMULATION_YEARS = 1;
   public final int NUMBER_OF_ANIMALS = 200;
   private final AnimalSpecies herbivore;
   private final AnimalSpecies carnivore;

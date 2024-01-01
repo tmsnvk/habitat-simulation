@@ -41,7 +41,7 @@ public class Application {
     AgingRoutine agingRoutine = new AgingRoutine(random, logger, habitatMatrix);
     HuntingRoutine huntingRoutine = new HuntingRoutine(random, logger, habitatMatrix);
     BreedingRoutine breedingRoutine = new BreedingRoutine(random, logger, habitatMatrix);
-    MovementRoutine movementRoutine = new MovementRoutine(random, logger, habitatMatrix);
+    MovementRoutine movementRoutine = new MovementRoutine(random, logger, habitatMatrix, vegetationFactory);
 
     AnimalFactory animalFactory = buildAbstractFactory(random, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
 

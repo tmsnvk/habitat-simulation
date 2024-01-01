@@ -33,16 +33,24 @@ public final class Savannah extends Habitat {
     int yearCounter = 0;
     while (yearCounter < habitatConfiguration.LENGTH_OF_SIMULATION_YEARS) {
       System.out.printf("YEAR - %s%n", yearCounter);
-      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
-      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
+      System.out.println("BEFORE ANY ANNUAL ACTION");
+//      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
+//      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
+      matrix.printMatrix();
+
       doPreAnnualRoutine();
       doAnnualRoutine();
+
+      System.out.println("BEFORE CLEAN UP");
+      matrix.printMatrix();
       doPostAnnualRoutine();
 
       yearCounter++;
+      System.out.println("AFTER ALL ANNUAL ACTION");
+//      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
+//      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
+      matrix.printMatrix();
     }
-
-    System.out.println(Arrays.deepToString(matrix.getMatrix()));
   }
 
   private void doPreAnnualRoutine() {

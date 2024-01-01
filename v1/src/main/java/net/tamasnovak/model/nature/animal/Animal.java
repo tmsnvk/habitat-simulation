@@ -7,7 +7,7 @@ import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.nature.Nature;
 
 public abstract class Animal extends Nature {
-  private static final String DEAD_ANIMAL_ICON = "☠";
+  private static final String DEAD_ANIMAL_ICON = "\uD83D\uDED1";
   protected final int maximumCellMovement;
   protected int currentAge;
   protected final int maximumAge;

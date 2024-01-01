@@ -1,12 +1,13 @@
 package net.tamasnovak.logic.routine.animalRoutine.movementRoutine;
 
+import net.tamasnovak.logic.factory.vegetationFactory.VegetationFactory;
 import net.tamasnovak.logic.routine.animalRoutine.AnimalInstanceRoutine;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.nature.animal.Animal;
-import net.tamasnovak.model.nature.animal.carnivore.Carnivore;
-import net.tamasnovak.model.nature.animal.herbivore.Herbivore;
 import net.tamasnovak.model.nature.vegetation.Vegetation;
+import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
+import net.tamasnovak.model.nature.vegetation.VegetationType;
 import net.tamasnovak.ui.logger.Logger;
 
 import java.util.HashSet;
@@ -15,13 +16,15 @@ import java.util.Random;
 import java.util.Set;
 
 public final class MovementRoutine extends AnimalInstanceRoutine {
-  public MovementRoutine(Random random, Logger logger, Matrix matrix) {
+  private final VegetationFactory vegetationFactory;
+
+  public MovementRoutine(Random random, Logger logger, Matrix matrix, VegetationFactory vegetationFactory) {
     super(random, logger, matrix);
+    this.vegetationFactory = vegetationFactory;
   }
 
   @Override
   public <T extends Animal> void run(T animal) {
-    System.out.println(animal.getClass());
     int numberOfMoves = 0;
     Set<Cell> usedPositions = new HashSet<>();
 
@@ -29,16 +32,15 @@ public final class MovementRoutine extends AnimalInstanceRoutine {
       List<Vegetation> neighbourEmptyPositions = matrix.findNeighbourVegetation(animal);
 
       if (!neighbourEmptyPositions.isEmpty()) {
-        if (animal instanceof Carnivore) {
-          Cell newPosition =  handleCarnivoreMovement(animal, neighbourEmptyPositions, usedPositions);
-          usedPositions.add(newPosition);
-          System.out.printf("animal: %s | position: %s %n", animal.getId(), newPosition);
-        }
+        int xCoordinate = animal.getCoordinates().xCoordinate();
+        int yCoordinate = animal.getCoordinates().yCoordinate();
 
-        if (animal instanceof Herbivore) {
-          Cell newPosition = handleHerbivoreMovement(animal, neighbourEmptyPositions);
-          usedPositions.add(newPosition);
-        }
+        Cell newPosition = handleMovement(animal, neighbourEmptyPositions, usedPositions);
+        usedPositions.add(newPosition);
+
+        addVegetationToOriginalPosition(xCoordinate, yCoordinate);
+      } else {
+        break;
       }
 
       numberOfMoves++;
@@ -47,22 +49,22 @@ public final class MovementRoutine extends AnimalInstanceRoutine {
     usedPositions.clear();
   }
 
-  private Cell handleCarnivoreMovement(Animal animal, List<Vegetation> emptyPositions, Set<Cell> usedPositions) {
+  private void addVegetationToOriginalPosition(int xCoordinate, int yCoordinate) {
+    Cell position = new Cell(xCoordinate, yCoordinate);
+
+    // hardcoded grass for now
+    Vegetation newVegetation = vegetationFactory.createVegetation(VegetationType.GRASS, VegetationSpecies.FINGER_GRASS, position);
+    matrix.placeNatureInstanceByCoordinate(xCoordinate, yCoordinate, newVegetation);
+  }
+
+  private Cell handleMovement(Animal animal, List<Vegetation> emptyPositions, Set<Cell> usedPositions) {
     Cell randomEmptyPosition = findRandomPosition(emptyPositions);
 
     if (!usedPositions.contains(randomEmptyPosition)) {
       updateAnimalPosition(animal, randomEmptyPosition);
     } else {
-      handleCarnivoreMovement(animal, emptyPositions, usedPositions);
+      handleMovement(animal, emptyPositions, usedPositions);
     }
-
-    return randomEmptyPosition;
-  }
-
-  private Cell handleHerbivoreMovement(Animal animal, List<Vegetation> emptyPositions) {
-    Cell randomEmptyPosition = findRandomPosition(emptyPositions);
-
-    updateAnimalPosition(animal, randomEmptyPosition);
 
     return randomEmptyPosition;
   }
@@ -76,5 +78,6 @@ public final class MovementRoutine extends AnimalInstanceRoutine {
 
   private void updateAnimalPosition(Animal animal, Cell randomEmptyPosition) {
     animal.setCoordinates(randomEmptyPosition);
+    matrix.placeNatureInstanceByCoordinate(animal.getCoordinates().xCoordinate(), animal.getCoordinates().yCoordinate(), animal);
   }
 }

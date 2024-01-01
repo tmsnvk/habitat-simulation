@@ -58,7 +58,7 @@ public final class PopulatorRoutine extends HabitatInstanceRoutine {
     Cell livingArea = new Cell(xCoordinate, yCoordinate);
     Animal animal = generateAnimal(livingArea);
 
-    matrix.placeAnimalByCoordinate(xCoordinate, yCoordinate, animal);
+    matrix.placeNatureInstanceByCoordinate(xCoordinate, yCoordinate, animal);
   }
 
   private Animal generateAnimal(Cell livingArea) {

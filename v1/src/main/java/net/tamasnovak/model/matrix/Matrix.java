@@ -48,6 +48,16 @@ public final class Matrix {
     }
   }
 
+  public void printMatrix() {
+    for (Nature[] nature : matrix) {
+      for (Nature thing : nature) {
+        System.out.print(thing.getIcon() + thing.getCoordinates().xCoordinate() +" "+ thing.getCoordinates().yCoordinate() + " ");
+      }
+
+      System.out.println();
+    }
+  }
+
   public Nature[][] getMatrix() {
     return matrix;
   }
@@ -64,8 +74,9 @@ public final class Matrix {
     return matrix[xCoordinate][yCoordinate];
   }
 
-  public void placeAnimalByCoordinate(int xCoordinate, int yCoordinate, Animal animal) {
-    matrix[xCoordinate][yCoordinate] = animal;
+  public void placeNatureInstanceByCoordinate(int xCoordinate, int yCoordinate, Nature natureInstance) {
+    // the animal should be created here, so the Routine classes wouldn't need to have access to the factories
+    matrix[xCoordinate][yCoordinate] = natureInstance;
   }
 
   public Set<AnimalSpecies> findDistinctAnimalSpecies() {
@@ -143,9 +154,7 @@ public final class Matrix {
 
         Cell position = new Cell(xCoordinate, yCoordinate);
         Vegetation vegetation = vegetationFactory.createVegetation(vegetationType, vegetationSpecies, position);
-
         matrix[xCoordinate][yCoordinate] = vegetation;
-        System.out.println( matrix[xCoordinate][yCoordinate]);
       });
   }
 

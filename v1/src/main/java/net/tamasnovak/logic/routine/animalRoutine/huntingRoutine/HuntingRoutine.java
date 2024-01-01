@@ -18,7 +18,6 @@ public final class HuntingRoutine extends AnimalInstanceRoutine {
   @Override
   public <T extends Animal> void run(T animal) {
     List<Herbivore> neighbourHerbivores = matrix.findNeighbourAnimalsByTypeOrSpecies(animal, Herbivore.class);
-
     if (animal instanceof Carnivore carnivore) {
       if (neighbourHerbivores.isEmpty()) {
         increaseHungerLevel(carnivore);
