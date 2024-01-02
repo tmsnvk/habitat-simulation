@@ -29,11 +29,11 @@ public class Application {
     Random random = new Random();
     Scanner scanner = new Scanner(System.in);
     Display display = new Display();
-    Input input = new Input();
+    Input input = new Input(scanner);
     Logger consoleLogger = new ConsoleLogger();
 
     SimulationController simulationController = new SimulationController(scanner, display, input, consoleLogger);
-    SimulationUserInputData simulationUserInputData =  simulationController.startSimulation();
+    SimulationUserInputData simulationUserInputData = simulationController.startSimulationConfiguration();
 
     // user decision needs to be made for the habitat as the matrix has to be supplied with the vegetation type;
     // for now it is hardcoded in the matrix's createHabitat() method;
