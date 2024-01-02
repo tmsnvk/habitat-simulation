@@ -8,7 +8,6 @@ import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.ui.logger.Logger;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -34,8 +33,8 @@ public final class Savannah extends Habitat {
     while (yearCounter < habitatConfiguration.LENGTH_OF_SIMULATION_YEARS) {
       System.out.printf("YEAR - %s%n", yearCounter);
       System.out.println("BEFORE ANY ANNUAL ACTION");
-//      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
-//      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
+      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
+      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
       matrix.printMatrix();
 
       doPreAnnualRoutine();
@@ -47,8 +46,8 @@ public final class Savannah extends Habitat {
 
       yearCounter++;
       System.out.println("AFTER ALL ANNUAL ACTION");
-//      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
-//      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
+      System.out.printf("zebra - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.ZEBRA));
+      System.out.printf("leopard - %s%n", matrix.countAnimalsBySpecies(AnimalSpecies.LEOPARD));
       matrix.printMatrix();
     }
   }

@@ -2,7 +2,7 @@ package net.tamasnovak.ui.logger;
 
 import java.time.LocalDateTime;
 
-public class ConsoleLogger implements Logger {
+public final class ConsoleLogger implements Logger {
   public ConsoleLogger() {}
 
   @Override

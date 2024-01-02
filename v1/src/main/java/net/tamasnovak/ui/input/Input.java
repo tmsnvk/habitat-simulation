@@ -2,7 +2,9 @@ package net.tamasnovak.ui.input;
 
 import java.util.Scanner;
 
-public class Input {
+public final class Input {
+  public Input() {}
+
   public String getInputFromUser() {
     while (true) {
       try {

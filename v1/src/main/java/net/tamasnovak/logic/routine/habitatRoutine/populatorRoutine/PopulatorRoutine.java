@@ -1,33 +1,27 @@
 package net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine;
 
-import net.tamasnovak.logic.factory.animalFactory.AnimalFactory;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
 import net.tamasnovak.logic.routine.habitatRoutine.HabitatInstanceRoutine;
 import net.tamasnovak.model.nature.Nature;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.nature.animal.AnimalType;
-import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.nature.vegetation.Vegetation;
 import net.tamasnovak.ui.logger.Logger;
+import net.tamasnovak.ui.simulation.SimulationController;
 
 import java.util.Random;
 import java.util.Set;
 
 public final class PopulatorRoutine extends HabitatInstanceRoutine {
   private final SavannahConfiguration habitatConfiguration;
-  private final AnimalFactory animalFactory;
+  private final SimulationController simulationController;
 
-  public PopulatorRoutine(
-    Random random,
-    Logger logger,
-    Matrix matrix,
-    SavannahConfiguration habitatConfiguration,
-    AnimalFactory animalFactory) {
+  public PopulatorRoutine(Random random, Logger logger, Matrix matrix, SavannahConfiguration habitatConfiguration, SimulationController simulationController) {
     super(random, logger, matrix);
     this.habitatConfiguration = habitatConfiguration;
-    this.animalFactory = animalFactory;
+    this.simulationController = simulationController;
   }
 
   @Override
@@ -55,19 +49,18 @@ public final class PopulatorRoutine extends HabitatInstanceRoutine {
   }
 
   private void addAnimalToMatrix(int xCoordinate, int yCoordinate) {
-    Cell livingArea = new Cell(xCoordinate, yCoordinate);
-    Animal animal = generateAnimal(livingArea);
+    Animal animal = generateAnimal(xCoordinate, yCoordinate);
 
     matrix.placeNatureInstanceByCoordinate(xCoordinate, yCoordinate, animal);
   }
 
-  private Animal generateAnimal(Cell livingArea) {
+  private Animal generateAnimal(int xCoordinate, int yCoordinate) {
     double coinFlipValue = random.nextDouble(0, 1);
 
     if (coinFlipValue <= habitatConfiguration.CHANCE_OF_HERBIVORE) {
-      return animalFactory.createAnimal(AnimalType.HERBIVORE, habitatConfiguration.getHerbivore(), livingArea);
+      return matrix.createAnimal(AnimalType.HERBIVORE, habitatConfiguration.getHerbivore(), xCoordinate, yCoordinate);
     } else {
-      return animalFactory.createAnimal(AnimalType.CARNIVORE, habitatConfiguration.getCarnivore(), livingArea);
+      return  matrix.createAnimal(AnimalType.CARNIVORE, habitatConfiguration.getCarnivore(), xCoordinate, yCoordinate);
     }
   }
 
@@ -77,6 +70,8 @@ public final class PopulatorRoutine extends HabitatInstanceRoutine {
 
   private void displayPostRoutineLogs() {
     logger.logInfo(PopulatorRoutineMessages.END_POPULATE_MATRIX);
+
+    simulationController.promptEnterKey(PopulatorRoutineMessages.PROMPT_TO_SEE_ANIMAL_STATS);
     logger.logInfo(PopulatorRoutineMessages.ANIMAL_STATS_INTRO);
 
     Set<AnimalSpecies> animalSpeciesInMatrix = matrix.findDistinctAnimalSpecies();

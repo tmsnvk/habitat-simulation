@@ -7,42 +7,62 @@ import net.tamasnovak.ui.display.Display;
 import net.tamasnovak.ui.input.Input;
 import net.tamasnovak.ui.logger.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class SimulationController {
+  private final Scanner scanner;
   private final Display display;
   private final Input input;
   private final Logger logger;
-  private final List<Habitat> habitats;
+  private Habitat habitat;
 
-  public SimulationController(Display display, Input input, Logger logger) {
+  public SimulationController(Scanner scanner, Display display, Input input, Logger logger) {
+    this.scanner = scanner;
     this.display = display;
     this.input = input;
     this.logger = logger;
-    this.habitats = new ArrayList<>();
+    this.habitat = null;
   }
 
-  public void addHabitat(Habitat habitat) {
-    habitats.add(habitat);
+  public void setHabitat(Habitat habitat) {
+    this.habitat = habitat;
   }
 
-  public void runSimulation() {
-    Habitat selectedHabitat = selectHabitat();
-    selectedHabitat.runHabitat();
+  public void startSimulation() {
+        display.displayMessage(UiMessages.SIMULATION_INTRODUCTION);
+    while (true) {
+      try {
+
+        String userInput = input.getInputFromUser();
+        System.out.println();
+
+        if (userInput.equalsIgnoreCase("start")) {
+          return;
+        } else if (userInput.equalsIgnoreCase("exit")) {
+          System.exit(0);
+        } else {
+          throw new Exception();
+        }
+      } catch (Exception error) {
+        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
+      }
+    }
   }
 
-  private Habitat selectHabitat() {
+  public HabitatType selectHabitatType() {
     while (true) {
       try {
         display.displayMessage(UiMessages.INTRO_TEXT);
         printEnumCategories(HabitatType.values());
+
         display.displayMessage(UiMessages.PROMPT_TO_SELECT_HABITAT);
 
         String userInput = input.getInputFromUser();
+        System.out.println();
 
-        return habitats.stream()
-          .filter(habitat -> habitat.getHabitatType().toString().equalsIgnoreCase(userInput))
+        return Arrays.stream(HabitatType.values())
+          .filter(habitat -> habitat.name().equalsIgnoreCase(userInput))
           .findFirst()
           .orElseThrow();
       } catch (Exception error) {
@@ -51,11 +71,17 @@ public class SimulationController {
     }
   }
 
+  public void promptEnterKey(String promptMessage) {
+    System.out.printf(promptMessage);
+    scanner.nextLine();
+  }
+
   private <T extends Enum<T>> void printEnumCategories(T[] values) {
     for (T value : values) {
       System.out.printf("[%s] ", value.name());
     }
 
+    System.out.println();
     System.out.println();
   }
 }
