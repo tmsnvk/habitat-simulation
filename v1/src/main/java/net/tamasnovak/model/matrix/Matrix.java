@@ -1,9 +1,11 @@
 package net.tamasnovak.model.matrix;
 
+import net.tamasnovak.logic.factory.animalFactory.AnimalFactory;
 import net.tamasnovak.logic.factory.vegetationFactory.VegetationFactory;
 import net.tamasnovak.model.nature.Nature;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
+import net.tamasnovak.model.nature.animal.AnimalType;
 import net.tamasnovak.model.nature.vegetation.Vegetation;
 import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
@@ -31,9 +33,11 @@ public final class Matrix {
   );
   private final Nature[][] matrix;
   private final VegetationFactory vegetationFactory;
+  private AnimalFactory animalFactory;
 
   public Matrix(VegetationFactory vegetationFactory) {
     this.vegetationFactory = vegetationFactory;
+    this.animalFactory = null;
     this.matrix = new Nature[LENGTH][WIDTH];
     createHabitat();
   }
@@ -58,10 +62,6 @@ public final class Matrix {
     }
   }
 
-  public Nature[][] getMatrix() {
-    return matrix;
-  }
-
   public int getLength() {
     return LENGTH;
   }
@@ -70,12 +70,27 @@ public final class Matrix {
     return WIDTH;
   }
 
+  public void setAnimalFactory(AnimalFactory animalFactory) {
+    this.animalFactory = animalFactory;
+  }
+
   public Nature findPosition(int xCoordinate, int yCoordinate) {
     return matrix[xCoordinate][yCoordinate];
   }
 
+  public Vegetation createVegetation(VegetationType vegetationType, VegetationSpecies vegetationSpecies, int xCoordinate, int yCoordinate) {
+    Cell position = new Cell(xCoordinate, yCoordinate);
+
+    return vegetationFactory.createVegetation(vegetationType,vegetationSpecies, position);
+  }
+
+  public Animal createAnimal(AnimalType animalType, AnimalSpecies animalSpecies, int xCoordinate, int yCoordinate) {
+    Cell position = new Cell(xCoordinate, yCoordinate);
+
+    return animalFactory.createAnimal(animalType, animalSpecies, position);
+  }
+
   public void placeNatureInstanceByCoordinate(int xCoordinate, int yCoordinate, Nature natureInstance) {
-    // the animal should be created here, so the Routine classes wouldn't need to have access to the factories
     matrix[xCoordinate][yCoordinate] = natureInstance;
   }
 

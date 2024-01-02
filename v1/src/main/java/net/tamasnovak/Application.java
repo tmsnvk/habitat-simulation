@@ -27,29 +27,20 @@ public class Application {
     Random random = new Random();
     Display display = new Display();
     Input input = new Input();
-    Logger logger = new ConsoleLogger();
+    Logger consoleLogger = new ConsoleLogger();
 
-    SimulationController simulationController = new SimulationController(display, input, logger);
+    SimulationController simulationController = new SimulationController(display, input, consoleLogger);
 
     // user decision needs to be made for the habitat as the matrix has to be supplied with the vegetation type;
-    // for now it is hardcoded;
-    GrassFactory grassFactory = new GrassFactory();
-    VegetationFactory vegetationFactory = new VegetationFactory(grassFactory);
+    // for now it is hardcoded in the matrix's createHabitat() method;
+    VegetationFactory vegetationFactory = buildVegetationAbstractFactory();
 
     Matrix habitatMatrix = new Matrix(vegetationFactory);
 
-    AgingRoutine agingRoutine = new AgingRoutine(random, logger, habitatMatrix);
-    HuntingRoutine huntingRoutine = new HuntingRoutine(random, logger, habitatMatrix);
-    BreedingRoutine breedingRoutine = new BreedingRoutine(random, logger, habitatMatrix);
-    MovementRoutine movementRoutine = new MovementRoutine(random, logger, habitatMatrix, vegetationFactory);
-
-    AnimalFactory animalFactory = buildAbstractFactory(random, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
-
-    breedingRoutine.setAnimalFactory(animalFactory);
-
-
+    AnimalFactory animalFactory = buildAnimalAbstractFactory(random, consoleLogger, habitatMatrix);
+    habitatMatrix.setAnimalFactory(animalFactory);
     // reorganise this build process, so only that simulation gets built that is selected by the user (need to take out the ui input into its own class or move the habitat generations into another one).
-    Habitat savannah = buildSavannahSimulation(random, logger, habitatMatrix, animalFactory);
+    Habitat savannah = buildSavannahSimulation(random, consoleLogger, habitatMatrix, animalFactory);
 
     simulationController.addHabitat(savannah);
 
@@ -57,11 +48,22 @@ public class Application {
     savannah.runHabitat();
   }
 
-  private static AnimalFactory buildAbstractFactory(Random random, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
+  private static AnimalFactory buildAnimalAbstractFactory(Random random, Logger consoleLogger, Matrix habitatMatrix) {
+    AgingRoutine agingRoutine = new AgingRoutine(random, consoleLogger, habitatMatrix);
+    HuntingRoutine huntingRoutine = new HuntingRoutine(random, consoleLogger, habitatMatrix);
+    BreedingRoutine breedingRoutine = new BreedingRoutine(random, consoleLogger, habitatMatrix);
+    MovementRoutine movementRoutine = new MovementRoutine(random, consoleLogger, habitatMatrix);
+
     CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
     HerbivoreFactory herbivoreFactory = new HerbivoreFactory(random, agingRoutine, breedingRoutine, movementRoutine);
 
     return new AnimalFactory(herbivoreFactory, carnivoreFactory);
+  }
+
+  private static VegetationFactory buildVegetationAbstractFactory() {
+    GrassFactory grassFactory = new GrassFactory();
+
+    return new VegetationFactory(grassFactory);
   }
 
   private static Habitat buildSavannahSimulation(Random random, Logger logger, Matrix savannahMatrix, AnimalFactory animalFactory) {

@@ -6,7 +6,7 @@ import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
 
 public final class SavannahConfiguration extends HabitatConfiguration {
-  public final double CHANCE_OF_HERBIVORE = 0.7;
+  public final double CHANCE_OF_HERBIVORE = 0.65;
   private static final AnimalSpecies HERBIVORE = AnimalSpecies.ZEBRA;
   private static final AnimalSpecies CARNIVORE = AnimalSpecies.LEOPARD;
   private static final VegetationType VEGETATION_TYPE = VegetationType.GRASS;

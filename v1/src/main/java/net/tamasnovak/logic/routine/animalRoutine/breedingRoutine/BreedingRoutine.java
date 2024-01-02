@@ -2,7 +2,6 @@ package net.tamasnovak.logic.routine.animalRoutine.breedingRoutine;
 
 import net.tamasnovak.logic.factory.animalFactory.AnimalFactory;
 import net.tamasnovak.logic.routine.animalRoutine.AnimalInstanceRoutine;
-import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.nature.vegetation.Vegetation;
@@ -50,8 +49,7 @@ public final class BreedingRoutine extends AnimalInstanceRoutine {
     int xCoordinate = randomEmptyPosition.getCoordinates().xCoordinate();
     int yCoordinate = randomEmptyPosition.getCoordinates().yCoordinate();
 
-    Cell coordinates = new Cell(xCoordinate, yCoordinate);
-    Animal newAnimal = animalFactory.createAnimal(breedingMate.getType(), breedingMate.getSpecies(), coordinates);
+    Animal newAnimal = matrix.createAnimal(breedingMate.getType(), breedingMate.getSpecies(), xCoordinate, yCoordinate);
     matrix.placeNatureInstanceByCoordinate(xCoordinate, yCoordinate, newAnimal);
 
     changeBreedingStatus(breedingMate);

@@ -1,6 +1,5 @@
 package net.tamasnovak.logic.routine.animalRoutine.movementRoutine;
 
-import net.tamasnovak.logic.factory.vegetationFactory.VegetationFactory;
 import net.tamasnovak.logic.routine.animalRoutine.AnimalInstanceRoutine;
 import net.tamasnovak.model.matrix.Cell;
 import net.tamasnovak.model.matrix.Matrix;
@@ -16,11 +15,8 @@ import java.util.Random;
 import java.util.Set;
 
 public final class MovementRoutine extends AnimalInstanceRoutine {
-  private final VegetationFactory vegetationFactory;
-
-  public MovementRoutine(Random random, Logger logger, Matrix matrix, VegetationFactory vegetationFactory) {
+  public MovementRoutine(Random random, Logger logger, Matrix matrix) {
     super(random, logger, matrix);
-    this.vegetationFactory = vegetationFactory;
   }
 
   @Override
@@ -50,10 +46,8 @@ public final class MovementRoutine extends AnimalInstanceRoutine {
   }
 
   private void addVegetationToOriginalPosition(int xCoordinate, int yCoordinate) {
-    Cell position = new Cell(xCoordinate, yCoordinate);
-
     // hardcoded grass for now
-    Vegetation newVegetation = vegetationFactory.createVegetation(VegetationType.GRASS, VegetationSpecies.FINGER_GRASS, position);
+    Vegetation newVegetation = matrix.createVegetation(VegetationType.GRASS, VegetationSpecies.FINGER_GRASS, xCoordinate, yCoordinate);
     matrix.placeNatureInstanceByCoordinate(xCoordinate, yCoordinate, newVegetation);
   }
 
