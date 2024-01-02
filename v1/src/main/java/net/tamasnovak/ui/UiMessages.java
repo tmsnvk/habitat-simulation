@@ -15,7 +15,7 @@ public final class UiMessages {
   Type 'Start' to start the simulation programme with a number of instructions and setting a few configuration values!
   Type 'Exit' if you ended here by accident and would like to leave!%n
   """;
-  public static final String OPTIONS_AT_INTRODUCTION = "The possible options to type: 1. Start 2. Exit. Your choice is: ";
+  public static final String OPTIONS_AT_INTRODUCTION = "The possible options to type: 1. %sStart%s 2. %sExit%s. Enter your choice here: ";
 
   public static final String OPTIONS_AT_HABITAT_TYPES_SELECTION = "The list of the currently available habitats: ";
   public static final String PROMPT_TO_SELECT_HABITAT = "Enter the name of the habitat you would like to run: ";
@@ -24,6 +24,6 @@ public final class UiMessages {
   public static final String OPTIONS_AT_VEGETATION_SPECIES_SELECTION = "The list of the currently available vegetation species: ";
   public static final String PROMPT_TO_SELECT_VEGETATION_SPECIES = "Enter the name of the vegetation species you would like to appear in your simulation run: ";
 
-  public static final String SELECTION_CONFIRMATION = "Thank you for that! You have chosen: %s.%n%n";
+  public static final String SELECTION_CONFIRMATION = "Thank you for that! You have chosen: %s%s%s.%n%n";
   public static final String INCORRECT_USER_INPUT_WARNING = "Enter a correct input option.";
 }

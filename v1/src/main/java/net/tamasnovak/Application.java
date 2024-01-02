@@ -14,6 +14,7 @@ import net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine.PopulatorRou
 import net.tamasnovak.logic.routine.animalRoutine.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.logic.habitat.savannah.Savannah;
+import net.tamasnovak.ui.display.Color;
 import net.tamasnovak.ui.display.Display;
 import net.tamasnovak.ui.input.Input;
 import net.tamasnovak.ui.logger.ConsoleLogger;

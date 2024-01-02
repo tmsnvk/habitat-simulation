@@ -4,6 +4,7 @@ import net.tamasnovak.logic.habitat.HabitatType;
 import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
 import net.tamasnovak.ui.UiMessages;
+import net.tamasnovak.ui.display.Color;
 import net.tamasnovak.ui.display.Display;
 import net.tamasnovak.ui.input.Input;
 import net.tamasnovak.ui.logger.Logger;
@@ -29,7 +30,6 @@ public class SimulationController {
 
   public SimulationUserInputData startSimulationConfiguration() {
     SimulationUserInputData simulationUserInputData = new SimulationUserInputData();
-
     runIntroduction();
 
     HabitatType selectedHabitatType = runHabitatTypeSelection();
@@ -49,7 +49,7 @@ public class SimulationController {
 
     while (true) {
       try {
-        display.showGenericMessage(UiMessages.OPTIONS_AT_INTRODUCTION);
+        display.showGenericMessageWithColor(UiMessages.OPTIONS_AT_INTRODUCTION, Color.GREEN_BOLD, Color.RED_BOLD);
         String userInput = input.getInputFromUser().toLowerCase();
         System.out.println();
 
@@ -77,7 +77,7 @@ public class SimulationController {
 
         String userInput = input.getInputFromUser();
         System.out.println();
-        display.showConfirmationMessage(UiMessages.SELECTION_CONFIRMATION, userInput);
+        display.showConfirmationMessageWithColor(UiMessages.SELECTION_CONFIRMATION, Color.BLUE_BOLD, userInput);
 
         Predicate<HabitatType> filterByUserInput = habitat -> habitat.name().equalsIgnoreCase(userInput);
 
@@ -100,7 +100,7 @@ public class SimulationController {
 
         String userInput = input.getInputFromUser();
         System.out.println();
-        display.showConfirmationMessage(UiMessages.SELECTION_CONFIRMATION, userInput);
+        display.showConfirmationMessageWithColor(UiMessages.SELECTION_CONFIRMATION, Color.BLUE_BOLD, userInput);
 
         Predicate<VegetationType> filterByUserInput = vegetationType -> vegetationType.name().equalsIgnoreCase(userInput);
 
@@ -123,7 +123,7 @@ public class SimulationController {
 
         String userInput = input.getInputFromUser();
         System.out.println();
-        display.showConfirmationMessage(UiMessages.SELECTION_CONFIRMATION, userInput);
+        display.showConfirmationMessageWithColor(UiMessages.SELECTION_CONFIRMATION, Color.BLUE_BOLD, userInput);
 
         Predicate<VegetationSpecies> filterByUserInput = vegetationSpecies -> vegetationSpecies.name().replaceAll("_", " ").equalsIgnoreCase(userInput);
 
