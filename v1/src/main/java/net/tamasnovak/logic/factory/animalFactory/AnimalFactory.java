@@ -14,12 +14,12 @@ public final class AnimalFactory {
     this.carnivoreFactory = carnivoreFactory;
   }
 
-  public Animal createAnimal(AnimalType animalType, AnimalSpecies animalSpecies, Cell livingArea) {
+  public Animal createAnimal(AnimalType animalType, AnimalSpecies animalSpecies, Cell coordinates) {
     Animal animal = null;
 
     switch (animalType) {
-      case CARNIVORE -> animal = carnivoreFactory.createCarnivore(animalSpecies, livingArea);
-      case HERBIVORE -> animal = herbivoreFactory.createHerbivore(animalSpecies, livingArea);
+      case CARNIVORE -> animal = carnivoreFactory.createCarnivore(animalSpecies, coordinates);
+      case HERBIVORE -> animal = herbivoreFactory.createHerbivore(animalSpecies, coordinates);
     }
 
     return animal;

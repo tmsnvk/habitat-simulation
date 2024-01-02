@@ -23,17 +23,17 @@ public final class HerbivoreFactory {
     this.movementRoutine = movementRoutine;
   }
 
-  Herbivore createHerbivore(AnimalSpecies animalSpecies, Cell livingArea) {
+  Herbivore createHerbivore(AnimalSpecies animalSpecies, Cell coordinates) {
     Herbivore animal = null;
 
     switch (animalSpecies) {
-      case ZEBRA -> animal = createZebra(livingArea);
+      case ZEBRA -> animal = createZebra(coordinates);
     }
 
     return animal;
   }
 
-  private Zebra createZebra(Cell livingArea) {
-    return new Zebra(random, livingArea, agingRoutine, breedingRoutine, movementRoutine);
+  private Zebra createZebra(Cell coordinates) {
+    return new Zebra(random, coordinates, agingRoutine, breedingRoutine, movementRoutine);
   }
 }

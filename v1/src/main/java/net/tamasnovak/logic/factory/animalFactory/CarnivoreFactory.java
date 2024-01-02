@@ -26,17 +26,17 @@ public final class CarnivoreFactory {
     this.movementRoutine = movementRoutine;
   }
 
-  Carnivore createCarnivore(AnimalSpecies animalSpecies, Cell livingArea) {
+  Carnivore createCarnivore(AnimalSpecies animalSpecies, Cell coordinates) {
     Carnivore animal = null;
 
     switch (animalSpecies) {
-      case LEOPARD -> animal = createLeopard(livingArea);
+      case LEOPARD -> animal = createLeopard(coordinates);
     }
 
     return animal;
   }
 
-  private Leopard createLeopard(Cell livingArea) {
-    return new Leopard(random, livingArea, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
+  private Leopard createLeopard(Cell coordinates) {
+    return new Leopard(random, coordinates, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
   }
 }

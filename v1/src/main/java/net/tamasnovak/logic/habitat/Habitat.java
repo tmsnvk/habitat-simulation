@@ -1,6 +1,6 @@
 package net.tamasnovak.logic.habitat;
 
-import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
+import net.tamasnovak.logic.factory.configurationFactory.SavannahConfiguration;
 import net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine.PopulatorRoutine;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.ui.logger.Logger;

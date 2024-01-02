@@ -1,6 +1,6 @@
 package net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine;
 
-import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
+import net.tamasnovak.logic.habitat.HabitatConfiguration;
 import net.tamasnovak.logic.routine.habitatRoutine.HabitatInstanceRoutine;
 import net.tamasnovak.model.nature.Nature;
 import net.tamasnovak.model.nature.animal.Animal;
@@ -15,10 +15,10 @@ import java.util.Random;
 import java.util.Set;
 
 public final class PopulatorRoutine extends HabitatInstanceRoutine {
-  private final SavannahConfiguration habitatConfiguration;
+  private final HabitatConfiguration habitatConfiguration;
   private final SimulationController simulationController;
 
-  public PopulatorRoutine(Random random, Logger logger, Matrix matrix, SavannahConfiguration habitatConfiguration, SimulationController simulationController) {
+  public PopulatorRoutine(Random random, Logger logger, Matrix matrix, HabitatConfiguration habitatConfiguration, SimulationController simulationController) {
     super(random, logger, matrix);
     this.habitatConfiguration = habitatConfiguration;
     this.simulationController = simulationController;

@@ -16,7 +16,7 @@ public class GrassFactory {
     return vegetation;
   }
 
-  private FingerGrass createFingerGrass(Cell livingArea) {
-    return new FingerGrass(livingArea);
+  private FingerGrass createFingerGrass(Cell coordinates) {
+    return new FingerGrass(coordinates);
   }
 }

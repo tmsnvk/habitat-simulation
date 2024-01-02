@@ -15,7 +15,7 @@ import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class SimulationController {
+public final class SimulationController {
   private final Scanner scanner;
   private final Display display;
   private final Input input;
@@ -28,20 +28,20 @@ public class SimulationController {
     this.logger = logger;
   }
 
-  public SimulationUserInputData startSimulationConfiguration() {
-    SimulationUserInputData simulationUserInputData = new SimulationUserInputData();
+  public SimulationUserInput startSimulationConfiguration() {
+    SimulationUserInput simulationUserInput = new SimulationUserInput();
     runIntroduction();
 
     HabitatType selectedHabitatType = runHabitatTypeSelection();
-    simulationUserInputData.setHabitatType(selectedHabitatType);
+    simulationUserInput.setHabitatType(selectedHabitatType);
 
     VegetationType selectedVegetationType = runVegetationTypeSelection(selectedHabitatType);
-    simulationUserInputData.setVegetationType(selectedVegetationType);
+    simulationUserInput.setVegetationType(selectedVegetationType);
 
     VegetationSpecies selectedVegetationSpecies = runVegetationSpeciesSelection(selectedVegetationType);
-    simulationUserInputData.setVegetationSpecies(selectedVegetationSpecies);
+    simulationUserInput.setVegetationSpecies(selectedVegetationSpecies);
 
-    return simulationUserInputData;
+    return simulationUserInput;
   }
 
   private void runIntroduction() {
@@ -71,14 +71,9 @@ public class SimulationController {
 
     while (true) {
       try {
-        display.showGenericMessage(UiMessages.OPTIONS_AT_HABITAT_TYPES_SELECTION);
-        display.showEnumCategories(habitatTypes);
-        display.showGenericMessage(UiMessages.PROMPT_TO_SELECT_HABITAT);
+        displaySectionIntroMessages(UiMessages.OPTIONS_AT_HABITAT_TYPES_SELECTION, habitatTypes, UiMessages.PROMPT_TO_SELECT_HABITAT);
 
-        String userInput = input.getInputFromUser();
-        System.out.println();
-        display.showConfirmationMessageWithColor(UiMessages.SELECTION_CONFIRMATION, Color.BLUE_BOLD, userInput);
-
+        String userInput = displaySectionUserInputMessages();
         Predicate<HabitatType> filterByUserInput = habitat -> habitat.name().equalsIgnoreCase(userInput);
 
         return findEnumType(HabitatType.values(), filterByUserInput);
@@ -94,14 +89,9 @@ public class SimulationController {
 
     while (true) {
       try {
-        display.showGenericMessage(UiMessages.OPTIONS_AT_VEGETATION_TYPES_SELECTION);
-        display.showEnumCategories(vegetationTypesInHabitatType);
-        display.showGenericMessage(UiMessages.PROMPT_TO_SELECT_VEGETATION_TYPE);
+        displaySectionIntroMessages(UiMessages.OPTIONS_AT_VEGETATION_TYPES_SELECTION, vegetationTypesInHabitatType, UiMessages.PROMPT_TO_SELECT_VEGETATION_TYPE);
 
-        String userInput = input.getInputFromUser();
-        System.out.println();
-        display.showConfirmationMessageWithColor(UiMessages.SELECTION_CONFIRMATION, Color.BLUE_BOLD, userInput);
-
+        String userInput = displaySectionUserInputMessages();
         Predicate<VegetationType> filterByUserInput = vegetationType -> vegetationType.name().equalsIgnoreCase(userInput);
 
         return findEnumType(VegetationType.values(), filterByUserInput);
@@ -117,21 +107,30 @@ public class SimulationController {
 
     while (true) {
       try {
-        display.showGenericMessage(UiMessages.OPTIONS_AT_VEGETATION_SPECIES_SELECTION);
-        display.showEnumCategories(vegetationSpeciesInVegetationType);
-        display.showGenericMessage(UiMessages.PROMPT_TO_SELECT_VEGETATION_SPECIES);
+        displaySectionIntroMessages(UiMessages.OPTIONS_AT_VEGETATION_SPECIES_SELECTION, vegetationSpeciesInVegetationType, UiMessages.PROMPT_TO_SELECT_VEGETATION_SPECIES);
 
-        String userInput = input.getInputFromUser();
-        System.out.println();
-        display.showConfirmationMessageWithColor(UiMessages.SELECTION_CONFIRMATION, Color.BLUE_BOLD, userInput);
-
-        Predicate<VegetationSpecies> filterByUserInput = vegetationSpecies -> vegetationSpecies.name().replaceAll("_", " ").equalsIgnoreCase(userInput);
+        String userInput = displaySectionUserInputMessages();
+         Predicate<VegetationSpecies> filterByUserInput = vegetationSpecies -> vegetationSpecies.name().replaceAll("_", " ").equalsIgnoreCase(userInput);
 
         return findEnumType(VegetationSpecies.values(), filterByUserInput);
       } catch (Exception error) {
         logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
       }
     }
+  }
+
+  private <T extends Enum<T>> void displaySectionIntroMessages(String messageOne, List<T> enumValueList, String messageTwo) {
+    display.showGenericMessage(messageOne);
+    display.showEnumCategories(enumValueList);
+    display.showGenericMessage(messageTwo);
+  }
+
+  private String displaySectionUserInputMessages() {
+    String userInput = input.getInputFromUser();
+    System.out.println();
+    display.showConfirmationMessageWithColor(UiMessages.SELECTION_CONFIRMATION, Color.BLUE_BOLD, userInput);
+
+    return userInput;
   }
 
   private <T extends Enum<T>> T findEnumType(T[] enumValues, Predicate<T> filterPredicate) {

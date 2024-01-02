@@ -4,12 +4,12 @@ import net.tamasnovak.logic.habitat.HabitatType;
 import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
 
-public final class SimulationUserInputData {
+public final class SimulationUserInput {
   private HabitatType habitatType;
   private VegetationType vegetationType;
   private VegetationSpecies vegetationSpecies;
 
-  SimulationUserInputData() {
+  SimulationUserInput() {
     this.habitatType = null;
     this.vegetationType = null;
     this.vegetationSpecies = null;

@@ -9,6 +9,7 @@ import net.tamasnovak.model.nature.animal.AnimalType;
 import net.tamasnovak.model.nature.vegetation.Vegetation;
 import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
+import net.tamasnovak.ui.simulation.SimulationUserInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +33,12 @@ public final class Matrix {
 //    List.of(-1, 1)
   );
   private final Nature[][] matrix;
+  private final SimulationUserInput simulationUserInput;
   private final VegetationFactory vegetationFactory;
   private AnimalFactory animalFactory;
 
-  public Matrix(VegetationFactory vegetationFactory) {
+  public Matrix(SimulationUserInput simulationUserInput, VegetationFactory vegetationFactory) {
+    this.simulationUserInput = simulationUserInput;
     this.vegetationFactory = vegetationFactory;
     this.animalFactory = null;
     this.matrix = new Nature[LENGTH][WIDTH];
@@ -46,8 +49,8 @@ public final class Matrix {
     for (int x = 0; x < LENGTH; x++) {
       for (int y = 0; y < WIDTH; y++) {
         Cell coordinates = new Cell(x, y);
-        // replace this hardcoded value with whatever is in the config class after the user has chosen a habitat.
-        matrix[x][y] = vegetationFactory.createVegetation(VegetationType.GRASS, VegetationSpecies.FINGER_GRASS, coordinates);
+
+        matrix[x][y] = vegetationFactory.createVegetation(simulationUserInput.getVegetationType(), simulationUserInput.getVegetationSpecies(), coordinates);
       }
     }
   }
