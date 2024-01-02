@@ -1,6 +1,5 @@
 package net.tamasnovak.ui.simulation;
 
-import net.tamasnovak.logic.habitat.Habitat;
 import net.tamasnovak.logic.habitat.HabitatType;
 import net.tamasnovak.ui.UiMessages;
 import net.tamasnovak.ui.display.Display;
@@ -15,22 +14,30 @@ public class SimulationController {
   private final Display display;
   private final Input input;
   private final Logger logger;
-  private Habitat habitat;
 
   public SimulationController(Scanner scanner, Display display, Input input, Logger logger) {
     this.scanner = scanner;
     this.display = display;
     this.input = input;
     this.logger = logger;
-    this.habitat = null;
   }
 
-  public void setHabitat(Habitat habitat) {
-    this.habitat = habitat;
+  public SimulationUserInputData startSimulation() {
+    SimulationUserInputData simulationUserInputData = new SimulationUserInputData();
+
+    runIntroduction();
+
+    HabitatType selectedHabitatType = runHabitatTypeSelection();
+    simulationUserInputData.setHabitatType(selectedHabitatType);
+
+
+
+    return simulationUserInputData;
   }
 
-  public void startSimulation() {
-        display.displayMessage(UiMessages.SIMULATION_INTRODUCTION);
+  private void runIntroduction() {
+    display.displayMessage(UiMessages.SIMULATION_INTRODUCTION);
+
     while (true) {
       try {
 
@@ -50,7 +57,7 @@ public class SimulationController {
     }
   }
 
-  public HabitatType selectHabitatType() {
+  private HabitatType runHabitatTypeSelection() {
     while (true) {
       try {
         display.displayMessage(UiMessages.INTRO_TEXT);

@@ -6,7 +6,6 @@ import net.tamasnovak.logic.factory.animalFactory.HerbivoreFactory;
 import net.tamasnovak.logic.factory.vegetationFactory.GrassFactory;
 import net.tamasnovak.logic.factory.vegetationFactory.VegetationFactory;
 import net.tamasnovak.logic.habitat.Habitat;
-import net.tamasnovak.logic.habitat.HabitatType;
 import net.tamasnovak.logic.habitat.savannah.SavannahConfiguration;
 import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
@@ -20,6 +19,7 @@ import net.tamasnovak.ui.input.Input;
 import net.tamasnovak.ui.logger.ConsoleLogger;
 import net.tamasnovak.ui.logger.Logger;
 import net.tamasnovak.ui.simulation.SimulationController;
+import net.tamasnovak.ui.simulation.SimulationUserInputData;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -33,8 +33,7 @@ public class Application {
     Logger consoleLogger = new ConsoleLogger();
 
     SimulationController simulationController = new SimulationController(scanner, display, input, consoleLogger);
-    simulationController.startSimulation();
-    HabitatType habitatType = simulationController.selectHabitatType();
+    SimulationUserInputData simulationUserInputData =  simulationController.startSimulation();
 
     // user decision needs to be made for the habitat as the matrix has to be supplied with the vegetation type;
     // for now it is hardcoded in the matrix's createHabitat() method;
