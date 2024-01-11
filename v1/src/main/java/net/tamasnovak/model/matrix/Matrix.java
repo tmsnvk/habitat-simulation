@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public final class Matrix {
   private static final int LENGTH = 20;
   private static final int WIDTH = 20;
-  private static final List<List<Integer>> POSSIBLE_NEARBY_COORDINATE_DIFFERENCES = List.of(
+  private static final List<List<Integer>> POSSIBLE_NEARBY_POSITION_DIFFERENCES = List.of(
     // up-down, left-right
     List.of(0, 1),
     List.of(0, -1),
@@ -48,9 +48,9 @@ public final class Matrix {
   private void createHabitat() {
     for (int x = 0; x < LENGTH; x++) {
       for (int y = 0; y < WIDTH; y++) {
-        Cell coordinates = new Cell(x, y);
+        Position position = new Position(x, y);
 
-        matrix[x][y] = vegetationFactory.createVegetation(simulationUserInput.getVegetationType(), simulationUserInput.getVegetationSpecies(), coordinates);
+        matrix[x][y] = vegetationFactory.createVegetation(simulationUserInput.getVegetationType(), simulationUserInput.getVegetationSpecies(), position);
       }
     }
   }
@@ -58,7 +58,7 @@ public final class Matrix {
   public void printMatrix() {
     for (Nature[] nature : matrix) {
       for (Nature thing : nature) {
-        System.out.print(thing.getIcon() + thing.getCoordinates().xCoordinate() +" "+ thing.getCoordinates().yCoordinate() + " ");
+        System.out.print(thing.getIcon() + thing.getPosition().xCoordinate() +" "+ thing.getPosition().yCoordinate() + " ");
       }
 
       System.out.println();
@@ -82,18 +82,18 @@ public final class Matrix {
   }
 
   public Vegetation createVegetation(VegetationType vegetationType, VegetationSpecies vegetationSpecies, int xCoordinate, int yCoordinate) {
-    Cell position = new Cell(xCoordinate, yCoordinate);
+    Position position = new Position(xCoordinate, yCoordinate);
 
     return vegetationFactory.createVegetation(vegetationType,vegetationSpecies, position);
   }
 
   public Animal createAnimal(AnimalType animalType, AnimalSpecies animalSpecies, int xCoordinate, int yCoordinate) {
-    Cell position = new Cell(xCoordinate, yCoordinate);
+    Position position = new Position(xCoordinate, yCoordinate);
 
     return animalFactory.createAnimal(animalType, animalSpecies, position);
   }
 
-  public void placeNatureInstanceByCoordinate(int xCoordinate, int yCoordinate, Nature natureInstance) {
+  public void placeNatureInstanceByPosition(int xCoordinate, int yCoordinate, Nature natureInstance) {
     matrix[xCoordinate][yCoordinate] = natureInstance;
   }
 
@@ -116,40 +116,40 @@ public final class Matrix {
   }
 
   public <T extends Animal> List<T> findNeighbourAnimalsByTypeOrSpecies(Animal animalInstance, Class<T> targetAnimalClass) {
-    Cell animalPosition = animalInstance.getCoordinates();
-    List<Nature> validNeighbourCoordinates = findValidNeighbourCoordinates(animalPosition);
+    Position animalPosition = animalInstance.getPosition();
+    List<Nature> validNeighbourPositions = findValidNeighbourPositions(animalPosition);
 
-    return validNeighbourCoordinates.stream()
+    return validNeighbourPositions.stream()
       .filter(targetAnimalClass::isInstance)
       .map(neighbour -> (T) neighbour)
       .collect(Collectors.toList());
   }
 
   public List<Vegetation> findNeighbourVegetation(Animal animalInstance) {
-    Cell animalPosition = animalInstance.getCoordinates();
-    List<Nature> validNeighbourCoordinates = findValidNeighbourCoordinates(animalPosition);
+    Position animalPosition = animalInstance.getPosition();
+    List<Nature> validNeighbourPositions = findValidNeighbourPositions(animalPosition);
 
-    return validNeighbourCoordinates.stream()
+    return validNeighbourPositions.stream()
       .filter(Vegetation.class::isInstance)
       .map(Vegetation.class::cast)
       .collect(Collectors.toList());
   }
 
-  private List<Nature> findValidNeighbourCoordinates(Cell animalPosition) {
-    List<Nature> neighbourAnimalsInValidCoordinates = new ArrayList<>();
+  private List<Nature> findValidNeighbourPositions(Position animalPosition) {
+    List<Nature> neighbourAnimalsInValidPositions = new ArrayList<>();
 
-    for (List<Integer> coordinate : POSSIBLE_NEARBY_COORDINATE_DIFFERENCES) {
-      int xCoordinate = animalPosition.xCoordinate() + coordinate.get(0);
-      int yCoordinate = animalPosition.yCoordinate() + coordinate.get(1);
+    for (List<Integer> position : POSSIBLE_NEARBY_POSITION_DIFFERENCES) {
+      int xCoordinate = animalPosition.xCoordinate() + position.get(0);
+      int yCoordinate = animalPosition.yCoordinate() + position.get(1);
 
-      if (areCoordinatesValid(xCoordinate, yCoordinate)) {
+      if (isPositionValid(xCoordinate, yCoordinate)) {
         Nature animal = findPosition(xCoordinate, yCoordinate);
 
-        neighbourAnimalsInValidCoordinates.add(animal);
+        neighbourAnimalsInValidPositions.add(animal);
       }
     }
 
-    return neighbourAnimalsInValidCoordinates;
+    return neighbourAnimalsInValidPositions;
   }
 
   public List<Animal> findAliveAnimals() {
@@ -167,16 +167,16 @@ public final class Matrix {
       .map(Animal.class::cast)
       .filter(animal -> !animal.isAlive())
       .forEach(animal -> {
-        int xCoordinate = animal.getCoordinates().xCoordinate();
-        int yCoordinate = animal.getCoordinates().yCoordinate();
+        int xCoordinate = animal.getPosition().xCoordinate();
+        int yCoordinate = animal.getPosition().yCoordinate();
 
-        Cell position = new Cell(xCoordinate, yCoordinate);
+        Position position = new Position(xCoordinate, yCoordinate);
         Vegetation vegetation = vegetationFactory.createVegetation(vegetationType, vegetationSpecies, position);
         matrix[xCoordinate][yCoordinate] = vegetation;
       });
   }
 
-  private boolean areCoordinatesValid(int xCoordinate, int yCoordinate) {
+  private boolean isPositionValid(int xCoordinate, int yCoordinate) {
     return xCoordinate >= 0 && xCoordinate < LENGTH && yCoordinate >= 0 && yCoordinate < WIDTH;
   }
 

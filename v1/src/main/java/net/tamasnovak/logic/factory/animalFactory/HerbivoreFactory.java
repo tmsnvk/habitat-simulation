@@ -6,7 +6,7 @@ import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutin
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.nature.animal.herbivore.Herbivore;
 import net.tamasnovak.model.nature.animal.herbivore.Zebra;
-import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Position;
 
 import java.util.Random;
 
@@ -23,17 +23,17 @@ public final class HerbivoreFactory {
     this.movementRoutine = movementRoutine;
   }
 
-  Herbivore createHerbivore(AnimalSpecies animalSpecies, Cell coordinates) {
+  Herbivore createHerbivore(AnimalSpecies animalSpecies, Position position) {
     Herbivore animal = null;
 
     switch (animalSpecies) {
-      case ZEBRA -> animal = createZebra(coordinates);
+      case ZEBRA -> animal = createZebra(position);
     }
 
     return animal;
   }
 
-  private Zebra createZebra(Cell coordinates) {
-    return new Zebra(random, coordinates, agingRoutine, breedingRoutine, movementRoutine);
+  private Zebra createZebra(Position position) {
+    return new Zebra(random, position, agingRoutine, breedingRoutine, movementRoutine);
   }
 }

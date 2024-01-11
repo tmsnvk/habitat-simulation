@@ -7,7 +7,7 @@ import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutin
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.nature.animal.carnivore.Carnivore;
 import net.tamasnovak.model.nature.animal.carnivore.Leopard;
-import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Position;
 
 import java.util.Random;
 
@@ -26,17 +26,17 @@ public final class CarnivoreFactory {
     this.movementRoutine = movementRoutine;
   }
 
-  Carnivore createCarnivore(AnimalSpecies animalSpecies, Cell coordinates) {
+  Carnivore createCarnivore(AnimalSpecies animalSpecies, Position position) {
     Carnivore animal = null;
 
     switch (animalSpecies) {
-      case LEOPARD -> animal = createLeopard(coordinates);
+      case LEOPARD -> animal = createLeopard(position);
     }
 
     return animal;
   }
 
-  private Leopard createLeopard(Cell coordinates) {
-    return new Leopard(random, coordinates, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
+  private Leopard createLeopard(Position position) {
+    return new Leopard(random, position, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
   }
 }

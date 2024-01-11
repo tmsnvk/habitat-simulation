@@ -1,15 +1,15 @@
 package net.tamasnovak.model.nature;
 
-import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Position;
 
 public abstract class Nature {
   protected final String id;
-  protected Cell coordinates;
+  protected Position position;
   protected String icon;
 
-  public Nature(String id, Cell coordinates, String icon) {
+  public Nature(String id, Position position, String icon) {
     this.id = id;
-    this.coordinates = coordinates;
+    this.position = position;
     this.icon = icon;
   }
 
@@ -21,7 +21,7 @@ public abstract class Nature {
     return icon;
   }
 
-  public Cell getCoordinates() {
-    return coordinates;
+  public Position getPosition() {
+    return position;
   }
 }

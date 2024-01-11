@@ -51,7 +51,7 @@ public final class PopulatorRoutine extends HabitatInstanceRoutine {
   private void addAnimalToMatrix(int xCoordinate, int yCoordinate) {
     Animal animal = generateAnimal(xCoordinate, yCoordinate);
 
-    matrix.placeNatureInstanceByCoordinate(xCoordinate, yCoordinate, animal);
+    matrix.placeNatureInstanceByPosition(xCoordinate, yCoordinate, animal);
   }
 
   private Animal generateAnimal(int xCoordinate, int yCoordinate) {

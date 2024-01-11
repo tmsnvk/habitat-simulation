@@ -6,13 +6,13 @@ import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutin
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.nature.animal.AnimalType;
-import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Position;
 
 public abstract class Herbivore extends Animal {
   protected static final AnimalType TYPE = AnimalType.HERBIVORE;
 
-  public Herbivore(String id, int maximumCellMovement, Cell coordinates, int maximumAge, String animalIcon, AnimalSpecies animalSpecies, AgingRoutine agingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
-    super(id, maximumCellMovement, coordinates, maximumAge, animalIcon, animalSpecies, TYPE, agingRoutine, breedingRoutine, movementRoutine);
+  public Herbivore(String id, int maximumCellMovement, Position position, int maximumAge, String animalIcon, AnimalSpecies animalSpecies, AgingRoutine agingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
+    super(id, maximumCellMovement, position, maximumAge, animalIcon, animalSpecies, TYPE, agingRoutine, breedingRoutine, movementRoutine);
   }
 
   @Override

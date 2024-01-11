@@ -1,6 +1,6 @@
 package net.tamasnovak.model.nature.vegetation.grass;
 
-import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Position;
 import net.tamasnovak.model.nature.vegetation.Vegetation;
 import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
@@ -11,7 +11,7 @@ public final class FingerGrass extends Vegetation {
   private static final VegetationSpecies SPECIES = VegetationSpecies.FINGER_GRASS;
   private static final VegetationType TYPE = VegetationType.GRASS;
 
-  public FingerGrass(Cell habitatCoordinates) {
+  public FingerGrass(Position habitatCoordinates) {
     super(createId(), ICON, habitatCoordinates, TYPE, SPECIES);
   }
 
@@ -21,6 +21,6 @@ public final class FingerGrass extends Vegetation {
 
   @Override
   public String toString() {
-    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Coordinates]: %s", id, species, type, coordinates);
+    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Position]: %s", id, species, type, position);
   }
 }

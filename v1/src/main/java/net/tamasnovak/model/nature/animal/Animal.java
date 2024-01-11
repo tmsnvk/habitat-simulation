@@ -3,7 +3,7 @@ package net.tamasnovak.model.nature.animal;
 import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutine;
-import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Position;
 import net.tamasnovak.model.nature.Nature;
 
 public abstract class Animal extends Nature {
@@ -19,13 +19,13 @@ public abstract class Animal extends Nature {
   protected final BreedingRoutine breedingRoutine;
   protected final MovementRoutine movementRoutine;
 
-  public Animal(String id, int maximumCellMovement, Cell coordinates, int maximumAge, String icon, AnimalSpecies species, AnimalType type, AgingRoutine agingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
-    super(id, coordinates, icon);
+  public Animal(String id, int maximumCellMovement, Position position, int maximumAge, String icon, AnimalSpecies species, AnimalType type, AgingRoutine agingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
+    super(id, position, icon);
     this.maximumCellMovement = maximumCellMovement;
     this.currentAge = 0;
     this.isAlive = true;
     this.didAlreadyBreedInRunningYear = false;
-    this.coordinates = coordinates;
+    this.position = position;
     this.maximumAge = maximumAge;
     this.species = species;
     this.type = type;
@@ -34,8 +34,8 @@ public abstract class Animal extends Nature {
     this.movementRoutine = movementRoutine;
   }
 
-  public void setCoordinates(Cell coordinates) {
-    this.coordinates = coordinates;
+  public void setPosition(Position position) {
+    this.position = position;
   }
 
   public int getMaximumCellMovement() {

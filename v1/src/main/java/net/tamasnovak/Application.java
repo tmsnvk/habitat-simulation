@@ -80,7 +80,15 @@ public class Application {
 // terminal running is colour-coded and array prints are with animal emojis;
 // terminal should provide messages about the animals, e.g. how long they live, etc.
 
+
 // deployment, etc.:
 // deploy on digital ocean as a terminal programme;
 // start/end array positions saved to a db and can be retrieved with a seed number;
 // full test coverage;
+
+
+// update the annual routine with a parallel stream:
+// divide the 2d array into equal parts and create two buckets: side and middle,
+//  - the middle ones are independent from other parts, so they are updated without any further issues
+//  - the sides are collected into an 'optimistic' bucket and resolved/merged at the end
+//- MapReduce algorithm

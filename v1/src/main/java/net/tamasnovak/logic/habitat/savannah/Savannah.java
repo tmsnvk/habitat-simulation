@@ -16,12 +16,7 @@ import java.util.Random;
 public final class Savannah extends Habitat {
   private static final HabitatType HABITAT_TYPE = HabitatType.SAVANNAH;
 
-  public Savannah(
-    Random random,
-    Logger logger,
-    SavannahConfiguration configuration,
-    Matrix matrix,
-    PopulatorRoutine populatorRoutine) {
+  public Savannah(Random random, Logger logger, SavannahConfiguration configuration, Matrix matrix, PopulatorRoutine populatorRoutine) {
     super(random, logger, HABITAT_TYPE, configuration, matrix, populatorRoutine);
   }
 

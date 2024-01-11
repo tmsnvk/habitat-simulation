@@ -7,7 +7,7 @@ import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutin
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.nature.animal.AnimalType;
-import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Position;
 
 public abstract class Carnivore extends Animal {
   protected static final AnimalType TYPE = AnimalType.CARNIVORE;
@@ -15,8 +15,8 @@ public abstract class Carnivore extends Animal {
   private final int maximumHungerLevel;
   private final HuntingRoutine huntingRoutine;
 
-  public Carnivore(String id, int maximumHungerLevel, int maximumCellMovement, Cell coordinates, int maximumAge, String animalIcon, AnimalSpecies animalSpecies, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
-    super(id, maximumCellMovement, coordinates, maximumAge, animalIcon, animalSpecies, TYPE, agingRoutine, breedingRoutine, movementRoutine);
+  public Carnivore(String id, int maximumHungerLevel, int maximumCellMovement, Position position, int maximumAge, String animalIcon, AnimalSpecies animalSpecies, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
+    super(id, maximumCellMovement, position, maximumAge, animalIcon, animalSpecies, TYPE, agingRoutine, breedingRoutine, movementRoutine);
     this.hungerLevel = 0;
     this.maximumHungerLevel = maximumHungerLevel;
     this.huntingRoutine = huntingRoutine;

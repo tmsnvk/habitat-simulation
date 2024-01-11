@@ -46,11 +46,11 @@ public final class BreedingRoutine extends AnimalInstanceRoutine {
     int randomEmptyPositionIndex = random.nextInt(neighbourEmptyPositions.size());
     Vegetation randomEmptyPosition = neighbourEmptyPositions.get(randomEmptyPositionIndex);
 
-    int xCoordinate = randomEmptyPosition.getCoordinates().xCoordinate();
-    int yCoordinate = randomEmptyPosition.getCoordinates().yCoordinate();
+    int xCoordinate = randomEmptyPosition.getPosition().xCoordinate();
+    int yCoordinate = randomEmptyPosition.getPosition().yCoordinate();
 
     Animal newAnimal = matrix.createAnimal(breedingMate.getType(), breedingMate.getSpecies(), xCoordinate, yCoordinate);
-    matrix.placeNatureInstanceByCoordinate(xCoordinate, yCoordinate, newAnimal);
+    matrix.placeNatureInstanceByPosition(xCoordinate, yCoordinate, newAnimal);
 
     changeBreedingStatus(breedingMate);
   }

@@ -1,7 +1,7 @@
 package net.tamasnovak.logic.routine.animalRoutine.movementRoutine;
 
 import net.tamasnovak.logic.routine.animalRoutine.AnimalInstanceRoutine;
-import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Position;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.vegetation.Vegetation;
@@ -22,16 +22,16 @@ public final class MovementRoutine extends AnimalInstanceRoutine {
   @Override
   public <T extends Animal> void run(T animal) {
     int numberOfMoves = 0;
-    Set<Cell> usedPositions = new HashSet<>();
+    Set<Position> usedPositions = new HashSet<>();
 
     while (numberOfMoves < animal.getMaximumCellMovement()) {
       List<Vegetation> neighbourEmptyPositions = matrix.findNeighbourVegetation(animal);
 
       if (!neighbourEmptyPositions.isEmpty()) {
-        int xCoordinate = animal.getCoordinates().xCoordinate();
-        int yCoordinate = animal.getCoordinates().yCoordinate();
+        int xCoordinate = animal.getPosition().xCoordinate();
+        int yCoordinate = animal.getPosition().yCoordinate();
 
-        Cell newPosition = handleMovement(animal, neighbourEmptyPositions, usedPositions);
+        Position newPosition = handleMovement(animal, neighbourEmptyPositions, usedPositions);
         usedPositions.add(newPosition);
 
         addVegetationToOriginalPosition(xCoordinate, yCoordinate);
@@ -48,11 +48,11 @@ public final class MovementRoutine extends AnimalInstanceRoutine {
   private void addVegetationToOriginalPosition(int xCoordinate, int yCoordinate) {
     // hardcoded grass for now
     Vegetation newVegetation = matrix.createVegetation(VegetationType.GRASS, VegetationSpecies.FINGER_GRASS, xCoordinate, yCoordinate);
-    matrix.placeNatureInstanceByCoordinate(xCoordinate, yCoordinate, newVegetation);
+    matrix.placeNatureInstanceByPosition(xCoordinate, yCoordinate, newVegetation);
   }
 
-  private Cell handleMovement(Animal animal, List<Vegetation> emptyPositions, Set<Cell> usedPositions) {
-    Cell randomEmptyPosition = findRandomPosition(emptyPositions);
+  private Position handleMovement(Animal animal, List<Vegetation> emptyPositions, Set<Position> usedPositions) {
+    Position randomEmptyPosition = findRandomPosition(emptyPositions);
 
     if (!usedPositions.contains(randomEmptyPosition)) {
       updateAnimalPosition(animal, randomEmptyPosition);
@@ -63,15 +63,15 @@ public final class MovementRoutine extends AnimalInstanceRoutine {
     return randomEmptyPosition;
   }
 
-  private Cell findRandomPosition(List<Vegetation> emptyPositions) {
+  private Position findRandomPosition(List<Vegetation> emptyPositions) {
     int randomEmptyPositionIndex = random.nextInt(emptyPositions.size());
     Vegetation randomEmptyPosition = emptyPositions.get(randomEmptyPositionIndex);
 
-    return randomEmptyPosition.getCoordinates();
+    return randomEmptyPosition.getPosition();
   }
 
-  private void updateAnimalPosition(Animal animal, Cell randomEmptyPosition) {
-    animal.setCoordinates(randomEmptyPosition);
-    matrix.placeNatureInstanceByCoordinate(animal.getCoordinates().xCoordinate(), animal.getCoordinates().yCoordinate(), animal);
+  private void updateAnimalPosition(Animal animal, Position randomEmptyPosition) {
+    animal.setPosition(randomEmptyPosition);
+    matrix.placeNatureInstanceByPosition(animal.getPosition().xCoordinate(), animal.getPosition().yCoordinate(), animal);
   }
 }

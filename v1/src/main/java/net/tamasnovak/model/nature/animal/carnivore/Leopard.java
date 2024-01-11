@@ -5,7 +5,7 @@ import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutin
 import net.tamasnovak.logic.routine.animalRoutine.huntingRoutine.HuntingRoutine;
 import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutine;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
-import net.tamasnovak.model.matrix.Cell;
+import net.tamasnovak.model.matrix.Position;
 
 import java.util.Random;
 
@@ -17,8 +17,8 @@ public final class Leopard extends Carnivore {
   private static final String ICON = "🐆";
   private static int idCounter = 0;
 
-  public Leopard(Random random, Cell coordinates, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
-    super(createId(), MAXIMUM_HUNGER_LEVEL, MAXIMUM_CELL_MOVEMENT, coordinates, drawMaximumAgeValue(random), ICON, SPECIES, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
+  public Leopard(Random random, Position position, AgingRoutine agingRoutine, HuntingRoutine huntingRoutine, BreedingRoutine breedingRoutine, MovementRoutine movementRoutine) {
+    super(createId(), MAXIMUM_HUNGER_LEVEL, MAXIMUM_CELL_MOVEMENT, position, drawMaximumAgeValue(random), ICON, SPECIES, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
   }
 
   private static String createId() {
@@ -38,6 +38,6 @@ public final class Leopard extends Carnivore {
 
   @Override
   public String toString() {
-    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Coordinates]: %s | [Maximum age]: %s | [Current Age]: %s | [Maximum Hunger Level]: %s | [Current Hunger Level]: %s | [Is alive?]: %s", id, species, type, coordinates, maximumAge, currentAge, MAXIMUM_HUNGER_LEVEL, hungerLevel, isAlive);
+    return String.format("[Id]: %s | [Species]: %s | [Type]: %s | [Position]: %s | [Maximum age]: %s | [Current Age]: %s | [Maximum Hunger Level]: %s | [Current Hunger Level]: %s | [Is alive?]: %s", id, species, type, position, maximumAge, currentAge, MAXIMUM_HUNGER_LEVEL, hungerLevel, isAlive);
   }
 }
