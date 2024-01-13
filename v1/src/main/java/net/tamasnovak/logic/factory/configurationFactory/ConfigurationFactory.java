@@ -1,6 +1,8 @@
 package net.tamasnovak.logic.factory.configurationFactory;
 
 import net.tamasnovak.logic.habitat.HabitatConfiguration;
+import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
+import net.tamasnovak.model.nature.vegetation.VegetationType;
 import net.tamasnovak.ui.simulation.SimulationUserInput;
 
 public final class ConfigurationFactory {
@@ -10,13 +12,13 @@ public final class ConfigurationFactory {
     HabitatConfiguration habitatConfiguration = null;
 
     switch (simulationUserInput.getHabitatType()) {
-      case SAVANNAH -> habitatConfiguration = createSavannahConfiguration(simulationUserInput);
+      case SAVANNAH -> habitatConfiguration = createSavannahConfiguration(simulationUserInput.getVegetationType(), simulationUserInput.getVegetationSpecies());
     }
 
     return habitatConfiguration;
   }
 
-  private SavannahConfiguration createSavannahConfiguration(SimulationUserInput simulationUserInput) {
-    return new SavannahConfiguration(simulationUserInput.getVegetationType(), simulationUserInput.getVegetationSpecies());
+  private SavannahConfiguration createSavannahConfiguration(VegetationType vegetationType, VegetationSpecies vegetationSpecies) {
+    return new SavannahConfiguration(vegetationType, vegetationSpecies);
   }
 }

@@ -35,13 +35,11 @@ public class Application {
     SimulationUserInput simulationUserInput = simulationController.startSimulationConfiguration();
 
     VegetationFactory vegetationFactory = buildVegetationAbstractFactory();
-
     Matrix habitatMatrix = new Matrix(simulationUserInput, vegetationFactory);
-
     AnimalFactory animalFactory = buildAnimalAbstractFactory(random, consoleLogger, habitatMatrix);
     habitatMatrix.setAnimalFactory(animalFactory);
 
-    Habitat habitat = buildSelectedHabitat(random, consoleLogger, habitatMatrix, simulationController, simulationUserInput);
+    Habitat habitat = buildSelectedHabitat(random, consoleLogger, display, habitatMatrix, simulationController, simulationUserInput);
     habitat.runHabitat();
   }
 
@@ -63,9 +61,9 @@ public class Application {
     return new VegetationFactory(grassFactory);
   }
 
-  private static Habitat buildSelectedHabitat(Random random, Logger logger, Matrix habitatMatrix, SimulationController simulationController, SimulationUserInput simulationUserInput) {
+  private static Habitat buildSelectedHabitat(Random random, Logger logger, Display display, Matrix habitatMatrix, SimulationController simulationController, SimulationUserInput simulationUserInput) {
     ConfigurationFactory configurationFactory = new ConfigurationFactory();
-    HabitatFactory habitatFactory = new HabitatFactory(random, logger, simulationController, simulationUserInput, habitatMatrix, configurationFactory);
+    HabitatFactory habitatFactory = new HabitatFactory(random, logger, display, simulationController, simulationUserInput, habitatMatrix, configurationFactory);
 
     return habitatFactory.createHabitat();
   }

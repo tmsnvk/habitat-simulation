@@ -7,6 +7,7 @@ import net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine.PopulatorRou
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
+import net.tamasnovak.ui.display.Display;
 import net.tamasnovak.ui.logger.Logger;
 
 import java.util.Collections;
@@ -16,13 +17,13 @@ import java.util.Random;
 public final class Savannah extends Habitat {
   private static final HabitatType HABITAT_TYPE = HabitatType.SAVANNAH;
 
-  public Savannah(Random random, Logger logger, SavannahConfiguration configuration, Matrix matrix, PopulatorRoutine populatorRoutine) {
-    super(random, logger, HABITAT_TYPE, configuration, matrix, populatorRoutine);
+  public Savannah(Random random, Logger logger, Display display, SavannahConfiguration configuration, Matrix matrix, PopulatorRoutine populatorRoutine) {
+    super(random, logger, display, HABITAT_TYPE, configuration, matrix, populatorRoutine);
   }
 
   @Override
   public void runHabitat() {
-    logger.logInfo(SavannahMessages.START_SIMULATION);
+    display.showGenericMessage(SavannahMessages.START_SIMULATION);
     populatorRoutine.run();
 
     int yearCounter = 0;
