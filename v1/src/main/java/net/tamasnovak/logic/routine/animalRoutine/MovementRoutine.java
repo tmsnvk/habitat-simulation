@@ -26,7 +26,7 @@ public final class MovementRoutine {
     Set<Position> usedPositions = new HashSet<>();
 
     while (numberOfMoves < animal.getMaximumCellMovement()) {
-      List<Vegetation> neighbourEmptyPositions = matrix.findNeighbourVegetation(animal);
+      List<Vegetation> neighbourEmptyPositions = matrix.findNeighbourNatureInstancesByTypeOrSpecies(animal, Vegetation.class);
 
       if (!neighbourEmptyPositions.isEmpty()) {
         int xCoordinate = animal.getPosition().xCoordinate();

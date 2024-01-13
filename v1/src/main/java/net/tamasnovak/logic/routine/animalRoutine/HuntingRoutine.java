@@ -17,7 +17,7 @@ public final class HuntingRoutine {
   }
 
   public <T extends Carnivore> void run(T carnivore) {
-    List<Herbivore> neighbourHerbivores = matrix.findNeighbourAnimalsByTypeOrSpecies(carnivore, Herbivore.class);
+    List<Herbivore> neighbourHerbivores = matrix.findNeighbourNatureInstancesByTypeOrSpecies(carnivore, Herbivore.class);
 
     if (neighbourHerbivores.isEmpty()) {
       increaseHungerLevel(carnivore);

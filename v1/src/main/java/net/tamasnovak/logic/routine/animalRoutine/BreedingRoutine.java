@@ -17,11 +17,11 @@ public final class BreedingRoutine {
   }
 
   public <T extends Animal> void run(T animal) {
-    List<? extends Animal> neighboursOfSameSpecies = matrix.findNeighbourAnimalsByTypeOrSpecies(animal, animal.getClass());
-    List<Vegetation> neighbourEmptyPositions = matrix.findNeighbourVegetation(animal);
+    List<? extends Animal> neighboursOfSameSpecies = matrix.findNeighbourNatureInstancesByTypeOrSpecies(animal, animal.getClass());
+    List<Vegetation> neighbourVegetationPositions = matrix.findNeighbourNatureInstancesByTypeOrSpecies(animal, Vegetation.class);
 
-    if (isAbleToBreed(neighboursOfSameSpecies, neighbourEmptyPositions, animal)) {
-      addNewAnimalToHabitat(neighboursOfSameSpecies, neighbourEmptyPositions);
+    if (isAbleToBreed(neighboursOfSameSpecies, neighbourVegetationPositions, animal)) {
+      addNewAnimalToHabitat(neighboursOfSameSpecies, neighbourVegetationPositions);
       changeBreedingStatus(animal);
     } else {
 //      logger.logInfo(String.format("This %s was not able to breed this year.", animal.getSpecies()));

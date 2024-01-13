@@ -115,23 +115,13 @@ public final class Matrix {
       .count();
   }
 
-  public <T extends Animal> List<T> findNeighbourAnimalsByTypeOrSpecies(Animal animalInstance, Class<T> targetAnimalClass) {
-    Position animalPosition = animalInstance.getPosition();
+  public <T extends Nature> List<T> findNeighbourNatureInstancesByTypeOrSpecies(Nature natureInstance, Class<T> targetNatureClass) {
+    Position animalPosition = natureInstance.getPosition();
     List<Nature> validNeighbourPositions = findValidNeighbourPositions(animalPosition);
 
     return validNeighbourPositions.stream()
-      .filter(targetAnimalClass::isInstance)
+      .filter(targetNatureClass::isInstance)
       .map(neighbour -> (T) neighbour)
-      .collect(Collectors.toList());
-  }
-
-  public List<Vegetation> findNeighbourVegetation(Animal animalInstance) {
-    Position animalPosition = animalInstance.getPosition();
-    List<Nature> validNeighbourPositions = findValidNeighbourPositions(animalPosition);
-
-    return validNeighbourPositions.stream()
-      .filter(Vegetation.class::isInstance)
-      .map(Vegetation.class::cast)
       .collect(Collectors.toList());
   }
 
