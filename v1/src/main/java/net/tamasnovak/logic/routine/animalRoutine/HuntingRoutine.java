@@ -1,6 +1,5 @@
 package net.tamasnovak.logic.routine.animalRoutine;
 
-import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.carnivore.Carnivore;
 import net.tamasnovak.model.nature.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Matrix;
@@ -17,25 +16,20 @@ public final class HuntingRoutine {
     this.matrix = matrix;
   }
 
-  public <T extends Animal> void run(T animal) {
-    List<Herbivore> neighbourHerbivores = matrix.findNeighbourAnimalsByTypeOrSpecies(animal, Herbivore.class);
-    if (animal instanceof Carnivore carnivore) {
-      if (neighbourHerbivores.isEmpty()) {
-        increaseHungerLevel(carnivore);
-        dieIfTooHungry(carnivore);
-      } else {
-        killRandomNeighbourHerbivore(neighbourHerbivores);
-        resetHungerLevel(carnivore);
-      }
+  public <T extends Carnivore> void run(T carnivore) {
+    List<Herbivore> neighbourHerbivores = matrix.findNeighbourAnimalsByTypeOrSpecies(carnivore, Herbivore.class);
+
+    if (neighbourHerbivores.isEmpty()) {
+      increaseHungerLevel(carnivore);
+      dieIfTooHungry(carnivore);
+    } else {
+      killRandomNeighbourHerbivore(neighbourHerbivores);
+      resetHungerLevel(carnivore);
     }
   }
 
   private void increaseHungerLevel(Carnivore carnivore) {
     carnivore.setHungerLevel(carnivore.getHungerLevel() + 1);
-  }
-
-  private void resetHungerLevel(Carnivore carnivore) {
-    carnivore.setHungerLevel(0);
   }
 
   private void dieIfTooHungry(Carnivore carnivore) {
@@ -49,5 +43,9 @@ public final class HuntingRoutine {
     Herbivore randomNeighbourHerbivore = neighbourHerbivores.get(randomNumber);
 
     randomNeighbourHerbivore.perish();
+  }
+
+  private void resetHungerLevel(Carnivore carnivore) {
+    carnivore.setHungerLevel(0);
   }
 }
