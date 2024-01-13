@@ -6,6 +6,7 @@ import net.tamasnovak.model.nature.vegetation.VegetationType;
 import net.tamasnovak.ui.UiMessages;
 import net.tamasnovak.ui.display.Color;
 import net.tamasnovak.ui.display.Display;
+import net.tamasnovak.ui.exceptionHandler.InvalidUserInputException;
 import net.tamasnovak.ui.input.Input;
 import net.tamasnovak.ui.logger.Logger;
 
@@ -58,10 +59,11 @@ public final class SimulationController {
         } else if (userInput.equals("exit")) {
           System.exit(0);
         } else {
-          throw new Exception();
+          throw new InvalidUserInputException(UiMessages.INCORRECT_USER_INPUT_WARNING);
         }
-      } catch (Exception error) {
-        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
+      } catch (InvalidUserInputException error) {
+//        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
+        display.showGenericMessageWithColor(error.getMessage(), Color.RED_BOLD);
       }
     }
   }
@@ -71,14 +73,15 @@ public final class SimulationController {
 
     while (true) {
       try {
-        displaySectionIntroMessages(UiMessages.OPTIONS_AT_HABITAT_TYPES_SELECTION, habitatTypes, UiMessages.PROMPT_TO_SELECT_HABITAT);
+        displaySectionIntroMessages(UiMessages.OPTIONS_AT_HABITAT_TYPES_SELECTION, UiMessages.PROMPT_TO_SELECT_HABITAT, habitatTypes);
 
         String userInput = displaySectionUserInputMessages();
         Predicate<HabitatType> filterByUserInput = habitat -> habitat.name().equalsIgnoreCase(userInput);
 
         return findEnumType(HabitatType.values(), filterByUserInput);
-      } catch (Exception error) {
-        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
+      } catch (InvalidUserInputException error) {
+//        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
+        display.showGenericMessageWithColor(error.getMessage(), Color.RED_BOLD);
       }
     }
   }
@@ -89,14 +92,15 @@ public final class SimulationController {
 
     while (true) {
       try {
-        displaySectionIntroMessages(UiMessages.OPTIONS_AT_VEGETATION_TYPES_SELECTION, vegetationTypesInHabitatType, UiMessages.PROMPT_TO_SELECT_VEGETATION_TYPE);
+        displaySectionIntroMessages(UiMessages.OPTIONS_AT_VEGETATION_TYPES_SELECTION, UiMessages.PROMPT_TO_SELECT_VEGETATION_TYPE, vegetationTypesInHabitatType);
 
         String userInput = displaySectionUserInputMessages();
         Predicate<VegetationType> filterByUserInput = vegetationType -> vegetationType.name().equalsIgnoreCase(userInput);
 
         return findEnumType(VegetationType.values(), filterByUserInput);
-      } catch (Exception error) {
-        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
+      } catch (InvalidUserInputException error) {
+//        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
+        display.showGenericMessageWithColor(error.getMessage(), Color.RED_BOLD);
       }
     }
   }
@@ -107,22 +111,23 @@ public final class SimulationController {
 
     while (true) {
       try {
-        displaySectionIntroMessages(UiMessages.OPTIONS_AT_VEGETATION_SPECIES_SELECTION, vegetationSpeciesInVegetationType, UiMessages.PROMPT_TO_SELECT_VEGETATION_SPECIES);
+        displaySectionIntroMessages(UiMessages.OPTIONS_AT_VEGETATION_SPECIES_SELECTION, UiMessages.PROMPT_TO_SELECT_VEGETATION_SPECIES, vegetationSpeciesInVegetationType);
 
         String userInput = displaySectionUserInputMessages();
          Predicate<VegetationSpecies> filterByUserInput = vegetationSpecies -> vegetationSpecies.name().replaceAll("_", " ").equalsIgnoreCase(userInput);
 
         return findEnumType(VegetationSpecies.values(), filterByUserInput);
-      } catch (Exception error) {
-        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
+      } catch (InvalidUserInputException error) {
+//        logger.logError(UiMessages.INCORRECT_USER_INPUT_WARNING);
+        display.showGenericMessageWithColor(error.getMessage(), Color.RED_BOLD);
       }
     }
   }
 
-  private <T extends Enum<T>> void displaySectionIntroMessages(String messageOne, List<T> enumValueList, String messageTwo) {
-    display.showGenericMessage(messageOne);
+  private <T extends Enum<T>> void displaySectionIntroMessages(String messageIntro, String messageOutro, List<T> enumValueList) {
+    display.showGenericMessage(messageIntro);
     display.showEnumCategories(enumValueList);
-    display.showGenericMessage(messageTwo);
+    display.showGenericMessage(messageOutro);
   }
 
   private String displaySectionUserInputMessages() {
@@ -137,7 +142,7 @@ public final class SimulationController {
     return Arrays.stream(enumValues)
       .filter(filterPredicate)
       .findFirst()
-      .orElseThrow();
+      .orElseThrow(() -> new InvalidUserInputException(UiMessages.INCORRECT_USER_INPUT_WARNING));
   }
 
   private <T extends Enum<T>> List<T> findEnumTypes(T[] enumValues, Predicate<T> filterPredicate) {

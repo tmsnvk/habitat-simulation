@@ -25,5 +25,5 @@ public final class UiMessages {
   public static final String PROMPT_TO_SELECT_VEGETATION_SPECIES = "Enter the name of the vegetation species you would like to appear in your simulation run: ";
 
   public static final String SELECTION_CONFIRMATION = "Thank you for that! You have chosen: %s%s%s.%n%n";
-  public static final String INCORRECT_USER_INPUT_WARNING = "Enter a correct input option.";
+  public static final String INCORRECT_USER_INPUT_WARNING = "%sEnter a correct input option.%s ";
 }
