@@ -1,9 +1,9 @@
 package net.tamasnovak.model.nature.animal.carnivore;
 
-import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
-import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.logic.routine.animalRoutine.huntingRoutine.HuntingRoutine;
-import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.AgingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.HuntingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.MovementRoutine;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
 import net.tamasnovak.model.matrix.Position;
 

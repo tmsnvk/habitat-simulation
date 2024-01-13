@@ -1,25 +1,26 @@
-package net.tamasnovak.logic.routine.animalRoutine.movementRoutine;
+package net.tamasnovak.logic.routine.animalRoutine;
 
-import net.tamasnovak.logic.routine.animalRoutine.AnimalInstanceRoutine;
 import net.tamasnovak.model.matrix.Position;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.vegetation.Vegetation;
 import net.tamasnovak.model.nature.vegetation.VegetationSpecies;
 import net.tamasnovak.model.nature.vegetation.VegetationType;
-import net.tamasnovak.ui.logger.Logger;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-public final class MovementRoutine extends AnimalInstanceRoutine {
-  public MovementRoutine(Random random, Logger logger, Matrix matrix) {
-    super(random, logger, matrix);
+public final class MovementRoutine {
+  private final Random random;
+  private final Matrix matrix;
+
+  public MovementRoutine(Random random, Matrix matrix) {
+    this.random = random;
+    this.matrix = matrix;
   }
 
-  @Override
   public <T extends Animal> void run(T animal) {
     int numberOfMoves = 0;
     Set<Position> usedPositions = new HashSet<>();

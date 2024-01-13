@@ -1,7 +1,6 @@
 package net.tamasnovak.logic.routine.habitatRoutine.populatorRoutine;
 
 import net.tamasnovak.logic.habitat.HabitatConfiguration;
-import net.tamasnovak.logic.routine.habitatRoutine.HabitatInstanceRoutine;
 import net.tamasnovak.model.nature.Nature;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.AnimalSpecies;
@@ -15,17 +14,23 @@ import net.tamasnovak.ui.simulation.SimulationController;
 import java.util.Random;
 import java.util.Set;
 
-public final class PopulatorRoutine extends HabitatInstanceRoutine {
+public final class PopulatorRoutine {
+  private final Random random;
+  private final Logger logger;
+  private final Display display;
+  private final Matrix matrix;
   private final HabitatConfiguration habitatConfiguration;
   private final SimulationController simulationController;
 
   public PopulatorRoutine(Random random, Logger logger, Display display, Matrix matrix, HabitatConfiguration habitatConfiguration, SimulationController simulationController) {
-    super(random, logger, display, matrix);
+    this.random = random;
+    this.logger = logger;
+    this.display = display;
+    this.matrix = matrix;
     this.habitatConfiguration = habitatConfiguration;
     this.simulationController = simulationController;
   }
 
-  @Override
   public void run() {
     displayPreRoutineLogs();
     populateMatrix();

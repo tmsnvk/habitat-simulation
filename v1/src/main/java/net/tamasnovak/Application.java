@@ -8,10 +8,10 @@ import net.tamasnovak.logic.factory.habitatFactory.HabitatFactory;
 import net.tamasnovak.logic.factory.vegetationFactory.GrassFactory;
 import net.tamasnovak.logic.factory.vegetationFactory.VegetationFactory;
 import net.tamasnovak.logic.habitat.Habitat;
-import net.tamasnovak.logic.routine.animalRoutine.agingRoutine.AgingRoutine;
-import net.tamasnovak.logic.routine.animalRoutine.breedingRoutine.BreedingRoutine;
-import net.tamasnovak.logic.routine.animalRoutine.movementRoutine.MovementRoutine;
-import net.tamasnovak.logic.routine.animalRoutine.huntingRoutine.HuntingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.AgingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.BreedingRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.MovementRoutine;
+import net.tamasnovak.logic.routine.animalRoutine.HuntingRoutine;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.ui.display.Display;
 import net.tamasnovak.ui.input.Input;
@@ -36,18 +36,18 @@ public class Application {
 
     VegetationFactory vegetationFactory = buildVegetationAbstractFactory();
     Matrix habitatMatrix = new Matrix(simulationUserInput, vegetationFactory);
-    AnimalFactory animalFactory = buildAnimalAbstractFactory(random, consoleLogger, habitatMatrix);
+    AnimalFactory animalFactory = buildAnimalAbstractFactory(random, habitatMatrix);
     habitatMatrix.setAnimalFactory(animalFactory);
 
     Habitat habitat = buildSelectedHabitat(random, consoleLogger, display, habitatMatrix, simulationController, simulationUserInput);
     habitat.runHabitat();
   }
 
-  private static AnimalFactory buildAnimalAbstractFactory(Random random, Logger consoleLogger, Matrix habitatMatrix) {
-    AgingRoutine agingRoutine = new AgingRoutine(random, consoleLogger, habitatMatrix);
-    HuntingRoutine huntingRoutine = new HuntingRoutine(random, consoleLogger, habitatMatrix);
-    BreedingRoutine breedingRoutine = new BreedingRoutine(random, consoleLogger, habitatMatrix);
-    MovementRoutine movementRoutine = new MovementRoutine(random, consoleLogger, habitatMatrix);
+  private static AnimalFactory buildAnimalAbstractFactory(Random random, Matrix habitatMatrix) {
+    AgingRoutine agingRoutine = new AgingRoutine();
+    HuntingRoutine huntingRoutine = new HuntingRoutine(random, habitatMatrix);
+    BreedingRoutine breedingRoutine = new BreedingRoutine(random, habitatMatrix);
+    MovementRoutine movementRoutine = new MovementRoutine(random, habitatMatrix);
 
     CarnivoreFactory carnivoreFactory = new CarnivoreFactory(random, agingRoutine, huntingRoutine, breedingRoutine, movementRoutine);
     HerbivoreFactory herbivoreFactory = new HerbivoreFactory(random, agingRoutine, breedingRoutine, movementRoutine);

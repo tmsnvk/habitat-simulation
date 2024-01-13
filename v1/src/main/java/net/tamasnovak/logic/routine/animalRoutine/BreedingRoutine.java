@@ -1,20 +1,21 @@
-package net.tamasnovak.logic.routine.animalRoutine.breedingRoutine;
+package net.tamasnovak.logic.routine.animalRoutine;
 
-import net.tamasnovak.logic.routine.animalRoutine.AnimalInstanceRoutine;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.matrix.Matrix;
 import net.tamasnovak.model.nature.vegetation.Vegetation;
-import net.tamasnovak.ui.logger.Logger;
 
 import java.util.List;
 import java.util.Random;
 
-public final class BreedingRoutine extends AnimalInstanceRoutine {
-  public BreedingRoutine(Random random, Logger logger, Matrix matrix) {
-    super(random, logger, matrix);
+public final class BreedingRoutine {
+  private final Random random;
+  private final Matrix matrix;
+
+  public BreedingRoutine(Random random, Matrix matrix) {
+    this.random = random;
+    this.matrix = matrix;
   }
 
-  @Override
   public <T extends Animal> void run(T animal) {
     List<? extends Animal> neighboursOfSameSpecies = matrix.findNeighbourAnimalsByTypeOrSpecies(animal, animal.getClass());
     List<Vegetation> neighbourEmptyPositions = matrix.findNeighbourVegetation(animal);

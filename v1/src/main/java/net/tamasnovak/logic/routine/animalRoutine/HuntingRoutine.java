@@ -1,21 +1,22 @@
-package net.tamasnovak.logic.routine.animalRoutine.huntingRoutine;
+package net.tamasnovak.logic.routine.animalRoutine;
 
-import net.tamasnovak.logic.routine.animalRoutine.AnimalInstanceRoutine;
 import net.tamasnovak.model.nature.animal.Animal;
 import net.tamasnovak.model.nature.animal.carnivore.Carnivore;
 import net.tamasnovak.model.nature.animal.herbivore.Herbivore;
 import net.tamasnovak.model.matrix.Matrix;
-import net.tamasnovak.ui.logger.Logger;
 
 import java.util.List;
 import java.util.Random;
 
-public final class HuntingRoutine extends AnimalInstanceRoutine {
-  public HuntingRoutine(Random random, Logger logger, Matrix matrix) {
-    super(random, logger, matrix);
+public final class HuntingRoutine {
+  private final Random random;
+  private final Matrix matrix;
+
+  public HuntingRoutine(Random random, Matrix matrix) {
+    this.random = random;
+    this.matrix = matrix;
   }
 
-  @Override
   public <T extends Animal> void run(T animal) {
     List<Herbivore> neighbourHerbivores = matrix.findNeighbourAnimalsByTypeOrSpecies(animal, Herbivore.class);
     if (animal instanceof Carnivore carnivore) {
